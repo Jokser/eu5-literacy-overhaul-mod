@@ -78,7 +78,10 @@ $targets = @(
        @('(?m)^\t\tlocal_pop_promotion_speed = 0\.001[ \t]*\r?$', "${T2}local_pop_promotion_speed = 0.002`t# LO: x2"),
        @('(?m)^\t\tlocal_institution_growth_modifier = 0\.33[ \t]*\r?$', "${T2}local_institution_growth_modifier = 0.66`t# LO: x2"),
        @('(?m)^\t\tpaper = 0\.5[ \t]*\r?\n\t\tbooks = 0\.25[ \t]*\r?\n\t\tglass = 0\.25[ \t]*\r?\n\t\tbeeswax = 0\.05[ \t]*\r?$', "${T2}paper = 1.0`t# LO: maintenance x2`n${T2}books = 0.5`n${T2}glass = 0.5`n${T2}beeswax = 0.1"),
-       @('(?m)^\tconstruction_demand = university_construction[ \t]*\r?$', "${T1}construction_demand = lo_university_construction`t# LO: ~x2 cost + glass (goods_demand/lo_university_cost.txt)")
+       @('(?m)^\tconstruction_demand = university_construction[ \t]*\r?$', "${T1}construction_demand = lo_university_construction`t# LO: ~x2 cost + glass (goods_demand/lo_university_cost.txt)"),
+       # REPLACE_OR_CREATE re-registers unique production methods -> "duplicated production method name" error
+       # with the base name, so our university maintenance gets its own name (loc in literacy_overhaul_l_english.yml)
+       @('(?m)^(\t\t)university_maintenance = \{', "`${1}lo_university_maintenance = {`t# LO: unique name (base one is already registered)")
      ) },
   # ---------- privileges / reforms / laws ----------
   @{ f='estate_privileges\clergy_estate.txt'; k='freedom_of_interpretation'; out='estate_privileges'

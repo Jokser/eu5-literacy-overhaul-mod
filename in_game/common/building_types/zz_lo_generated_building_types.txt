@@ -201,7 +201,7 @@ REPLACE_OR_CREATE:university = {
 	}
 	
 	unique_production_methods = {
-		university_maintenance = {
+		lo_university_maintenance = {	# LO: unique name (base one is already registered)
 			icon_type = building_type
 			icon = university
 		paper = 1.0	# LO: maintenance x2
