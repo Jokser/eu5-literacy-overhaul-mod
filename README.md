@@ -51,7 +51,7 @@ This mod applies `TRY_INJECT` deltas (global −5, nobles/clergy/burghers +5), s
 - `allow` adds: `development >= 30`, a **clergy pop with literacy > 85**, and a **burgher pop with literacy > 25**.
   These thresholds were re-tuned for the lower literacy: Catholic cities qualify from age 2, Orthodox only from
   age 5, Sunni from age 3.
-- Modifiers: burghers and nobles +15, clergy +10, monthly literacy 0.25, cultural influence 0.75, promotion and
+- Modifiers: burghers and nobles +10 (base; +15 in v0.1–0.2), clergy +10, monthly literacy 0.25, cultural influence 0.75, promotion and
   institution growth ×2.
 - Maintenance ×2.
 - Construction cost `lo_university_construction` (about ×2, plus glass).
