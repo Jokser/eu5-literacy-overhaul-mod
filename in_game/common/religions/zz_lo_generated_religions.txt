@@ -58,6 +58,106 @@ REPLACE_OR_CREATE:bon = {
 }
 
 # --- from base religions\christian.txt ---
+REPLACE_OR_CREATE:lutheran = {
+	color = color_lutheran
+	group = christian
+	
+	enable = 9999.1.1 #historically 1522.3.9 Luthers eight sermons cementing the Reformation as a separate religon
+	
+	religious_aspects = 3
+	has_religious_influence = yes
+
+	ai_wants_convert = yes
+	
+	definition_modifier = {
+		global_clergy_max_literacy = 15	# LO: university-trained pastors
+	
+		clergy_estate_target_satisfaction = medium_permanent_target_satisfaction
+		tax_income_efficiency = medium_tax_income_efficiency_bonus
+
+		monthly_religious_influence = 0.1
+
+		maximum_religious_influence = 400
+	}
+	
+	opinions = {
+		calvinist = positive
+		hussite = kindred
+		lollardy = positive
+	}
+
+	unique_names = {
+		name_aaron name_abraham 
+		name_bartholomew name_benjamin 
+		name_cornelius
+		name_elias Ezra
+		name_gabriel 
+		name_isaac 
+		name_james Jason name_jeremiah name_jonas Jonathan name_jordan name_joseph name_joshua Josiah 
+		name_moses 
+		Nathan Nathaniel 
+		name_samuel name_salomon
+		name_timothy
+		name_zechariah	
+	}
+
+	tags = { protestant_gfx western_christian_gfx christian_gfx abrahamic_gfx }
+	custom_tags = { protestant church_aspects }
+}
+
+# --- from base religions\christian.txt ---
+REPLACE_OR_CREATE:calvinist = { 
+	color = color_calvinist
+	group = christian
+	
+	enable = 9999.1.1 #historically 1529.1.1 precise date unknown but Calvin's Conversion was either 1529 or 1530
+	
+	religious_aspects = 3
+	has_religious_influence = yes
+
+	ai_wants_convert = yes
+	
+	definition_modifier = {
+		global_clergy_max_literacy = 15	# LO: university-trained ministers
+		clergy_estate_target_satisfaction = large_permanent_target_satisfaction
+		
+		is_battles_preordained = yes
+		retreat_delay = 20
+
+		global_monthly_art_start_chance = -0.1
+		discipline = 0.05
+
+		monthly_religious_influence = 0.1
+
+		maximum_religious_influence = 400
+	}
+	
+	opinions = {
+		hussite = positive
+		lutheran = positive
+		lollardy = positive
+	}
+
+	unique_names = {
+		name_aaron name_abraham 
+		name_bartholomew name_benjamin 
+		name_cornelius
+		name_elias Ezra
+		name_gabriel 
+		name_isaac 
+		name_james Jason name_jeremiah name_jonas Jonathan name_jordan name_joseph name_joshua Josiah 
+		name_moses 
+		Nathan Nathaniel 
+		name_samuel name_salomon
+		name_timothy
+		name_zechariah	
+	}
+
+	tags = { protestant_gfx western_christian_gfx christian_gfx abrahamic_gfx }
+	custom_tags = { protestant church_aspects }
+}
+
+# --- from base religions\christian.txt ---
 REPLACE_OR_CREATE:strigolniki = { #https://en.wikipedia.org/wiki/Strigolniki
 	color = color_strigolniki
 	group = christian

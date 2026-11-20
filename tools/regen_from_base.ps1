@@ -127,6 +127,22 @@ $targets = @(
      e=@( ,@('(?m)^\t\tglobal_max_literacy = 5[ \t]*\r?$', ("${T2}# LO: 5 -> upper 5 / lower 2 (Brahmin learning)`n" + (Strat $T2 'global' 5 2))) ) },
   @{ f='religious_schools\jain.txt'; k='mula_sangh_school'; out='religious_schools'
      e=@( ,@('(?m)^\t\tglobal_max_literacy = 5[ \t]*\r?$', ("${T2}# LO: 5 -> upper 5 / lower 2`n" + (Strat $T2 'global' 5 2))) ) },
+  # ---------- Protestants (2026-11-20) ----------
+  # translated_bibles (aspect of all reformed/heretic churches + miaphysites): vernacular bible = a layman's book
+  @{ f='religious_aspects\common.txt'; k='translated_bibles'; out='religious_aspects'
+     e=@( ,@('(?m)^\t\tglobal_max_literacy = 10[ \t]*\r?$', ("${T2}# LO: all 10 -> upper 5 / lower 5 (vernacular scripture is read by laymen)`n" + (Strat $T2 'global' 5 5))) ) },
+  # pietism (Lutheran aspect): a late-17th/18th c. movement (Spener 1675, Francke's Halle schools) that pushed reading
+  # down to the village -> lower classes only, and only from age 5
+  @{ f='religious_aspects\protestant.txt'; k='pietism'; out='religious_aspects'
+     e=@(
+       @('(?m)^(\treligion = lutheran)[ \t]*\r?$', "`$1`n`n${T1}enabled = {`t# LO: Pietism is a movement of the Age of Absolutism (Spener 1675, Francke 1690s)`n${T2}OR = {`n${T3}current_age = age_5_absolutism`n${T3}current_age = age_6_revolutions`n${T2}}`n${T1}}"),
+       @('(?m)^\t\tglobal_max_literacy = 5[ \t]*\r?$', "${T2}# LO: all 5 -> lower classes 5 only (village reading schools)`n${T2}global_laborers_max_literacy = 5`n${T2}global_soldiers_max_literacy = 5`n${T2}global_peasants_max_literacy = 5")
+     ) },
+  # university-trained pastors: Lutheran and Calvinist clergy (vs Catholic definition clergy +25)
+  @{ f='religions\christian.txt'; k='lutheran'; out='religions'
+     e=@( ,@('(?m)^(\tdefinition_modifier = \{)[ \t]*\r?$', "`$1`n${T2}global_clergy_max_literacy = 15`t# LO: university-trained pastors") ) },
+  @{ f='religions\christian.txt'; k='calvinist'; out='religions'
+     e=@( ,@('(?m)^(\tdefinition_modifier = \{)[ \t]*\r?$', "`$1`n${T2}global_clergy_max_literacy = 15`t# LO: university-trained ministers") ) },
   # strigolniki: a small 14th-c. Novgorod/Pskov townsmen's movement (deacon Karp, posad scribes) reading scripture
   # without priests -> townsfolk literate, not the whole countryside
   @{ f='religions\christian.txt'; k='strigolniki'; out='religions'

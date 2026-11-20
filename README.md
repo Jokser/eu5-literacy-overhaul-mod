@@ -121,3 +121,26 @@ Kept on purpose:
   mass-school advances keep "all classes": terakoya, hangeul, gurmukhi, Albanian alphabet, komisja edukacji, Dutch,
   Scottish and Slovak education, colonial free thinkers, Hellenist epic poetry.
 - **Strigolniki** (a 14th-c. Novgorod/Pskov urban lay movement): all 10 → burghers 10 / nobles and clergy 5 / lower 2.
+
+### Protestants (v0.5, 2026-11-20)
+| Source | Before | Now |
+|---|---|---|
+| aspect `translated_bibles` (Lutheran, Calvinist, Anglican, Hussite, Lollard, Waldensian, Cathar, Bogomil, Paulician, Miaphysite) | all 10 | upper 5 / lower 5 |
+| aspect `pietism` (Lutheran) | all 5, any age | lower 5 only, `enabled` only in ages 5–6 (Spener 1675, Francke's Halle schools) |
+| Lutheran / Calvinist definition | — | clergy +15 (university-trained pastors) |
+
+`sola_scriptura` (all 5) is unchanged.
+
+Result for Brandenburg-Prussia vs France, capital for the upper classes and rural for the lower, no reforms and no
+innovative society:
+
+| Age | Country | Nobles / Clergy / Burghers | Peasants / Laborers / Soldiers |
+|---|---|---|---|
+| 4 | France (Catholic) | 57.5 / 100 / 41.5 | 9 / 9 / 14 |
+| 4 | Prussia (Lutheran) | 67.5 / 90 / 51.5 | 19 / 19 / 24 |
+| 5 | France | 97.5 / 100 / 81.5 | 14 / 16 / 21 |
+| 5 | Prussia | 100 / 100 / 91.5 | 29 / 31 / 36 |
+| 6 | France | 100 / 100 / 91.5 | 24 / 26 / 31 |
+| 6 | Prussia | 100 / 100 / 100 | 39 / 41 / 46 |
+
+Before this change, Prussia's peasants were at 29 in age 4 (×3 France) and its clergy at 85, below France.
