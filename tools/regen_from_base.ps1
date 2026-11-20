@@ -142,7 +142,18 @@ $targets = @(
   @{ f='religions\christian.txt'; k='lutheran'; out='religions'
      e=@( ,@('(?m)^(\tdefinition_modifier = \{)[ \t]*\r?$', "`$1`n${T2}global_clergy_max_literacy = 15`t# LO: university-trained pastors") ) },
   @{ f='religions\christian.txt'; k='calvinist'; out='religions'
-     e=@( ,@('(?m)^(\tdefinition_modifier = \{)[ \t]*\r?$', "`$1`n${T2}global_clergy_max_literacy = 15`t# LO: university-trained ministers") ) },
+     e=@( ,@('(?m)^(\tdefinition_modifier = \{)[ \t]*\r?$', "`$1`n${T2}global_clergy_max_literacy = 15`t# LO: university-trained ministers`n${T2}# LO: catechism / parish schools (Geneva, Scotland 1560 + 1696, Dutch catechism schools) -> lower +3`n${T2}global_laborers_max_literacy = 3`n${T2}global_soldiers_max_literacy = 3`n${T2}global_peasants_max_literacy = 3") ) },
+  # other Protestant / proto-Protestant churches (2026-11-20, user OK)
+  @{ f='religions\christian.txt'; k='anglican'; out='religions'
+     e=@( ,@('(?m)^\t\tglobal_max_literacy = 5[ \t]*\r?$', "${T2}# LO: all 5 -> clergy 15 (Oxford/Cambridge clergy) / nobles + burghers 5 / lower 2`n${T2}global_clergy_max_literacy = 15`n${T2}global_nobles_max_literacy = 5`n${T2}global_burghers_max_literacy = 5`n${T2}global_laborers_max_literacy = 2`n${T2}global_soldiers_max_literacy = 2`n${T2}global_peasants_max_literacy = 2") ) },
+  @{ f='religions\christian.txt'; k='hussite'; out='religions'
+     e=@( ,@('(?m)^(\tdefinition_modifier = \{)[ \t]*\r?$', "`$1`n${T2}# LO: Czech bible, lay reading (Aeneas Silvius 1451 on Taborite women), Unity of Brethren; Utraquist ordination was hard`n${T2}global_clergy_max_literacy = 10`n${T2}global_burghers_max_literacy = 5`n${T2}global_laborers_max_literacy = 3`n${T2}global_soldiers_max_literacy = 3`n${T2}global_peasants_max_literacy = 3") ) },
+  @{ f='religions\christian.txt'; k='lollardy'; out='religions'
+     e=@( ,@('(?m)^\t\tglobal_max_literacy = 10[ \t]*\r?$', "${T2}# LO: all 10 -> burghers 10 / nobles + clergy 5 / lower 3 (persecuted movement of literate artisans, Wycliffe bible)`n${T2}global_nobles_max_literacy = 5`n${T2}global_clergy_max_literacy = 5`n${T2}global_burghers_max_literacy = 10`n${T2}global_laborers_max_literacy = 3`n${T2}global_soldiers_max_literacy = 3`n${T2}global_peasants_max_literacy = 3") ) },
+  @{ f='religions\christian.txt'; k='waldensian'; out='religions'
+     e=@( ,@('(?m)^\t\tglobal_max_literacy = 5[ \t]*\r?$', ("${T2}# LO: all 5 -> upper 5 / lower 3 (Alpine peasants; barbes taught scripture by heart)`n" + (Strat $T2 'global' 5 3))) ) },
+  @{ f='religions\christian.txt'; k='catharism'; out='religions'
+     e=@( ,@('(?m)^\t\tglobal_max_literacy = 5[ \t]*\r?$', ("${T2}# LO: all 5 -> upper 5 / lower 2 (the perfecti were the bookish ones)`n" + (Strat $T2 'global' 5 2))) ) },
   # strigolniki: a small 14th-c. Novgorod/Pskov townsmen's movement (deacon Karp, posad scribes) reading scripture
   # without priests -> townsfolk literate, not the whole countryside
   @{ f='religions\christian.txt'; k='strigolniki'; out='religions'

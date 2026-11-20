@@ -144,3 +144,15 @@ innovative society:
 | 6 | Prussia | 100 / 100 / 100 | 39 / 41 / 46 |
 
 Before this change, Prussia's peasants were at 29 in age 4 (×3 France) and its clergy at 85, below France.
+
+### Other Protestant / proto-Protestant churches (v0.6, 2026-11-20)
+| Religion | Before | Now (definition) |
+|---|---|---|
+| Anglican | all 5 | clergy 15 / nobles + burghers 5 / lower 2 |
+| Calvinist | clergy 15 (v0.5) | + lower 3 (catechism and parish schools: Geneva, Scotland 1560 / 1696, Dutch) |
+| Hussite | — | clergy 10 / burghers 5 / lower 3 (Czech bible, Taborites, Unity of Brethren) |
+| Lollardy | all 10 | burghers 10 / nobles + clergy 5 / lower 3 (persecuted literate artisans) |
+| Waldensian | all 5 | upper 5 / lower 3 |
+| Catharism | all 5 | upper 5 / lower 2 |
+
+Bogomils and Paulicians are unchanged.
