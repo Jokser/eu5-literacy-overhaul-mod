@@ -9,7 +9,7 @@ lo_stoglav = {
 
 	potential = {
 		religion = religion:orthodox
-		culture = { has_culture_group = culture_group:zalessian_group }	# Great Russians (Novgorod, Moscow, Ryazan, Verkhovsk, Pomor). RSF russian_group = ALL East Slavs
+		culture = { has_culture_group = culture_group:russian_group }	# RSF russian_group = all East Slavs (Great Russians, Ruthenians, Belarusians, Cossacks...)
 	}
 
 	requires = national_rites

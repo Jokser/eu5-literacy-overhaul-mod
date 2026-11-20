@@ -80,10 +80,9 @@ and the council itself ordered schools.
 | Orthodox definition (as above) | +5 (upper classes 5, lower 0) |
 | `anagignoskomena` | 10 → 5 |
 | `orthodox_monastery` | 10 → 5 |
-| New `lo_stoglav` (age 4, requires `national_rites`, Orthodox + `zalessian_group`) | +10 |
+| New `lo_stoglav` (age 4, requires `national_rites`, Orthodox + `russian_group`) | +10 |
 
-`zalessian_group` covers the Great Russians: Novgorod, Moscow, Ryazan, Verkhovsk, Pomor. RSF's `russian_group`
-contains ALL East Slavs.
+In RSF, `russian_group` covers ALL East Slavs: Great Russians, Ruthenians, Belarusians, Cossacks and Rusyns.
 
 With the patriarchate tenet "christological debates" (leader +5, members +3), a city without a university reaches
 the university clergy threshold (> 85) in **age 3 for the Greeks** and **age 4 for Moscow**.
