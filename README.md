@@ -59,5 +59,14 @@ This mod applies `TRY_INJECT` deltas (global −5, nobles/clergy/burghers +5), s
 **Loophole: event `orthodox_flavor.101` option b** ("sponsor monastery") built a university at 20% cost in any town or city.
 `construct_building` ignores the `allow` gate. The script generates `in_game/events/religion/orthodox_flavor.txt` as a
 same-path override: the current base file with only that option removed. If the option disappears from base, the
-override is deleted. The second loophole fix, the sponsor-a-university parliament issue (city with dev ≥ 30), is
-still in the RSF kit.
+override is deleted.
+
+**Loophole: parliament issue `sponsor_a_university`** (burghers). When passed, it builds a university at 50% cost in the
+most populous core town or city. The script generates `05_burghers_estate_parliament_issues.txt` (base file, only this
+issue edited). Both its `allow` and the location it picks now require the scripted trigger `lo_university_site`:
+city/megalopolis, dev ≥ 30, clergy > 85, burghers > 25, no university yet. So the burghers can only sponsor a
+university where we could build one ourselves.
+
+The thresholds live in ONE place: `$UNI_DEV`, `$UNI_CLERGY` and `$UNI_BURGHERS` at the top of
+`tools/regen_from_base.ps1`. The script writes them into the university building `allow` and into
+`scripted_triggers/lo_university_triggers.txt`.
