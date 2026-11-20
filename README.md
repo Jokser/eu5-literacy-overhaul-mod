@@ -70,3 +70,20 @@ university where we could build one ourselves.
 The thresholds live in ONE place: `$UNI_DEV`, `$UNI_CLERGY` and `$UNI_BURGHERS` at the top of
 `tools/regen_from_base.ps1`. The script writes them into the university building `allow` and into
 `scripted_triggers/lo_university_triggers.txt`.
+
+### Orthodox clergy rebalance (v0.2, 2026-11-20)
+Rus' parish clergy were barely literate until the Stoglav council (1551): Archbishop Gennady complained in 1499,
+and the council itself ordered schools.
+
+| Change | Clergy |
+|---|---|
+| Orthodox definition (as above) | +5 (upper classes 5, lower 0) |
+| `anagignoskomena` | 10 → 5 |
+| `orthodox_monastery` | 10 → 5 |
+| New `lo_stoglav` (age 4, requires `national_rites`, Orthodox + `zalessian_group`) | +10 |
+
+`zalessian_group` covers the Great Russians: Novgorod, Moscow, Ryazan, Verkhovsk, Pomor. RSF's `russian_group`
+contains ALL East Slavs.
+
+With the patriarchate tenet "christological debates" (leader +5, members +3), a city without a university reaches
+the university clergy threshold (> 85) in **age 3 for the Greeks** and **age 4 for Moscow**.

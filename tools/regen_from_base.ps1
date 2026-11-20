@@ -53,6 +53,15 @@ $targets = @(
      e=@( ,@('(?m)^\tglobal_max_literacy = 10[ \t]*\r?$', ("${T1}# LO: 10 -> upper 8 / lower 3 (Flavorium)`n" + (Strat $T1 'global' 8 3))) ) },
   @{ f='advances\culture_venetian.txt'; k='ven_state_inquisition'; out='advances'
      e=@( ,@('(?m)^\tglobal_max_literacy = 5[ \t]*\r?$', ("${T1}# LO: 5 -> upper 5 / lower 3 (Flavorium)`n" + (Strat $T1 'global' 5 3))) ) },
+  # ---------- Orthodox clergy rebalance (ours, 2026-11-20) ----------
+  # Rus' parish clergy were barely literate until the Stoglav council (1551). Orthodox keeps clergy +5 in its
+  # definition (vs Catholic 25); the early advance and the monastery are halved; Russians get clergy +10 from
+  # lo_stoglav (age 4). With the patriarchate tenet (christological debates) Greeks pass the university clergy
+  # threshold in age 3, Rus' in age 4.
+  @{ f='advances\religion_orthodox.txt'; k='anagignoskomena'; out='advances'
+     e=@( ,@('(?m)^\tglobal_clergy_max_literacy = 10[ \t]*\r?$', "${T1}global_clergy_max_literacy = 5`t# LO: 10 -> 5 (Orthodox clergy rebalance)") ) },
+  @{ f='building_types\religion_buildings.txt'; k='orthodox_monastery'; out='building_types'
+     e=@( ,@('(?m)^\t\tlocal_clergy_max_literacy = 10[ \t]*\r?$', "${T2}local_clergy_max_literacy = 5`t# LO: 10 -> 5 (Orthodox clergy rebalance)") ) },
   # ---------- buildings ----------
   @{ f='building_types\culture_buildings.txt'; k='library'; out='building_types'
      e=@( ,@('(?m)^\t\tlocal_max_literacy = 5[ \t]*\r?\n\t\tlocal_monthly_literacy = 0\.1[ \t]*\r?$',

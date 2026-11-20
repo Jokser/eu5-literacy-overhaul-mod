@@ -1,0 +1,18 @@
+﻿# Literacy overhaul - Orthodox clergy rebalance: Russian clergy schooling (2026-11-20).
+# The Stoglav ("Hundred Chapters") council of 1551 admitted that many Russian priests could barely read and
+# ordered schools for clergy candidates in towns. Russian Orthodox clergy literacy therefore rises only in
+# age 4 (the age of Ostroh 1576 and the Kyiv-Mohyla college 1632), while the Greeks rely on their older
+# tradition (patriarchate tenet + hesychast advance).
+lo_stoglav = {
+	age = age_4_reformation
+	icon = church_councils
+
+	potential = {
+		religion = religion:orthodox
+		culture = { has_culture_group = culture_group:zalessian_group }	# Great Russians (Novgorod, Moscow, Ryazan, Verkhovsk, Pomor). RSF russian_group = ALL East Slavs
+	}
+
+	requires = national_rites
+
+	global_clergy_max_literacy = 10
+}

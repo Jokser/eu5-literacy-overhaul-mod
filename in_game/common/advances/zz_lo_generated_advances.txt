@@ -170,3 +170,14 @@ REPLACE_OR_CREATE:ven_state_inquisition = {
 
 	requires = renaissance_advance
 }
+
+# --- from base advances\religion_orthodox.txt ---
+REPLACE_OR_CREATE:anagignoskomena = {
+	age = age_1_traditions
+	
+	potential = { religion = religion:orthodox }
+	
+	global_clergy_max_literacy = 5	# LO: 10 -> 5 (Orthodox clergy rebalance)
+
+	requires = septuagint
+}
