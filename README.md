@@ -56,5 +56,8 @@ This mod applies `TRY_INJECT` deltas (global −5, nobles/clergy/burghers +5), s
 - Maintenance ×2.
 - Construction cost `lo_university_construction` (about ×2, plus glass).
 
-The two university loophole fixes stay in the RSF kit for now: the sponsor-a-university parliament issue
-(city with dev ≥ 30) and the removed `orthodox_flavor.101` option.
+**Loophole: event `orthodox_flavor.101` option b** ("sponsor monastery") built a university at 20% cost in any town or city.
+`construct_building` ignores the `allow` gate. The script generates `in_game/events/religion/orthodox_flavor.txt` as a
+same-path override: the current base file with only that option removed. If the option disappears from base, the
+override is deleted. The second loophole fix, the sponsor-a-university parliament issue (city with dev ≥ 30), is
+still in the RSF kit.

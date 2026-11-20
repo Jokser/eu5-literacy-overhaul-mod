@@ -121,4 +121,37 @@ foreach ($dir in $outs.Keys) {
     [IO.File]::WriteAllText($p, $hdr + ($outs[$dir] -join "`n`n") + "`n", $utf8bom)
     Write-Host "wrote $p ($($outs[$dir].Count) blocks)"
 }
+
+# ---------- university loophole: events/religion/orthodox_flavor.txt (same-path override) ----------
+# Event orthodox_flavor.101 ("Patriarch delegation") option b built a university at 20% cost in ANY town/city
+# (construct_building bypasses the university allow gate). Events cannot be TRY_INJECTed, so we ship the whole
+# base file with only that option removed. If the option is not found, the override is deleted (base used).
+$evRel = 'in_game\events\religion\orthodox_flavor.txt'
+$evSrc = Join-Path $game $evRel; $evDst = Join-Path $mod $evRel
+$ev = [IO.File]::ReadAllText($evSrc)
+$m = [regex]::Match($ev, '(?m)^\toption = \{[^\r\n]*\r?\n\t\tname = orthodox_flavor\.101\.b\b')
+$cut = $null
+if ($m.Success) {
+    $i = $ev.IndexOf('{', $m.Index) + 1; $d = 1
+    while ($i -lt $ev.Length -and $d -gt 0) { $c = $ev[$i]; if ($c -eq '{') { $d++ } elseif ($c -eq '}') { $d-- }; $i++ }
+    $opt = $ev.Substring($m.Index, $i - $m.Index)
+    if ($d -eq 0 -and $opt -match 'building_type:university') {
+        # drop the option plus the line break(s) after it, but keep the next line's indentation
+        $rest = [regex]::Match($ev.Substring($i), '^[ \t]*(\r?\n[ \t]*)*?\r?\n(?=[ \t]*\S)')
+        $end = if ($rest.Success) { $i + $rest.Length } else { $i }
+        $cut = $ev.Substring(0, $m.Index) + $ev.Substring($end)
+    }
+}
+if ($null -ne $cut) {
+    $d2 = Split-Path $evDst -Parent; if (-not (Test-Path $d2)) { New-Item -ItemType Directory -Path $d2 -Force | Out-Null }
+    $raw = [IO.File]::ReadAllBytes($evSrc)
+    $hasBom = $raw.Length -ge 3 -and $raw[0] -eq 0xEF -and $raw[1] -eq 0xBB -and $raw[2] -eq 0xBF   # keep the base BOM state
+    $enc = New-Object System.Text.UTF8Encoding($hasBom)
+    [IO.File]::WriteAllText($evDst, $cut.TrimStart([char]0xFEFF), $enc)
+    Write-Host "  ok  orthodox_flavor.101 option b (cheap university) removed -> $evRel"
+} else {
+    if (Test-Path $evDst) { Remove-Item $evDst -Force }
+    Write-Warning "orthodox_flavor.101.b (university) not found in base - override removed, base used"; $warn++
+}
+
 if ($warn) { Write-Warning "$warn block(s) skipped - check the anchors against the new base files." } else { Write-Host 'All blocks generated.' }
