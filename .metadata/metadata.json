@@ -1,0 +1,11 @@
+﻿{
+	"name":	"Literacy overhaul",
+	"id":	"literacy.overhaul",
+	"version":	"0.1",
+	"supported_game_version":	"1.4",
+	"short_description":	"Literacy overhaul of all estates",
+	"tags":	["Gameplay", "Overhaul"],
+	"relationships":	[],
+	"game_custom_data":	{
+	}
+}

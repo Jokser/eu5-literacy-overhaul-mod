@@ -1,0 +1,14 @@
+﻿# Literacy overhaul - Orthodox literacy: upper classes 5, lower classes 0.
+# Base / RSF (RSF_christian.txt TRY_REPLACE:orthodox) give global_max_literacy = 5 to ALL classes, so Rus'
+# peasants out-read French ones. TRY_INJECT (not a replace) keeps RSF's own Orthodox edits (goods demand,
+# opinions, Romuva relations); modifier values injected this way are ADDED, so we inject deltas:
+#   global -5  (cancels the flat +5)  +  nobles / clergy / burghers +5
+# 'zz_' sorts after RSF_christian.txt, so this is applied on top of RSF's TRY_REPLACE.
+TRY_INJECT:orthodox = {
+	definition_modifier = {
+		global_max_literacy = -5
+		global_nobles_max_literacy = 5
+		global_clergy_max_literacy = 5
+		global_burghers_max_literacy = 5
+	}
+}

@@ -1,0 +1,12 @@
+﻿# Literacy overhaul - universities are costly, prestige institutions: roughly double the base
+# university_construction (masonry 2, paper 2, lumber 1, books 2, tools 1) plus glass.
+lo_university_construction = {
+	masonry = 4
+	paper   = 4
+	lumber  = 2
+	books   = 4
+	tools   = 2
+	glass   = 2
+
+	category = building_construction
+}
