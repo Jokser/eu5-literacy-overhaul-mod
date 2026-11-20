@@ -140,7 +140,7 @@ $targets = @(
      ) },
   # university-trained pastors: Lutheran and Calvinist clergy (vs Catholic definition clergy +25)
   @{ f='religions\christian.txt'; k='lutheran'; out='religions'
-     e=@( ,@('(?m)^(\tdefinition_modifier = \{)[ \t]*\r?$', "`$1`n${T2}global_clergy_max_literacy = 15`t# LO: university-trained pastors") ) },
+     e=@( ,@('(?m)^(\tdefinition_modifier = \{)[ \t]*\r?$', "`$1`n${T2}global_clergy_max_literacy = 15`t# LO: university-trained pastors`n${T2}# LO: Luther's Small Catechism (1529) + church orders made lay catechism instruction a duty -> lower +3`n${T2}global_laborers_max_literacy = 3`n${T2}global_soldiers_max_literacy = 3`n${T2}global_peasants_max_literacy = 3") ) },
   @{ f='religions\christian.txt'; k='calvinist'; out='religions'
      e=@( ,@('(?m)^(\tdefinition_modifier = \{)[ \t]*\r?$', "`$1`n${T2}global_clergy_max_literacy = 15`t# LO: university-trained ministers`n${T2}# LO: catechism / parish schools (Geneva, Scotland 1560 + 1696, Dutch catechism schools) -> lower +3`n${T2}global_laborers_max_literacy = 3`n${T2}global_soldiers_max_literacy = 3`n${T2}global_peasants_max_literacy = 3") ) },
   # other Protestant / proto-Protestant churches (2026-11-20, user OK)

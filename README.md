@@ -127,7 +127,7 @@ Kept on purpose:
 |---|---|---|
 | aspect `translated_bibles` (Lutheran, Calvinist, Anglican, Hussite, Lollard, Waldensian, Cathar, Bogomil, Paulician, Miaphysite) | all 10 | upper 5 / lower 5 |
 | aspect `pietism` (Lutheran) | all 5, any age | lower 5 only, `enabled` only in ages 5–6 (Spener 1675, Francke's Halle schools) |
-| Lutheran / Calvinist definition | — | clergy +15 (university-trained pastors) |
+| Lutheran / Calvinist definition | — | clergy +15 (university-trained pastors); Lutheran also lower +3 (Small Catechism 1529, v0.6) |
 
 `sola_scriptura` (all 5) is unchanged.
 
