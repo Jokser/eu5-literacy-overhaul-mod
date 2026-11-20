@@ -7,6 +7,7 @@ $ErrorActionPreference = 'Stop'
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $mod  = Split-Path -Parent $here
 $game = 'c:\Program Files (x86)\Steam\steamapps\common\Europa Universalis V\game'
+$rsf  = 'c:\Program Files (x86)\Steam\steamapps\workshop\content\3450310\3608237308'   # RSF (for its Orthodox TRY_REPLACE)
 $utf8bom = New-Object System.Text.UTF8Encoding($true)
 
 function Get-Block([string]$t, [string]$key) {        # top-level "key = { ... }" by brace matching
@@ -32,27 +33,27 @@ $targets = @(
   @{ f='advances\0_age_of_traditions.txt'; k='written_alphabet'; out='advances'
      e=@( ,@('(?m)^\tglobal_max_literacy = 5[ \t]*\r?$', "${T1}global_max_literacy = 2`t# LO: 5 -> 2 (Flavorium)") ) },
   @{ f='advances\0_age_of_discovery.txt'; k='printing_press_advance'; out='advances'
-     e=@( ,@('(?m)^\tglobal_max_literacy = 10[ \t]*\r?$', "${T1}# LO: global 10 -> upper classes 5 (Flavorium)`n" + (Strat $T1 'global' 5 $null)) ) },
+     e=@( ,@('(?m)^\tglobal_max_literacy = 10[ \t]*\r?$', ("${T1}# LO: global 10 -> upper classes 5 (Flavorium)`n" + (Strat $T1 'global' 5 $null))) ) },
   @{ f='advances\4_choices_adm.txt'; k='innovativeness'; out='advances'
-     e=@( ,@('(?m)^\tglobal_max_literacy = 5[ \t]*\r?$', "${T1}# LO: global 5 -> upper classes 5 (Flavorium)`n" + (Strat $T1 'global' 5 $null)) ) },
+     e=@( ,@('(?m)^\tglobal_max_literacy = 5[ \t]*\r?$', ("${T1}# LO: global 5 -> upper classes 5 (Flavorium)`n" + (Strat $T1 'global' 5 $null))) ) },
   @{ f='advances\country_nov.txt'; k='birch_bark_manuscript'; out='advances'
-     e=@( ,@('(?m)^\tglobal_max_literacy = 2\.5[ \t]*\r?\n\tglobal_burghers_max_literacy = 10[ \t]*\r?$', "${T1}# LO: all 2.5 + burghers 10 -> upper 5 / lower 2 (Flavorium)`n" + (Strat $T1 'global' 5 2)) ) },
+     e=@( ,@('(?m)^\tglobal_max_literacy = 2\.5[ \t]*\r?\n\tglobal_burghers_max_literacy = 10[ \t]*\r?$', ("${T1}# LO: all 2.5 + burghers 10 -> upper 5 / lower 2 (Flavorium)`n" + (Strat $T1 'global' 5 2))) ) },
   @{ f='advances\country_chi.txt'; k='baihua'; out='advances'
-     e=@( ,@('(?m)^\tglobal_max_literacy = 5[ \t]*\r?$', "${T1}# LO: 5 -> upper 5 / lower 2 (Flavorium)`n" + (Strat $T1 'global' 5 2)) ) },
+     e=@( ,@('(?m)^\tglobal_max_literacy = 5[ \t]*\r?$', ("${T1}# LO: 5 -> upper 5 / lower 2 (Flavorium)`n" + (Strat $T1 'global' 5 2))) ) },
   @{ f='advances\culture_group_romanian.txt'; k='romanian_the_letter_of_neacsu'; out='advances'
-     e=@( ,@('(?m)^\tglobal_max_literacy = 5[ \t]*\r?$', "${T1}# LO: 5 -> upper 5 / lower 2 (Flavorium)`n" + (Strat $T1 'global' 5 2)) ) },
+     e=@( ,@('(?m)^\tglobal_max_literacy = 5[ \t]*\r?$', ("${T1}# LO: 5 -> upper 5 / lower 2 (Flavorium)`n" + (Strat $T1 'global' 5 2))) ) },
   @{ f='advances\culture_sicilian.txt'; k='sic_studium_generale'; out='advances'
-     e=@( ,@('(?m)^\tglobal_max_literacy = 5[ \t]*\r?$', "${T1}# LO: 5 -> upper 5 / lower 3 (Flavorium)`n" + (Strat $T1 'global' 5 3)) ) },
+     e=@( ,@('(?m)^\tglobal_max_literacy = 5[ \t]*\r?$', ("${T1}# LO: 5 -> upper 5 / lower 3 (Flavorium)`n" + (Strat $T1 'global' 5 3))) ) },
   @{ f='advances\culture_emilian.txt'; k='fer_studio_di_ferrara'; out='advances'
-     e=@( ,@('(?m)^\tglobal_max_literacy = 10[ \t]*\r?$', "${T1}# LO: 10 -> upper 8 / lower 3 (Flavorium)`n" + (Strat $T1 'global' 8 3)) ) },
+     e=@( ,@('(?m)^\tglobal_max_literacy = 10[ \t]*\r?$', ("${T1}# LO: 10 -> upper 8 / lower 3 (Flavorium)`n" + (Strat $T1 'global' 8 3))) ) },
   @{ f='advances\culture_venetian.txt'; k='ven_state_inquisition'; out='advances'
-     e=@( ,@('(?m)^\tglobal_max_literacy = 5[ \t]*\r?$', "${T1}# LO: 5 -> upper 5 / lower 3 (Flavorium)`n" + (Strat $T1 'global' 5 3)) ) },
+     e=@( ,@('(?m)^\tglobal_max_literacy = 5[ \t]*\r?$', ("${T1}# LO: 5 -> upper 5 / lower 3 (Flavorium)`n" + (Strat $T1 'global' 5 3))) ) },
   # ---------- buildings ----------
   @{ f='building_types\culture_buildings.txt'; k='library'; out='building_types'
      e=@( ,@('(?m)^\t\tlocal_max_literacy = 5[ \t]*\r?\n\t\tlocal_monthly_literacy = 0\.1[ \t]*\r?$',
              "${T2}# LO: all 5 -> nobles 3 / clergy 3 / burghers 2, monthly 0.1 -> 0.03 (Flavorium)`n${T2}local_nobles_max_literacy = 3`n${T2}local_clergy_max_literacy = 3`n${T2}local_burghers_max_literacy = 2`n${T2}local_monthly_literacy = 0.03") ) },
   @{ f='building_types\culture_buildings.txt'; k='confucian_school'; out='building_types'
-     e=@( ,@('(?m)^\t\tlocal_max_literacy = 5[ \t]*\r?$', "${T2}# LO: 5 -> upper 5 / lower 2 (Flavorium)`n" + (Strat $T2 'local' 5 2)) ) },
+     e=@( ,@('(?m)^\t\tlocal_max_literacy = 5[ \t]*\r?$', ("${T2}# LO: 5 -> upper 5 / lower 2 (Flavorium)`n" + (Strat $T2 'local' 5 2))) ) },
   @{ f='building_types\culture_buildings.txt'; k='university'; out='building_types'
      e=@(
        @('(?m)^\ttown = yes[ \t]*\r?$', "${T1}town = no`t# LO: elite urban institution - city/megalopolis only"),
@@ -67,25 +68,36 @@ $targets = @(
      ) },
   # ---------- privileges / reforms / laws ----------
   @{ f='estate_privileges\clergy_estate.txt'; k='freedom_of_interpretation'; out='estate_privileges'
-     e=@( ,@('(?m)^\t\tglobal_max_literacy = 5[ \t]*\r?$', "${T2}# LO: 5 -> upper 5 / lower 2 (Flavorium)`n" + (Strat $T2 'global' 5 2)) ) },
+     e=@( ,@('(?m)^\t\tglobal_max_literacy = 5[ \t]*\r?$', ("${T2}# LO: 5 -> upper 5 / lower 2 (Flavorium)`n" + (Strat $T2 'global' 5 2))) ) },
   @{ f='government_reforms\common.txt'; k='the_education_act'; out='government_reforms'
-     e=@( ,@('(?m)^\t\tglobal_max_literacy = 5[ \t]*\r?$', "${T2}# LO: 5 -> upper 5 / lower 2 (Flavorium)`n" + (Strat $T2 'global' 5 2)) ) },
+     e=@( ,@('(?m)^\t\tglobal_max_literacy = 5[ \t]*\r?$', ("${T2}# LO: 5 -> upper 5 / lower 2 (Flavorium)`n" + (Strat $T2 'global' 5 2))) ) },
   @{ f='laws\01_common.txt'; k='education_masses_law'; out='laws'
      e=@( ,@('(?m)^\t\t\tglobal_laborers_max_literacy = 5[ \t]*\r?\n\t\t\tglobal_soldiers_max_literacy = 5[ \t]*\r?\n\t\t\tglobal_peasants_max_literacy = 5[ \t]*\r?$',
              "${T3}# LO: basic_religious_education lower classes 5 -> 2 (Flavorium)`n${T3}global_laborers_max_literacy = 2`n${T3}global_soldiers_max_literacy = 2`n${T3}global_peasants_max_literacy = 2") ) },
   # ---------- religions (Flavorium) ----------
   @{ f='religions\buddhist.txt'; k='sanjiao'; out='religions'
-     e=@( ,@('(?m)^\t\tglobal_max_literacy = 10[ \t]*\r?$', "${T2}# LO: 10 -> upper 8 / lower 3 (Flavorium)`n" + (Strat $T2 'global' 8 3)) ) },
+     e=@( ,@('(?m)^\t\tglobal_max_literacy = 10[ \t]*\r?$', ("${T2}# LO: 10 -> upper 8 / lower 3 (Flavorium)`n" + (Strat $T2 'global' 8 3))) ) },
   @{ f='religions\buddhist.txt'; k='shinto'; out='religions'
-     e=@( ,@('(?m)^\t\tglobal_max_literacy = 10[ \t]*\r?$', "${T2}# LO: 10 -> upper 8 / lower 3 (Flavorium)`n" + (Strat $T2 'global' 8 3)) ) },
+     e=@( ,@('(?m)^\t\tglobal_max_literacy = 10[ \t]*\r?$', ("${T2}# LO: 10 -> upper 8 / lower 3 (Flavorium)`n" + (Strat $T2 'global' 8 3))) ) },
   @{ f='religions\buddhist.txt'; k='tibetan_buddhism'; out='religions'
-     e=@( ,@('(?m)^\t\tglobal_max_literacy = 5[ \t]*\r?$', "${T2}# LO: 5 -> upper 5 / lower 2 (Flavorium)`n" + (Strat $T2 'global' 5 2)) ) }
+     e=@( ,@('(?m)^\t\tglobal_max_literacy = 5[ \t]*\r?$', ("${T2}# LO: 5 -> upper 5 / lower 2 (Flavorium)`n" + (Strat $T2 'global' 5 2))) ) },
+  # ---------- Orthodox: source is RSF's own TRY_REPLACE (keeps Kotyk's goods demand/opinions) ----------
+  # A TRY_INJECT delta did NOT work in game (RSF's TRY_REPLACE wiped it), so we re-emit RSF's whole block
+  # as REPLACE_OR_CREATE (our mod mounts after RSF) with literacy upper 5 / lower 0, and re-add the
+  # Romuva opinion that RSF_religion_relations.txt injects (a replace would otherwise drop it).
+  @{ root=$rsf; f='religions\RSF_christian.txt'; k='TRY_REPLACE:orthodox'; out='religions'
+     e=@(
+       @('(?m)^\t\tglobal_max_literacy = 5[ \t]*\r?$', ("${T2}# LO: all 5 -> upper classes 5, lower classes 0`n" + (Strat $T2 'global' 5 $null))),
+       @('(?m)^(\t\tjudaism = positive[^\r\n]*)$', "`$1`n${T2}romuva = positive`t# LO: re-added from RSF_religion_relations.txt (TRY_INJECT)")
+     ) }
 )
 
 $outs = @{}
 $warn = 0
 foreach ($t in $targets) {
-    $src = Join-Path $game ('in_game\common\' + $t.f)
+    $root = if ($t.root) { $t.root } else { $game }
+    $src = Join-Path $root ('in_game\common\' + $t.f)
+    if (-not (Test-Path $src)) { Write-Warning "$($t.k): source $src not found - SKIPPED"; $warn++; continue }
     $txt = [IO.File]::ReadAllText($src).TrimStart([char]0xFEFF)
     $b = Get-Block $txt $t.k
     if ($null -eq $b) { Write-Warning "$($t.k): block not found in $($t.f) - SKIPPED (base used)"; $warn++; continue }
@@ -96,9 +108,10 @@ foreach ($t in $targets) {
         $b = ([regex]$e[0]).Replace($b, $e[1], 1)
     }
     if (-not $ok) { $warn++; continue }
-    $b = 'REPLACE_OR_CREATE:' + $b.TrimStart()
+    $b = 'REPLACE_OR_CREATE:' + ($b.TrimStart() -replace '^TRY_REPLACE:', '')
     if (-not $outs.ContainsKey($t.out)) { $outs[$t.out] = New-Object System.Collections.Generic.List[string] }
-    $outs[$t.out].Add("# --- from base $($t.f) ---`n" + ($b -replace "`r`n", "`n"))
+    $from = if ($t.root) { "RSF $($t.f)" } else { "base $($t.f)" }
+    $outs[$t.out].Add("# --- from $from ---`n" + ($b -replace "`r`n", "`n"))
     Write-Host "  ok  $($t.k)"
 }
 foreach ($dir in $outs.Keys) {
