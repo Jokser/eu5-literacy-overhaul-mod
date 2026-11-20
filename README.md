@@ -113,3 +113,11 @@ Kept on purpose:
   lay reading of scripture.
 - National "school" advances: terakoya, komisja edukacji, dutch / scottish / Slovak education, school of first letters,
   ruthenia commoner education.
+
+### Academies and strigolniki (v0.4, 2026-11-20)
+- **Group rule for 45 national / city "academy" advances.** Their "all classes" bonus becomes upper X / lower round(X/3):
+  all 5 → 5 / 2, all 10 → 10 / 3. Examples: Italian studia and academies, Spanish academies, Maghreb madrasas, the
+  Moscow university, the Resava transcribers. The list is `$academies` in `tools/regen_from_base.ps1`. Alphabet and
+  mass-school advances keep "all classes": terakoya, hangeul, gurmukhi, Albanian alphabet, komisja edukacji, Dutch,
+  Scottish and Slovak education, colonial free thinkers, Hellenist epic poetry.
+- **Strigolniki** (a 14th-c. Novgorod/Pskov urban lay movement): all 10 → burghers 10 / nobles and clergy 5 / lower 2.

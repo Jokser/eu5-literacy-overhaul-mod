@@ -127,6 +127,10 @@ $targets = @(
      e=@( ,@('(?m)^\t\tglobal_max_literacy = 5[ \t]*\r?$', ("${T2}# LO: 5 -> upper 5 / lower 2 (Brahmin learning)`n" + (Strat $T2 'global' 5 2))) ) },
   @{ f='religious_schools\jain.txt'; k='mula_sangh_school'; out='religious_schools'
      e=@( ,@('(?m)^\t\tglobal_max_literacy = 5[ \t]*\r?$', ("${T2}# LO: 5 -> upper 5 / lower 2`n" + (Strat $T2 'global' 5 2))) ) },
+  # strigolniki: a small 14th-c. Novgorod/Pskov townsmen's movement (deacon Karp, posad scribes) reading scripture
+  # without priests -> townsfolk literate, not the whole countryside
+  @{ f='religions\christian.txt'; k='strigolniki'; out='religions'
+     e=@( ,@('(?m)^\t\tglobal_max_literacy = 10[ \t]*\r?$', "${T2}# LO: all 10 -> burghers 10 / nobles + clergy 5 / lower 2 (urban lay movement)`n${T2}global_nobles_max_literacy = 5`n${T2}global_clergy_max_literacy = 5`n${T2}global_burghers_max_literacy = 10`n${T2}global_laborers_max_literacy = 2`n${T2}global_soldiers_max_literacy = 2`n${T2}global_peasants_max_literacy = 2") ) },
   # ---------- religions (Flavorium) ----------
   @{ f='religions\buddhist.txt'; k='sanjiao'; out='religions'
      e=@( ,@('(?m)^\t\tglobal_max_literacy = 10[ \t]*\r?$', ("${T2}# LO: 10 -> upper 8 / lower 3 (Flavorium)`n" + (Strat $T2 'global' 8 3))) ) },
@@ -145,8 +149,37 @@ $targets = @(
      ) }
 )
 
-$outs = @{}
+# ---------- group rule: national/city ACADEMY advances (all X -> upper X / lower round(X/3)) ----------
+# An academy, university or court library educates the elite, not the countryside. Alphabet / mass-school advances
+# (terakoya, hangeul, gurmukhi, albanian alphabet, komisja edukacji, dutch/scottish/slovak education, colonial
+# free thinkers, hellenist epic poetry) are deliberately NOT in this list and keep "all classes".
+$academies = @(
+  'academia_pontaniana','alv_sagres_school','amazigh_group_tifinagh_revival','aqu_patriarchate_of_aquileia','ara_valencian_golden_age',
+  'bah_madrasa_of_mahmud_gawan','byz_ancient_greek_studies','cas_real_academia_espanola','cnr_guanche_renaissance','cor_u_ginnasiu_corsu',
+  'cro_the_croatian_press','dalmatian_the_accademia_degli_oziosi','encouragement_of_philosophers','fez_qarawiyyin_school','galician_rexurdimento',
+  'gra_a_new_golden_era','hassaniya_shinqit_libraries','imperatorskiy_moskovskiy_universitet','leonese_provincial_academies','luc_the_lucchese_constitution',
+  'man_studium_mantovano','mod_estense_library','mor_marinid_madrasas','nav_a_renaissance_realm','pad_medical_school',
+  'pad_paduan_commune','par_enlightened_duchy','pat_uniate_liturgical_printing_advance','pcz_collegium_placentinum','pea_the_old_university',
+  'pie_enlightened_court','pis_academic_prestige','pis_medical_tradition','pis_the_university_of_pisa','revival_of_the_literary_schools',
+  'rhaetian_the_national_revival','sar_enlightened_reforms','sar_university_of_cagliari','ser_the_transcribers_of_resava','sic_sicilian_enlightenment',
+  'sie_artists','tet_andalusi_quarter','tunisian_maliki_heartland','urb_the_enlightened_university','urb_the_mathematical_school'
+)
 $warn = 0
+$advDir = Join-Path $game 'in_game\common\advances'
+$advTexts = @{}; foreach ($af in Get-ChildItem $advDir -Filter *.txt) { $advTexts[$af.Name] = [IO.File]::ReadAllText($af.FullName).TrimStart([char]0xFEFF) }
+$rxAcad = '(?m)^[ \t]+global_max_literacy\s*=\s*(\d+(?:\.\d+)?)[ \t]*\r?$'
+foreach ($k in $academies) {
+    $fn = $null; foreach ($n in $advTexts.Keys) { if ($advTexts[$n] -match ('(?m)^' + [regex]::Escape($k) + '\s*=\s*\{')) { $fn = $n; break } }
+    if ($null -eq $fn) { Write-Warning "${k}: academy advance not found in base - SKIPPED"; $warn++; continue }
+    $blk = Get-Block $advTexts[$fn] $k
+    $mm = if ($blk) { [regex]::Matches($blk, $rxAcad) } else { @() }
+    if ($mm.Count -ne 1) { Write-Warning "${k}: expected 1 global_max_literacy line, found $($mm.Count) - SKIPPED"; $warn++; continue }
+    $x = [double]$mm[0].Groups[1].Value; $low = [math]::Round($x / 3)
+    $rep = "${T1}# LO academy rule: all $x -> upper $x / lower $low`n" + (Strat $T1 'global' $x $low)
+    $targets += @{ f=('advances\' + $fn); k=$k; out='advances'; e=@( ,@($rxAcad, $rep) ) }
+}
+
+$outs = @{}
 foreach ($t in $targets) {
     $root = if ($t.root) { $t.root } else { $game }
     $src = Join-Path $root ('in_game\common\' + $t.f)

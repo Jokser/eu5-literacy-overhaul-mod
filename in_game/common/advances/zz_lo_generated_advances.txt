@@ -224,3 +224,973 @@ REPLACE_OR_CREATE:enlightened_court = {
 
 	requires = modern_bureaucracy
 }
+
+# --- from base advances\culture_neapolitan.txt ---
+REPLACE_OR_CREATE:academia_pontaniana = {
+	content_priority = 100
+	age = age_2_renaissance
+	icon = academia_pontaniana
+
+	potential = {
+		has_or_had_tag = NAP
+	}
+
+	# LO academy rule: all 5 -> upper 5 / lower 2
+	global_nobles_max_literacy = 5
+	global_clergy_max_literacy = 5
+	global_burghers_max_literacy = 5
+	global_laborers_max_literacy = 2
+	global_soldiers_max_literacy = 2
+	global_peasants_max_literacy = 2
+	replace_cabinet_member_cost_modifier = -0.1
+
+	requires = university_advance
+}
+
+# --- from base advances\country_por.txt ---
+REPLACE_OR_CREATE:alv_sagres_school = {
+	age = age_2_renaissance
+	icon = alv_sagres_school
+
+	potential = {
+		has_or_had_tag = ALV
+	}
+
+	# LO academy rule: all 5 -> upper 5 / lower 2
+	global_nobles_max_literacy = 5
+	global_clergy_max_literacy = 5
+	global_burghers_max_literacy = 5
+	global_laborers_max_literacy = 2
+	global_soldiers_max_literacy = 2
+	global_peasants_max_literacy = 2
+	naval_range_modifier = 0.1
+
+	requires = renaissance_court
+}
+
+# --- from base advances\country_tle.txt ---
+REPLACE_OR_CREATE:amazigh_group_tifinagh_revival = {
+	age = age_6_revolutions
+	icon = enlightenment_advance
+
+	potential = {
+		culture ?= { has_culture_group = culture_group:amazigh_group }
+	}
+
+	cultural_influence_modifier = 0.1
+	# LO academy rule: all 5 -> upper 5 / lower 2
+	global_nobles_max_literacy = 5
+	global_clergy_max_literacy = 5
+	global_burghers_max_literacy = 5
+	global_laborers_max_literacy = 2
+	global_soldiers_max_literacy = 2
+	global_peasants_max_literacy = 2
+
+	requires = enlightened_court
+}
+
+# --- from base advances\culture_group_rhaetian.txt ---
+REPLACE_OR_CREATE:aqu_patriarchate_of_aquileia = {
+	age = age_1_traditions
+	icon = church_councils
+
+	potential = {
+		has_or_had_tag = AQU
+	}
+
+	# LO academy rule: all 5 -> upper 5 / lower 2
+	global_nobles_max_literacy = 5
+	global_clergy_max_literacy = 5
+	global_burghers_max_literacy = 5
+	global_laborers_max_literacy = 2
+	global_soldiers_max_literacy = 2
+	global_peasants_max_literacy = 2
+	tolerance_own = 1
+
+	requires = feudalism_advance
+}
+
+# --- from base advances\culture_catalan.txt ---
+REPLACE_OR_CREATE:ara_valencian_golden_age = {
+	age = age_3_discovery
+	icon = ara_valencian_golden_age
+
+	potential = {
+		OR = {
+			culture = culture:catalan
+			culture = { merged_culture_group_contains_culture = culture:catalan }
+		}
+		NOT = { has_reform = government_reform:partitio_reform }
+	}
+
+	# LO academy rule: all 5 -> upper 5 / lower 2
+	global_nobles_max_literacy = 5
+	global_clergy_max_literacy = 5
+	global_burghers_max_literacy = 5
+	global_laborers_max_literacy = 2
+	global_soldiers_max_literacy = 2
+	global_peasants_max_literacy = 2
+	prestige_decay = -0.001
+
+	requires = improved_book_binding
+}
+
+# --- from base advances\culture_kannada_muslim.txt ---
+REPLACE_OR_CREATE:bah_madrasa_of_mahmud_gawan = {
+	age = age_6_revolutions
+	icon = bah_madrasa_of_mahmud_gawan
+	potential = {
+        religion.group = religion_group:muslim
+        culture.language = language:kannada_language
+    }
+	requires = subject_income_revolutions_advance
+	# LO academy rule: all 10 -> upper 10 / lower 3
+	global_nobles_max_literacy = 10
+	global_clergy_max_literacy = 10
+	global_burghers_max_literacy = 10
+	global_laborers_max_literacy = 3
+	global_soldiers_max_literacy = 3
+	global_peasants_max_literacy = 3
+    global_monthly_literacy = 0.02
+}
+
+# --- from base advances\country_byz.txt ---
+REPLACE_OR_CREATE:byz_ancient_greek_studies = {
+	age = age_6_revolutions
+	icon = scholasticism
+
+	potential = {
+		has_or_had_tag = BYZ
+	}
+
+	# LO academy rule: all 10 -> upper 10 / lower 3
+	global_nobles_max_literacy = 10
+	global_clergy_max_literacy = 10
+	global_burghers_max_literacy = 10
+	global_laborers_max_literacy = 3
+	global_soldiers_max_literacy = 3
+	global_peasants_max_literacy = 3
+
+	requires = crown_power_advance_revolutions
+
+	allow_children = no
+}
+
+# --- from base advances\country_cas.txt ---
+REPLACE_OR_CREATE:cas_real_academia_espanola = {
+	age = age_5_absolutism
+	icon = cas_real_academia_espanola
+
+	potential = {
+		has_or_had_tag = CAS
+		original_tag = CAS
+	}
+
+	# LO academy rule: all 5 -> upper 5 / lower 2
+	global_nobles_max_literacy = 5
+	global_clergy_max_literacy = 5
+	global_burghers_max_literacy = 5
+	global_laborers_max_literacy = 2
+	global_soldiers_max_literacy = 2
+	global_peasants_max_literacy = 2
+	global_monthly_literacy = 0.02
+
+	requires = the_constitution
+}
+
+# --- from base advances\country_tle.txt ---
+REPLACE_OR_CREATE:cnr_guanche_renaissance = {
+	age = age_6_revolutions
+	icon = enlightenment_advance
+
+	potential = {
+		has_or_had_tag = CNR
+	}
+
+	# LO academy rule: all 5 -> upper 5 / lower 2
+	global_nobles_max_literacy = 5
+	global_clergy_max_literacy = 5
+	global_burghers_max_literacy = 5
+	global_laborers_max_literacy = 2
+	global_soldiers_max_literacy = 2
+	global_peasants_max_literacy = 2
+	research_speed_modifier = 0.05
+
+	requires = enlightened_court
+}
+
+# --- from base advances\culture_corsican.txt ---
+REPLACE_OR_CREATE:cor_u_ginnasiu_corsu = {
+	age = age_5_absolutism
+	icon = scholasticism
+
+	potential = {
+		has_or_had_tag = COR
+	}
+
+	global_institution_growth_modifier = 0.2
+	# LO academy rule: all 10 -> upper 10 / lower 3
+	global_nobles_max_literacy = 10
+	global_clergy_max_literacy = 10
+	global_burghers_max_literacy = 10
+	global_laborers_max_literacy = 3
+	global_soldiers_max_literacy = 3
+	global_peasants_max_literacy = 3
+
+	requires = scientific_revolution_advance
+}
+
+# --- from base advances\country_cro.txt ---
+REPLACE_OR_CREATE:cro_the_croatian_press = {
+	age = age_3_discovery
+	icon = legalism_advance
+
+	potential = {
+		has_or_had_tag = CRO
+		original_tag = CRO
+	}
+	
+	global_institution_growth_modifier = 0.20
+	# LO academy rule: all 5 -> upper 5 / lower 2
+	global_nobles_max_literacy = 5
+	global_clergy_max_literacy = 5
+	global_burghers_max_literacy = 5
+	global_laborers_max_literacy = 2
+	global_soldiers_max_literacy = 2
+	global_peasants_max_literacy = 2
+
+	requires = print_culture
+}
+
+# --- from base advances\culture_dalmatian.txt ---
+REPLACE_OR_CREATE:dalmatian_the_accademia_degli_oziosi = {
+	age = age_5_absolutism
+	icon = enlightenment_advance
+
+	potential = {
+		OR = {
+			culture = culture:dalmatian
+			culture = { merged_culture_group_contains_culture = culture:dalmatian }
+		}
+	}
+
+	cultural_tradition_modifier = 0.10
+	# LO academy rule: all 5 -> upper 5 / lower 2
+	global_nobles_max_literacy = 5
+	global_clergy_max_literacy = 5
+	global_burghers_max_literacy = 5
+	global_laborers_max_literacy = 2
+	global_soldiers_max_literacy = 2
+	global_peasants_max_literacy = 2
+
+	requires = absolute_rulership
+}
+
+# --- from base advances\culture_lombard.txt ---
+REPLACE_OR_CREATE:encouragement_of_philosophers = {
+	content_priority = 400
+	age = age_4_reformation
+	icon = encouragement_of_philosophers
+
+	potential = {
+		has_or_had_tag = MLO
+	}
+
+	# LO academy rule: all 5 -> upper 5 / lower 2
+	global_nobles_max_literacy = 5
+	global_clergy_max_literacy = 5
+	global_burghers_max_literacy = 5
+	global_laborers_max_literacy = 2
+	global_soldiers_max_literacy = 2
+	global_peasants_max_literacy = 2
+	global_monthly_urban_control = 0.002
+
+	requires = confessionalism_advance
+}
+
+# --- from base advances\country_tle.txt ---
+REPLACE_OR_CREATE:fez_qarawiyyin_school = {
+	age = age_1_traditions
+	icon = fez_qarawiyyin_school
+
+	potential = {
+		has_or_had_tag = FEZ
+	}
+
+	# LO academy rule: all 5 -> upper 5 / lower 2
+	global_nobles_max_literacy = 5
+	global_clergy_max_literacy = 5
+	global_burghers_max_literacy = 5
+	global_laborers_max_literacy = 2
+	global_soldiers_max_literacy = 2
+	global_peasants_max_literacy = 2
+	research_speed_modifier = 0.05
+
+	requires = legalism_advance
+}
+
+# --- from base advances\culture_galician.txt ---
+REPLACE_OR_CREATE:galician_rexurdimento = {
+	age = age_6_revolutions
+	icon = enlightenment_advance
+
+	potential = {
+		OR = {
+			culture = culture:galician
+			culture = { merged_culture_group_contains_culture = culture:galician }
+		}
+	}
+
+	# LO academy rule: all 5 -> upper 5 / lower 2
+	global_nobles_max_literacy = 5
+	global_clergy_max_literacy = 5
+	global_burghers_max_literacy = 5
+	global_laborers_max_literacy = 2
+	global_soldiers_max_literacy = 2
+	global_peasants_max_literacy = 2
+	global_pop_assimilation_speed_modifier = 0.1
+
+	requires = enlightened_court
+}
+
+# --- from base advances\country_gra.txt ---
+REPLACE_OR_CREATE:gra_a_new_golden_era = {
+	age = age_6_revolutions
+	icon = gra_a_new_golden_era
+
+	potential = {
+		has_or_had_tag = GRA
+	}
+
+	# LO academy rule: all 10 -> upper 10 / lower 3
+	global_nobles_max_literacy = 10
+	global_clergy_max_literacy = 10
+	global_burghers_max_literacy = 10
+	global_laborers_max_literacy = 3
+	global_soldiers_max_literacy = 3
+	global_peasants_max_literacy = 3
+	global_monthly_literacy = 0.02
+
+	requires = government_size_revolutions
+}
+
+# --- from base advances\culture_hassaniya.txt ---
+REPLACE_OR_CREATE:hassaniya_shinqit_libraries = {
+	age = age_6_revolutions
+	icon = library_advance
+
+	potential = {
+		culture = culture:hassaniya
+	}
+
+	cultural_influence_modifier = 0.1
+	# LO academy rule: all 5 -> upper 5 / lower 2
+	global_nobles_max_literacy = 5
+	global_clergy_max_literacy = 5
+	global_burghers_max_literacy = 5
+	global_laborers_max_literacy = 2
+	global_soldiers_max_literacy = 2
+	global_peasants_max_literacy = 2
+
+	requires = enlightened_court
+}
+
+# --- from base advances\country_mos.txt ---
+REPLACE_OR_CREATE:imperatorskiy_moskovskiy_universitet = {
+	age = age_6_revolutions
+	icon = imperatorskiy_moskovskiy_universitet
+	potential = {
+		has_or_had_tag = RUS
+	}
+
+	allow = { has_unlocked_advance_trigger = { type = imperatorskiy_moskovskiy_universitet } }
+	allow_children = no
+	cultural_tradition_modifier = 0.1
+	# LO academy rule: all 5 -> upper 5 / lower 2
+	global_nobles_max_literacy = 5
+	global_clergy_max_literacy = 5
+	global_burghers_max_literacy = 5
+	global_laborers_max_literacy = 2
+	global_soldiers_max_literacy = 2
+	global_peasants_max_literacy = 2
+
+	requires = rights_of_man
+}
+
+# --- from base advances\culture_leonese.txt ---
+REPLACE_OR_CREATE:leonese_provincial_academies = {
+	age = age_5_absolutism
+	icon = printing_press_advance
+
+	potential = {
+		OR = {
+			culture = culture:leonese
+			culture = { merged_culture_group_contains_culture = culture:leonese }
+		}
+	}
+
+	# LO academy rule: all 5 -> upper 5 / lower 2
+	global_nobles_max_literacy = 5
+	global_clergy_max_literacy = 5
+	global_burghers_max_literacy = 5
+	global_laborers_max_literacy = 2
+	global_soldiers_max_literacy = 2
+	global_peasants_max_literacy = 2
+	hire_advisor_cost_modifier = -0.1
+
+	requires = the_constitution
+}
+
+# --- from base advances\culture_tuscan.txt ---
+REPLACE_OR_CREATE:luc_the_lucchese_constitution = {
+	age = age_6_revolutions
+	icon = laws
+
+	potential = {
+		has_or_had_tag = LUC
+	}
+
+	# LO academy rule: all 10 -> upper 10 / lower 3
+	global_nobles_max_literacy = 10
+	global_clergy_max_literacy = 10
+	global_burghers_max_literacy = 10
+	global_laborers_max_literacy = 3
+	global_soldiers_max_literacy = 3
+	global_peasants_max_literacy = 3
+	stability_cost_efficiency = 0.15
+
+	requires = industrialization_advance
+}
+
+# --- from base advances\culture_emilian.txt ---
+REPLACE_OR_CREATE:man_studium_mantovano = {
+	age = age_3_discovery
+	icon = scholasticism
+
+	potential = {
+		has_or_had_tag = MAN
+	}
+
+	global_institution_growth_modifier = 0.15
+	# LO academy rule: all 10 -> upper 10 / lower 3
+	global_nobles_max_literacy = 10
+	global_clergy_max_literacy = 10
+	global_burghers_max_literacy = 10
+	global_laborers_max_literacy = 3
+	global_soldiers_max_literacy = 3
+	global_peasants_max_literacy = 3
+
+	requires = rgo_size_advance_discovery
+}
+
+# --- from base advances\culture_emilian.txt ---
+REPLACE_OR_CREATE:mod_estense_library = {
+	age = age_3_discovery
+	icon = library_advance
+
+	potential = {
+		has_or_had_tag = MOD
+	}
+
+	global_institution_growth_modifier = 0.15
+	# LO academy rule: all 10 -> upper 10 / lower 3
+	global_nobles_max_literacy = 10
+	global_clergy_max_literacy = 10
+	global_burghers_max_literacy = 10
+	global_laborers_max_literacy = 3
+	global_soldiers_max_literacy = 3
+	global_peasants_max_literacy = 3
+
+	requires = printing_press_advance
+}
+
+# --- from base advances\country_mor.txt ---
+REPLACE_OR_CREATE:mor_marinid_madrasas = {
+	age = age_2_renaissance
+	icon = scholasticism
+
+	potential = {
+		has_or_had_tag = MOR
+		original_tag = MOR
+	}
+
+	# LO academy rule: all 5 -> upper 5 / lower 2
+	global_nobles_max_literacy = 5
+	global_clergy_max_literacy = 5
+	global_burghers_max_literacy = 5
+	global_laborers_max_literacy = 2
+	global_soldiers_max_literacy = 2
+	global_peasants_max_literacy = 2
+	improve_relation_impact = 0.1
+
+	requires = renaissance_thought
+}
+
+# --- from base advances\country_nav.txt ---
+REPLACE_OR_CREATE:nav_a_renaissance_realm = {
+	age = age_2_renaissance
+	icon = nav_a_renaissance_realm
+
+	potential = {
+		OR = {
+			has_or_had_tag = NAV
+			is_basque_spain = yes
+		}
+	}
+
+	# LO academy rule: all 10 -> upper 10 / lower 3
+	global_nobles_max_literacy = 10
+	global_clergy_max_literacy = 10
+	global_burghers_max_literacy = 10
+	global_laborers_max_literacy = 3
+	global_soldiers_max_literacy = 3
+	global_peasants_max_literacy = 3
+	research_speed_modifier = 0.1
+
+	requires = recovery_efforts
+
+	unlock_chivalric_order = order_of_lebrel_blanco
+}
+
+# --- from base advances\culture_venetian.txt ---
+REPLACE_OR_CREATE:pad_medical_school = {
+	age = age_3_discovery
+	icon = alchemy_advance
+
+	potential = {
+		has_or_had_tag = PAD
+	}
+
+	global_disease_resistance = 0.10
+	# LO academy rule: all 5 -> upper 5 / lower 2
+	global_nobles_max_literacy = 5
+	global_clergy_max_literacy = 5
+	global_burghers_max_literacy = 5
+	global_laborers_max_literacy = 2
+	global_soldiers_max_literacy = 2
+	global_peasants_max_literacy = 2
+
+	requires = printing_press_advance
+}
+
+# --- from base advances\culture_venetian.txt ---
+REPLACE_OR_CREATE:pad_paduan_commune = {
+	age = age_6_revolutions
+	icon = laws
+
+	potential = {
+		has_or_had_tag = PAD
+	}
+
+	tax_income_efficiency = medium_tax_income_efficiency_bonus
+	# LO academy rule: all 10 -> upper 10 / lower 3
+	global_nobles_max_literacy = 10
+	global_clergy_max_literacy = 10
+	global_burghers_max_literacy = 10
+	global_laborers_max_literacy = 3
+	global_soldiers_max_literacy = 3
+	global_peasants_max_literacy = 3
+
+	requires = enlightenment_advance
+}
+
+# --- from base advances\culture_emilian.txt ---
+REPLACE_OR_CREATE:par_enlightened_duchy = {
+	age = age_6_revolutions
+	icon = smooth_administration
+
+	potential = {
+		has_or_had_tag = PAR
+	}
+
+	legislative_efficiency = 0.20
+	# LO academy rule: all 10 -> upper 10 / lower 3
+	global_nobles_max_literacy = 10
+	global_clergy_max_literacy = 10
+	global_burghers_max_literacy = 10
+	global_laborers_max_literacy = 3
+	global_soldiers_max_literacy = 3
+	global_peasants_max_literacy = 3
+
+	requires = government_size_revolutions
+}
+
+# --- from base advances\frankokratia.txt ---
+REPLACE_OR_CREATE:pat_uniate_liturgical_printing_advance = {
+	age = age_3_discovery
+	icon = printing_press_advance
+
+	potential = {
+		has_or_had_tag = PAT
+	}
+    
+	# LO academy rule: all 5 -> upper 5 / lower 2
+	global_nobles_max_literacy = 5
+	global_clergy_max_literacy = 5
+	global_burghers_max_literacy = 5
+	global_laborers_max_literacy = 2
+	global_soldiers_max_literacy = 2
+	global_peasants_max_literacy = 2
+
+	requires = formalized_relations
+}
+
+# --- from base advances\culture_emilian.txt ---
+REPLACE_OR_CREATE:pcz_collegium_placentinum = {
+	age = age_2_renaissance
+	icon = library_advance
+
+	potential = {
+		has_or_had_tag = PCZ
+	}
+
+	# LO academy rule: all 5 -> upper 5 / lower 2
+	global_nobles_max_literacy = 5
+	global_clergy_max_literacy = 5
+	global_burghers_max_literacy = 5
+	global_laborers_max_literacy = 2
+	global_soldiers_max_literacy = 2
+	global_peasants_max_literacy = 2
+	legislative_efficiency = 0.1
+
+	requires = patron_of_art
+}
+
+# --- from base advances\culture_median.txt ---
+REPLACE_OR_CREATE:pea_the_old_university = {
+	age = age_6_revolutions
+	icon = library_advance
+
+	potential = {
+		has_or_had_tag = PEA
+	}
+
+	global_institution_growth_modifier = 0.1
+	# LO academy rule: all 5 -> upper 5 / lower 2
+	global_nobles_max_literacy = 5
+	global_clergy_max_literacy = 5
+	global_burghers_max_literacy = 5
+	global_laborers_max_literacy = 2
+	global_soldiers_max_literacy = 2
+	global_peasants_max_literacy = 2
+
+	requires = enlightenment_advance
+}
+
+# --- from base advances\culture_piedmontese.txt ---
+REPLACE_OR_CREATE:pie_enlightened_court = {
+	age = age_5_absolutism
+	icon = scholasticism
+
+	potential = {
+		has_or_had_tag = PIE
+	}
+
+	# LO academy rule: all 10 -> upper 10 / lower 3
+	global_nobles_max_literacy = 10
+	global_clergy_max_literacy = 10
+	global_burghers_max_literacy = 10
+	global_laborers_max_literacy = 3
+	global_soldiers_max_literacy = 3
+	global_peasants_max_literacy = 3
+	research_speed_modifier = 0.10
+
+	requires = scientific_revolution_advance
+}
+
+# --- from base advances\culture_tuscan.txt ---
+REPLACE_OR_CREATE:pis_academic_prestige = {
+	age = age_6_revolutions
+	icon = scholasticism
+
+	potential = {
+		has_or_had_tag = PIS
+	}
+
+	work_of_art_sell_value_modifier = 0.20
+	# LO academy rule: all 10 -> upper 10 / lower 3
+	global_nobles_max_literacy = 10
+	global_clergy_max_literacy = 10
+	global_burghers_max_literacy = 10
+	global_laborers_max_literacy = 3
+	global_soldiers_max_literacy = 3
+	global_peasants_max_literacy = 3
+
+	requires = artists_advance_revolutions
+}
+
+# --- from base advances\culture_tuscan.txt ---
+REPLACE_OR_CREATE:pis_medical_tradition = {
+	age = age_5_absolutism
+	icon = alchemy_advance
+
+	potential = {
+		has_or_had_tag = PIS
+	}
+
+	global_disease_resistance = 0.15
+	# LO academy rule: all 10 -> upper 10 / lower 3
+	global_nobles_max_literacy = 10
+	global_clergy_max_literacy = 10
+	global_burghers_max_literacy = 10
+	global_laborers_max_literacy = 3
+	global_soldiers_max_literacy = 3
+	global_peasants_max_literacy = 3
+
+	requires = sanitation_advance
+}
+
+# --- from base advances\culture_tuscan.txt ---
+REPLACE_OR_CREATE:pis_the_university_of_pisa = {
+	age = age_2_renaissance
+	icon = scholasticism
+
+	potential = {
+		has_or_had_tag = PIS
+	}
+
+	global_institution_growth_modifier = 0.1
+	# LO academy rule: all 5 -> upper 5 / lower 2
+	global_nobles_max_literacy = 5
+	global_clergy_max_literacy = 5
+	global_burghers_max_literacy = 5
+	global_laborers_max_literacy = 2
+	global_soldiers_max_literacy = 2
+	global_peasants_max_literacy = 2
+
+	requires = renaissance_thought
+}
+
+# --- from base advances\country_BUL.txt ---
+REPLACE_OR_CREATE:revival_of_the_literary_schools = {
+	age = age_2_renaissance
+	icon = protestant_sunday_schools
+
+	potential = { 
+		has_or_had_tag = BUL 
+	}
+
+	cultural_tradition_modifier = 0.2
+	# LO academy rule: all 5 -> upper 5 / lower 2
+	global_nobles_max_literacy = 5
+	global_clergy_max_literacy = 5
+	global_burghers_max_literacy = 5
+	global_laborers_max_literacy = 2
+	global_soldiers_max_literacy = 2
+	global_peasants_max_literacy = 2
+
+	requires = renaissance_advance
+}
+
+# --- from base advances\culture_group_rhaetian.txt ---
+REPLACE_OR_CREATE:rhaetian_the_national_revival = {
+	age = age_6_revolutions
+	icon = national_assemblies_advance
+
+	potential = {
+		culture = { has_culture_group = culture_group:rhaetian_group }
+	}
+
+	cultural_influence_modifier = 0.15
+	# LO academy rule: all 10 -> upper 10 / lower 3
+	global_nobles_max_literacy = 10
+	global_clergy_max_literacy = 10
+	global_burghers_max_literacy = 10
+	global_laborers_max_literacy = 3
+	global_soldiers_max_literacy = 3
+	global_peasants_max_literacy = 3
+
+	requires = enlightenment_advance
+}
+
+# --- from base advances\culture_sardinian.txt ---
+REPLACE_OR_CREATE:sar_enlightened_reforms = {
+	age = age_6_revolutions
+	icon = smooth_administration
+
+	potential = {
+		has_or_had_tag = SAR
+	}
+
+	# LO academy rule: all 10 -> upper 10 / lower 3
+	global_nobles_max_literacy = 10
+	global_clergy_max_literacy = 10
+	global_burghers_max_literacy = 10
+	global_laborers_max_literacy = 3
+	global_soldiers_max_literacy = 3
+	global_peasants_max_literacy = 3
+	tax_income_efficiency = medium_tax_income_efficiency_bonus
+
+	requires = modern_bureaucracy
+}
+
+# --- from base advances\culture_sardinian.txt ---
+REPLACE_OR_CREATE:sar_university_of_cagliari = {
+	age = age_3_discovery
+	icon = scholasticism
+
+	potential = {
+		has_or_had_tag = SAR
+	}
+
+	global_institution_growth_modifier = 0.1
+	# LO academy rule: all 5 -> upper 5 / lower 2
+	global_nobles_max_literacy = 5
+	global_clergy_max_literacy = 5
+	global_burghers_max_literacy = 5
+	global_laborers_max_literacy = 2
+	global_soldiers_max_literacy = 2
+	global_peasants_max_literacy = 2
+
+	requires = crown_power_advance_discovery
+}
+
+# --- from base advances\country_ser.txt ---
+REPLACE_OR_CREATE:ser_the_transcribers_of_resava  = {
+	age = age_3_discovery 
+	icon = legalism_advance
+
+	potential = {
+		has_or_had_tag = SER
+	}
+	
+	cultural_influence_modifier = 0.1
+	# LO academy rule: all 5 -> upper 5 / lower 2
+	global_nobles_max_literacy = 5
+	global_clergy_max_literacy = 5
+	global_burghers_max_literacy = 5
+	global_laborers_max_literacy = 2
+	global_soldiers_max_literacy = 2
+	global_peasants_max_literacy = 2
+	
+	requires = print_culture
+}
+
+# --- from base advances\culture_sicilian.txt ---
+REPLACE_OR_CREATE:sic_sicilian_enlightenment = {
+	age = age_5_absolutism
+	icon = scientific_revolution_advance
+
+	potential = {
+		OR = {
+			culture = culture:sicilian
+			culture = { merged_culture_group_contains_culture = culture:sicilian }
+		}
+	}
+
+	cultural_influence_modifier = 0.15
+	# LO academy rule: all 10 -> upper 10 / lower 3
+	global_nobles_max_literacy = 10
+	global_clergy_max_literacy = 10
+	global_burghers_max_literacy = 10
+	global_laborers_max_literacy = 3
+	global_soldiers_max_literacy = 3
+	global_peasants_max_literacy = 3
+
+	requires = scientific_revolution_advance
+}
+
+# --- from base advances\culture_tuscan.txt ---
+REPLACE_OR_CREATE:sie_artists = {
+	age = age_1_traditions
+	icon = renaissance_advance
+
+	potential = {
+		has_or_had_tag = SIE
+	}
+
+	# LO academy rule: all 5 -> upper 5 / lower 2
+	global_nobles_max_literacy = 5
+	global_clergy_max_literacy = 5
+	global_burghers_max_literacy = 5
+	global_laborers_max_literacy = 2
+	global_soldiers_max_literacy = 2
+	global_peasants_max_literacy = 2
+	monthly_prestige = 0.05
+
+	requires = feudalism_advance
+}
+
+# --- from base advances\country_mor.txt ---
+REPLACE_OR_CREATE:tet_andalusi_quarter = {
+	age = age_3_discovery
+	icon = patron_of_art
+
+	potential = {
+		has_or_had_tag = TET
+	}
+
+	# LO academy rule: all 5 -> upper 5 / lower 2
+	global_nobles_max_literacy = 5
+	global_clergy_max_literacy = 5
+	global_burghers_max_literacy = 5
+	global_laborers_max_literacy = 2
+	global_soldiers_max_literacy = 2
+	global_peasants_max_literacy = 2
+	tolerance_own = 1
+
+	requires = formalized_relations
+}
+
+# --- from base advances\country_tun.txt ---
+REPLACE_OR_CREATE:tunisian_maliki_heartland = {
+	age = age_1_traditions
+	icon = scholasticism
+
+	potential = {
+		culture = culture:tunisian
+	}
+
+	global_clergy_max_literacy = 5
+	# LO academy rule: all 5 -> upper 5 / lower 2
+	global_nobles_max_literacy = 5
+	global_clergy_max_literacy = 5
+	global_burghers_max_literacy = 5
+	global_laborers_max_literacy = 2
+	global_soldiers_max_literacy = 2
+	global_peasants_max_literacy = 2
+
+	requires = written_alphabet
+}
+
+# --- from base advances\culture_romagnol.txt ---
+REPLACE_OR_CREATE:urb_the_enlightened_university = {
+	age = age_6_revolutions
+	icon = scholasticism
+
+	potential = {
+		has_or_had_tag = URB
+	}
+
+	research_speed_modifier = 0.10
+	# LO academy rule: all 10 -> upper 10 / lower 3
+	global_nobles_max_literacy = 10
+	global_clergy_max_literacy = 10
+	global_burghers_max_literacy = 10
+	global_laborers_max_literacy = 3
+	global_soldiers_max_literacy = 3
+	global_peasants_max_literacy = 3
+
+	requires = modern_bureaucracy
+}
+
+# --- from base advances\culture_romagnol.txt ---
+REPLACE_OR_CREATE:urb_the_mathematical_school = {
+	age = age_4_reformation
+	icon = abacus_advance
+
+	potential = {
+		has_or_had_tag = URB
+	}
+
+	# LO academy rule: all 5 -> upper 5 / lower 2
+	global_nobles_max_literacy = 5
+	global_clergy_max_literacy = 5
+	global_burghers_max_literacy = 5
+	global_laborers_max_literacy = 2
+	global_soldiers_max_literacy = 2
+	global_peasants_max_literacy = 2
+	research_speed_modifier = 0.05
+
+	requires = artists_advance_reformations
+}
