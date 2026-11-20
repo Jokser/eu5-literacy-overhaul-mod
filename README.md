@@ -47,7 +47,7 @@ Upper classes 5, **lower classes 0**. Base and RSF (`RSF_christian.txt`, `TRY_RE
 This mod applies `TRY_INJECT` deltas (global −5, nobles/clergy/burghers +5), so RSF's own Orthodox edits are kept.
 
 ### University (ours, moved here from the RSF kit)
-- Built in cities and megalopolises only (`town = no`).
+- Built in towns, cities and megalopolises (base `town = yes` kept: Oxford, Cambridge, Salamanca, Coimbra were towns). Development and literacy prevent spam.
 - `allow` adds: `development >= 30`, a **clergy pop with literacy > 85**, and a **burgher pop with literacy > 25**.
   These thresholds were re-tuned for the lower literacy: Catholic cities qualify from age 2, Orthodox only from
   age 5, Sunni from age 3.
@@ -64,7 +64,7 @@ override is deleted.
 **Loophole: parliament issue `sponsor_a_university`** (burghers). When passed, it builds a university at 50% cost in the
 most populous core town or city. The script generates `05_burghers_estate_parliament_issues.txt` (base file, only this
 issue edited). Both its `allow` and the location it picks now require the scripted trigger `lo_university_site`:
-city/megalopolis, dev ≥ 30, clergy > 85, burghers > 25, no university yet. So the burghers can only sponsor a
+town/city/megalopolis, dev ≥ 30, clergy > 85, burghers > 25, no university yet. So the burghers can only sponsor a
 university where we could build one ourselves.
 
 The thresholds live in ONE place: `$UNI_DEV`, `$UNI_CLERGY` and `$UNI_BURGHERS` at the top of

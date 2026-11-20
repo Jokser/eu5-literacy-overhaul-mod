@@ -70,7 +70,9 @@ $targets = @(
      e=@( ,@('(?m)^\t\tlocal_max_literacy = 5[ \t]*\r?$', ("${T2}# LO: 5 -> upper 5 / lower 2 (Flavorium)`n" + (Strat $T2 'local' 5 2))) ) },
   @{ f='building_types\culture_buildings.txt'; k='university'; out='building_types'
      e=@(
-       @('(?m)^\ttown = yes[ \t]*\r?$', "${T1}town = no`t# LO: elite urban institution - city/megalopolis only"),
+       # town = yes kept (base): many historical universities sat in small towns (Oxford, Cambridge, Salamanca,
+       # Coimbra, Tuebingen, Wittenberg); dev >= 30 + clergy/burgher literacy prevent spam. (town = no removed
+       # 2026-11-20: it made 11 setup universities invalid.)
        @('(?m)^(\t\tis_core_of = owner)[ \t]*\r?$', "`$1`n${T2}# LO: developed city with literate clergy (cathedral schools) and burghers (educated laity)`n${T2}development >= $UNI_DEV`n${T2}any_pop = { pop_type = pop_type:clergy   pop_literacy > $UNI_CLERGY }`n${T2}any_pop = { pop_type = pop_type:burghers pop_literacy > $UNI_BURGHERS }"),
        @('(?m)^\t\tlocal_cultural_influence = 0\.5[ \t]*\r?$', "${T2}local_cultural_influence = 0.75`t# LO: 0.5 -> 0.75"),
        @('(?m)^\t\tlocal_burghers_max_literacy = 10[ \t]*\r?\n\t\tlocal_nobles_max_literacy = 10[ \t]*\r?$', "${T2}local_burghers_max_literacy = 15`t# LO: 10 -> 15`n${T2}local_nobles_max_literacy = 15`t# LO: 10 -> 15`n${T2}local_clergy_max_literacy = 10`t# LO: new"),
@@ -178,7 +180,8 @@ $st = @"
 # A location where WE could build a university ourselves (same site rules as the university building allow).
 # Used by the parliament issue sponsor_a_university (allow + on_debate_passed).
 lo_university_site = {
-	OR = {
+	OR = {	# towns allowed again (Oxford, Cambridge, Salamanca, Coimbra...); dev + literacy stop the spam
+		location_rank = location_rank:town
 		location_rank = location_rank:city
 		location_rank = location_rank:megalopolis
 	}
