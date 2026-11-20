@@ -86,3 +86,30 @@ In RSF, `russian_group` covers ALL East Slavs: Great Russians, Ruthenians, Belar
 
 With the patriarchate tenet "christological debates" (leader +5, members +3), a city without a university reaches
 the university clergy threshold (> 85) in **age 3 for the Greeks** and **age 4 for Moscow**.
+
+### Lower-class pass (v0.3, 2026-11-20)
+Flat "all classes" bonuses that are really elite phenomena were split. Before, Catholic peasants jumped from about 4 to
+34–44 in age 5.
+
+| Source | Before | Now |
+|---|---|---|
+| `scientific_revolution_advance` (age 5) | all 10 | upper 10 / lower 2 |
+| `humanism` (age 5, adm) | all 10 | upper 10 / lower 0 |
+| law `free_press` (age 5) | all 10 | upper 10 / laborers + soldiers 5 / peasants 3 |
+| societal value innovative (right) | all 10 | upper 10 / lower 3 |
+| `enlightened_court` (age 6) | all 5 | upper 5 / lower 2 |
+| reform `visionary_thinkers` (age 6) | all 5 | upper 5 / lower 2 |
+| law `monastic_reformation_movement` → `possessors` (Rus' event law) | peasants / soldiers / laborers +10 | **clergy +10** |
+| `theocratic_education` (masses law) | lower 5 | lower 2 (like basic; Flavorium missed it) |
+| `vedic_education` (masses law) | all 5 | upper 5 / lower 2 |
+| `local_newspaper` | all 10 | upper 10 / laborers + soldiers 5 / peasants 2 |
+| religions mahayana, bon | all 5 | upper 5 / lower 2 |
+| religious schools vaisheshika (Hindu), mula_sangh (Jain) | all 5 | upper 5 / lower 2 |
+| reform `ottoman_imperial_harem` | slaves 5 | slaves 1 |
+
+Kept on purpose:
+- `secular_education` (age 6, all 10): Enlightenment mass schooling.
+- The Protestant aspects (sola scriptura, translated bibles, pietism), lollardy, waldensians, anglicans and judaism:
+  lay reading of scripture.
+- National "school" advances: terakoya, komisja edukacji, dutch / scottish / Slovak education, school of first letters,
+  ruthenia commoner education.

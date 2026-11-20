@@ -91,8 +91,42 @@ $targets = @(
   @{ f='government_reforms\common.txt'; k='the_education_act'; out='government_reforms'
      e=@( ,@('(?m)^\t\tglobal_max_literacy = 5[ \t]*\r?$', ("${T2}# LO: 5 -> upper 5 / lower 2 (Flavorium)`n" + (Strat $T2 'global' 5 2))) ) },
   @{ f='laws\01_common.txt'; k='education_masses_law'; out='laws'
-     e=@( ,@('(?m)^\t\t\tglobal_laborers_max_literacy = 5[ \t]*\r?\n\t\t\tglobal_soldiers_max_literacy = 5[ \t]*\r?\n\t\t\tglobal_peasants_max_literacy = 5[ \t]*\r?$',
-             "${T3}# LO: basic_religious_education lower classes 5 -> 2 (Flavorium)`n${T3}global_laborers_max_literacy = 2`n${T3}global_soldiers_max_literacy = 2`n${T3}global_peasants_max_literacy = 2") ) },
+     e=@( @('(?m)^\t\t\tglobal_laborers_max_literacy = 5[ \t]*\r?\n\t\t\tglobal_soldiers_max_literacy = 5[ \t]*\r?\n\t\t\tglobal_peasants_max_literacy = 5[ \t]*\r?$',
+             "${T3}# LO: basic_religious_education lower classes 5 -> 2 (Flavorium)`n${T3}global_laborers_max_literacy = 2`n${T3}global_soldiers_max_literacy = 2`n${T3}global_peasants_max_literacy = 2"),
+       # LO (lower-class pass): theocratic_education lower 5 -> 2, like basic_religious_education (Flavorium missed it)
+       @('(?s)(theocratic_education = \{.*?)global_peasants_max_literacy = 5([ \t]*\r?\n[ \t]*)global_soldiers_max_literacy = 5([ \t]*\r?\n[ \t]*)global_laborers_max_literacy = 5',
+         '${1}global_peasants_max_literacy = 2${2}global_soldiers_max_literacy = 2${3}global_laborers_max_literacy = 2	# LO: theocratic lower 5 -> 2'),
+       # LO: vedic_education all 5 -> upper 5 / lower 2 (Brahmin learning)
+       @('(?m)^\t\t\tglobal_max_literacy = 5[ \t]*\r?$', ("${T3}# LO: vedic all 5 -> upper 5 / lower 2`n" + (Strat $T3 'global' 5 2)))
+     ) },
+  # ---------- lower-class pass (ours, 2026-11-20): flat "all classes" bonuses that are really elite phenomena ----------
+  @{ f='advances\0_age_of_absolutism.txt'; k='scientific_revolution_advance'; out='advances'
+     e=@( ,@('(?m)^\tglobal_max_literacy = 10[ \t]*\r?$', ("${T1}# LO: all 10 -> upper 10 / lower 2 (science is an elite phenomenon)`n" + (Strat $T1 'global' 10 2))) ) },
+  @{ f='advances\4_choices_adm.txt'; k='humanism'; out='advances'
+     e=@( ,@('(?m)^\tglobal_max_literacy = 10[ \t]*\r?$', ("${T1}# LO: all 10 -> upper 10 only (humanism = culture of the educated)`n" + (Strat $T1 'global' 10 $null))) ) },
+  @{ f='advances\0_age_of_revolutions.txt'; k='enlightened_court'; out='advances'
+     e=@( ,@('(?m)^\tglobal_max_literacy = 5[ \t]*\r?$', ("${T1}# LO: all 5 -> upper 5 / lower 2`n" + (Strat $T1 'global' 5 2))) ) },
+  @{ f='laws\01_common.txt'; k='press_law'; out='laws'
+     e=@( ,@('(?m)^\t\t\tglobal_max_literacy = 10[ \t]*\r?$', ("${T3}# LO: free_press all 10 -> upper 10 / laborers+soldiers 5 / peasants 3 (newspapers were read in towns)`n" + (Strat $T3 'global' 10 $null) + "`n${T3}global_laborers_max_literacy = 5`n${T3}global_soldiers_max_literacy = 5`n${T3}global_peasants_max_literacy = 3")) ) },
+  @{ f='societal_values\00_default.txt'; k='traditionalist_vs_innovative'; out='societal_values'
+     e=@( ,@('(?m)^\t\tglobal_max_literacy = 10[ \t]*\r?$', ("${T2}# LO: innovative all 10 -> upper 10 / lower 3`n" + (Strat $T2 'global' 10 3))) ) },
+  @{ f='government_reforms\common.txt'; k='visionary_thinkers'; out='government_reforms'
+     e=@( ,@('(?m)^\t\tglobal_max_literacy = 5[ \t]*\r?$', ("${T2}# LO: all 5 -> upper 5 / lower 2`n" + (Strat $T2 'global' 5 2))) ) },
+  @{ f='government_reforms\country_specific.txt'; k='ottoman_imperial_harem'; out='government_reforms'
+     e=@( ,@('(?m)^\t\tglobal_slaves_max_literacy = 5[ \t]*\r?$', "${T2}global_slaves_max_literacy = 1`t# LO: 5 -> 1 (harem/palace school touched a few slaves, not all)") ) },
+  @{ f='laws\10_reforms_from_events.txt'; k='monastic_reformation_movement'; out='laws'
+     e=@( ,@('(?m)^\t\t\tglobal_peasants_max_literacy = 10[ \t]*\r?\n\t\t\tglobal_soldiers_max_literacy = 10[ \t]*\r?\n\t\t\tglobal_laborers_max_literacy = 10[ \t]*\r?$',
+             "${T3}global_clergy_max_literacy = 10`t# LO: possessors (Josephites): monastic book culture -> clergy +10 (was peasants/soldiers/laborers +10)") ) },
+  @{ f='building_types\estate_buildings.txt'; k='local_newspaper'; out='building_types'
+     e=@( ,@('(?m)^\t\tlocal_max_literacy = 10[ \t]*\r?$', ("${T2}# LO: all 10 -> upper 10 / laborers+soldiers 5 / peasants 2`n" + (Strat $T2 'local' 10 $null) + "`n${T2}local_laborers_max_literacy = 5`n${T2}local_soldiers_max_literacy = 5`n${T2}local_peasants_max_literacy = 2")) ) },
+  @{ f='religions\buddhist.txt'; k='mahayana'; out='religions'
+     e=@( ,@('(?m)^\t\tglobal_max_literacy = 5[ \t]*\r?$', ("${T2}# LO: 5 -> upper 5 / lower 2 (as tibetan buddhism)`n" + (Strat $T2 'global' 5 2))) ) },
+  @{ f='religions\buddhist.txt'; k='bon'; out='religions'
+     e=@( ,@('(?m)^\t\tglobal_max_literacy = 5[ \t]*\r?$', ("${T2}# LO: 5 -> upper 5 / lower 2`n" + (Strat $T2 'global' 5 2))) ) },
+  @{ f='religious_schools\hinduism.txt'; k='vaisheshika_school'; out='religious_schools'
+     e=@( ,@('(?m)^\t\tglobal_max_literacy = 5[ \t]*\r?$', ("${T2}# LO: 5 -> upper 5 / lower 2 (Brahmin learning)`n" + (Strat $T2 'global' 5 2))) ) },
+  @{ f='religious_schools\jain.txt'; k='mula_sangh_school'; out='religious_schools'
+     e=@( ,@('(?m)^\t\tglobal_max_literacy = 5[ \t]*\r?$', ("${T2}# LO: 5 -> upper 5 / lower 2`n" + (Strat $T2 'global' 5 2))) ) },
   # ---------- religions (Flavorium) ----------
   @{ f='religions\buddhist.txt'; k='sanjiao'; out='religions'
      e=@( ,@('(?m)^\t\tglobal_max_literacy = 10[ \t]*\r?$', ("${T2}# LO: 10 -> upper 8 / lower 3 (Flavorium)`n" + (Strat $T2 'global' 8 3))) ) },
