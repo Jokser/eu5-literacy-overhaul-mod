@@ -207,3 +207,14 @@ Definitions get clergy literacy; in all of them the learned layer was priestly o
 | Bosnian Church | clergy +5 |
 
 Unchanged: Yazidism (oral tradition), Bogomils, Manichaeism and Samaritanism (already clergy +10).
+
+### Government reforms (v0.12, 2026-11-21)
+| Reform | Before | Now |
+|---|---|---|
+| `noblesse_oblige_reform` (age 1) | nobles 10 | nobles 5 |
+| `of_noble_bearing` (age 2, monarchy) | nobles 10 | nobles 5. Together with the one above, +20 → +10 |
+| `diwan_i_bandagan`, `tughlaq_slave_army_reform` (Delhi) | slaves 5 | slaves 1 (an elite few, as the Ottoman harem) |
+| `school_of_first_letters_reform` (Iberian, age 4) | all 10 | upper 5 / lower 5 (monthly growth kept). Spanish primary schools spread in the 18th c. |
+
+Already done earlier: `the_education_act`, `visionary_thinkers`, `ottoman_imperial_harem`. The other literacy reforms
+(citizenship_through_service, enlightened_aristocracy, nautical_education_act, peasant_labor_rights) are unchanged.

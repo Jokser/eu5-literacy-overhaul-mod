@@ -112,6 +112,17 @@ $targets = @(
      e=@( ,@('(?m)^\t\tglobal_max_literacy = 10[ \t]*\r?$', ("${T2}# LO: innovative all 10 -> upper 10 / lower 3`n" + (Strat $T2 'global' 10 3))) ) },
   @{ f='government_reforms\common.txt'; k='visionary_thinkers'; out='government_reforms'
      e=@( ,@('(?m)^\t\tglobal_max_literacy = 5[ \t]*\r?$', ("${T2}# LO: all 5 -> upper 5 / lower 2`n" + (Strat $T2 'global' 5 2))) ) },
+  # ---------- government reforms pass (2026-11-21, user OK) ----------
+  @{ f='government_reforms\common.txt'; k='noblesse_oblige_reform'; out='government_reforms'
+     e=@( ,@('(?m)^\t\tglobal_nobles_max_literacy = 10[ \t]*\r?$', "${T2}global_nobles_max_literacy = 5`t# LO: 10 -> 5 (stacked with of_noble_bearing to +20)") ) },
+  @{ f='government_reforms\monarchy.txt'; k='of_noble_bearing'; out='government_reforms'
+     e=@( ,@('(?m)^\t\tglobal_nobles_max_literacy = 10[ \t]*\r?$', "${T2}global_nobles_max_literacy = 5`t# LO: 10 -> 5") ) },
+  @{ f='government_reforms\country_specific.txt'; k='diwan_i_bandagan'; out='government_reforms'
+     e=@( ,@('(?m)^\t\tglobal_slaves_max_literacy = 5[ \t]*\r?$', "${T2}global_slaves_max_literacy = 1`t# LO: 5 -> 1 (the bandagan were an elite few, not all slaves)") ) },
+  @{ f='government_reforms\country_specific.txt'; k='tughlaq_slave_army_reform'; out='government_reforms'
+     e=@( ,@('(?m)^\t\tglobal_slaves_max_literacy = 5[ \t]*\r?$', "${T2}global_slaves_max_literacy = 1`t# LO: 5 -> 1 (slave-soldier elite, not all slaves)") ) },
+  @{ f='government_reforms\country_specific.txt'; k='school_of_first_letters_reform'; out='government_reforms'
+     e=@( ,@('(?m)^\t\tglobal_max_literacy = 10[ \t]*\r?$', ("${T2}# LO: all 10 -> upper 5 / lower 5 (Spanish primary schools spread only in the 18th c., Charles III 1771)`n" + (Strat $T2 'global' 5 5))) ) },
   @{ f='government_reforms\country_specific.txt'; k='ottoman_imperial_harem'; out='government_reforms'
      e=@( ,@('(?m)^\t\tglobal_slaves_max_literacy = 5[ \t]*\r?$', "${T2}global_slaves_max_literacy = 1`t# LO: 5 -> 1 (harem/palace school touched a few slaves, not all)") ) },
   @{ f='laws\10_reforms_from_events.txt'; k='monastic_reformation_movement'; out='laws'
