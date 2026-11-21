@@ -489,3 +489,9 @@ v0.35 replaced the Orthodox / Miaphysite redefinition with `TRY_INJECT` deltas t
 wipes) an inject from a later-sorting file of a later mod, just as it beat `REPLACE_OR_CREATE`. v0.35 is reverted: LO
 generates orthodox / miaphysite from vanilla again and the separate **Literacy overhaul - RSF compatibility** patch
 (same-path override of RSF's file) is generated again. Only a same-path file override beats another mod's `TRY_REPLACE`.
+
+### RSF with TRY_INJECT confirmed (2026-11-21)
+If RSF defines `orthodox` / `miaphysite` with `TRY_INJECT` instead of `TRY_REPLACE` (the author's choice; tested with a
+locally patched RSF), LO needs no compatibility patch: LO's literacy applies and RSF's own changes (opinions, goods
+demand) survive on top of LO's redefinition. The regen script detects this and skips the patch. With the official RSF
+(`TRY_REPLACE`) the **Literacy overhaul - RSF compatibility** patch is still required.
