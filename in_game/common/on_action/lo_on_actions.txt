@@ -1,0 +1,33 @@
+﻿# Literacy overhaul - keeps the learned-elite research bonus (lo_learned_elite) up to date.
+# Appends to base on_actions via an on_actions sub-block only (never a second effect/events block).
+yearly_country_pulse = {
+	on_actions = { lo_yearly_learned_elite }
+}
+
+on_game_start = {
+	on_actions = { lo_game_start_learned_elite }
+}
+
+lo_yearly_learned_elite = {	# root = country
+	effect = {
+		add_country_modifier = {
+			modifier = lo_learned_elite
+			years = -1
+			mode = replace
+			size = lo_learned_elite_size
+		}
+	}
+}
+
+lo_game_start_learned_elite = {	# no scope
+	effect = {
+		every_country = {
+			add_country_modifier = {
+				modifier = lo_learned_elite
+				years = -1
+				mode = replace
+				size = lo_learned_elite_size
+			}
+		}
+	}
+}

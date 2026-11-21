@@ -176,7 +176,21 @@ $targets = @(
        @('(?s)(theocratic_education = \{.*?)global_peasants_max_literacy = 5([ \t]*\r?\n[ \t]*)global_soldiers_max_literacy = 5([ \t]*\r?\n[ \t]*)global_laborers_max_literacy = 5',
          '${1}global_peasants_max_literacy = 2${2}global_soldiers_max_literacy = 2${3}global_laborers_max_literacy = 2	# LO: theocratic lower 5 -> 2'),
        # LO: vedic_education = Brahmanical pathshala system: clergy 15 / nobles + burghers 5 / lower 2 (better than basic for clergy)
-       @('(?m)^\t\t\tglobal_max_literacy = 5[ \t]*\r?$', "${T3}# LO: vedic all 5 -> clergy 15 / nobles + burghers 5 / lower 2 (Brahmin pathshalas)`n${T3}global_clergy_max_literacy = 15`n${T3}global_nobles_max_literacy = 5`n${T3}global_burghers_max_literacy = 5`n${T3}global_laborers_max_literacy = 2`n${T3}global_soldiers_max_literacy = 2`n${T3}global_peasants_max_literacy = 2")
+       @('(?m)^\t\t\tglobal_max_literacy = 5[ \t]*\r?$', "${T3}# LO: vedic all 5 -> clergy 15 / nobles + burghers 5 / lower 2 (Brahmin pathshalas)`n${T3}global_clergy_max_literacy = 15`n${T3}global_nobles_max_literacy = 5`n${T3}global_burghers_max_literacy = 5`n${T3}global_laborers_max_literacy = 2`n${T3}global_soldiers_max_literacy = 2`n${T3}global_peasants_max_literacy = 2"),
+       # LO (2026-11-21, research pass): apprenticeships = the burghers' answer to religious schooling -> B15 + laborers 3
+       @('(?s)(apprenticeships_education = \{.*?)global_burghers_max_literacy = 10([ \t]*\r?\n)',
+         "`${1}global_burghers_max_literacy = 15`t# LO: 10 -> 15, + laborers 3 (guild apprentices)`${2}${T3}global_laborers_max_literacy = 3`${2}")
+     ) },
+  # LO (2026-11-21, research pass): with the learned-elite research bonus every elite variant is worth something;
+  # education_of_the_people stops being the best ELITE-education law by teaching the peasants most.
+  @{ f='laws\01_common.txt'; k='education_elites_law'; out='laws'
+     e=@(
+       @('(?s)(education_of_the_people = \{.*?)global_peasants_max_literacy = 5([ \t]*\r?\n[ \t]*)global_soldiers_max_literacy = 5([ \t]*\r?\n[ \t]*)global_laborers_max_literacy = 5',
+         '${1}global_peasants_max_literacy = 3${2}global_soldiers_max_literacy = 3${3}global_laborers_max_literacy = 3	# LO: lower 5 -> 3'),
+       @('(?s)(education_of_the_court = \{.*?)global_nobles_max_literacy = 5',
+         '${1}global_nobles_max_literacy = 10	# LO: 5 -> 10 (= clerical_institutions for the clergy)'),
+       @('(?s)(confucian_academies_education = \{.*?)global_nobles_max_literacy = 5([ \t]*\r?\n)',
+         "`${1}global_nobles_max_literacy = 10`t# LO: 5 -> 10, + burghers 5 (exam candidates from merchant families)`${2}${T3}global_burghers_max_literacy = 5`${2}")
      ) },
   # ---------- lower-class pass (ours, 2026-11-20): flat "all classes" bonuses that are really elite phenomena ----------
   @{ f='advances\0_age_of_absolutism.txt'; k='scientific_revolution_advance'; out='advances'

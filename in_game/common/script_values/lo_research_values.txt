@@ -1,0 +1,65 @@
+﻿# Literacy overhaul - "Learned elite" research bonus (2026-11-21).
+# Vanilla research from literacy = average_literacy static (research_speed_modifier 1 x the country's average
+# literacy). That average is ~95% lower classes, so with stratified caps it fell 3-4x, and an estate's education
+# barely mattered (Portugal: +10 noble literacy = +0.05% research). We keep the vanilla term (x1) and add:
+#   learned elite = 0.4 x (0.4 x nobles + 0.35 x clergy + 0.25 x burghers literacy)
+# where each estate's literacy is its own pop-weighted average, and the three are weighted by FIXED weights (not
+# by headcount), so a peasant country with a learned elite is not beaten by a burgher city-state just for its
+# headcount. An estate with no pops drops out and its weight is shared by the others. The result is the SIZE of
+# the static modifier lo_learned_elite (research_speed_modifier = 0.01 per point) -> e.g. elite 44 -> +17.7%.
+# Root = country. Recomputed yearly (yearly_country_pulse) and at game start (on_action/lo_on_actions.txt).
+
+lo_pop_nobles = {
+	value = 0
+	every_pop = { limit = { pop_type = pop_type:nobles } add = pop_size }
+}
+lo_pop_clergy = {
+	value = 0
+	every_pop = { limit = { pop_type = pop_type:clergy } add = pop_size }
+}
+lo_pop_burghers = {
+	value = 0
+	every_pop = { limit = { pop_type = pop_type:burghers } add = pop_size }
+}
+lo_lit_nobles = {	# sum of literacy x size
+	value = 0
+	every_pop = { limit = { pop_type = pop_type:nobles } add = { value = pop_literacy multiply = pop_size } }
+}
+lo_lit_clergy = {
+	value = 0
+	every_pop = { limit = { pop_type = pop_type:clergy } add = { value = pop_literacy multiply = pop_size } }
+}
+lo_lit_burghers = {
+	value = 0
+	every_pop = { limit = { pop_type = pop_type:burghers } add = { value = pop_literacy multiply = pop_size } }
+}
+
+# sum of the weights of the estates that exist in the country
+lo_learned_elite_weight = {
+	value = 0
+	if = { limit = { lo_pop_nobles > 0 } add = 0.4 }
+	if = { limit = { lo_pop_clergy > 0 } add = 0.35 }
+	if = { limit = { lo_pop_burghers > 0 } add = 0.25 }
+}
+
+# modifier size = 0.4 x weighted elite literacy (0-100) -> research_speed_modifier 0.01 per point
+lo_learned_elite_size = {
+	value = 0
+	if = {
+		limit = { lo_pop_nobles > 0 }
+		add = { value = lo_lit_nobles divide = lo_pop_nobles multiply = 0.4 }
+	}
+	if = {
+		limit = { lo_pop_clergy > 0 }
+		add = { value = lo_lit_clergy divide = lo_pop_clergy multiply = 0.35 }
+	}
+	if = {
+		limit = { lo_pop_burghers > 0 }
+		add = { value = lo_lit_burghers divide = lo_pop_burghers multiply = 0.25 }
+	}
+	if = {
+		limit = { lo_learned_elite_weight > 0 }
+		divide = lo_learned_elite_weight
+	}
+	multiply = 0.4	# k
+}

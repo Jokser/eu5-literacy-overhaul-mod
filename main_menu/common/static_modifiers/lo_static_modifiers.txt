@@ -1,0 +1,8 @@
+﻿# Literacy overhaul - learned-elite research bonus. Applied with size = lo_learned_elite_size
+# (in_game/common/script_values/lo_research_values.txt), so 0.01 per point = +1% research speed per point.
+lo_learned_elite = {
+	game_data = {
+		category = country
+	}
+	research_speed_modifier = 0.01
+}

@@ -287,3 +287,25 @@ city clergy capped at 75 in age 3 and could never pass the university gate (cler
 
 Kept: institution-birth location bonuses (printing press 5, scientific revolution 10, one location only),
 blue_stockings_society (lower 5, late), and the tiny magnet_for_scholars / pol_excellent_noble_education / por_estudo_geral.
+
+### Learned-elite research bonus + education laws (v0.19, 2026-11-21)
+Vanilla research from literacy is `average_literacy` (research_speed_modifier 1 x country average literacy). The
+average is ~95% lower classes, so stratified caps cut it 3-4x (Portugal 1511: 6.1%) and an estate's education barely
+mattered (+10 noble literacy = +0.05% research), while burgher city-states (Hamburg 13.7%) led everyone.
+
+New: **Learned Elite** static modifier (`lo_learned_elite`, research_speed_modifier 0.01 x size), size =
+`lo_learned_elite_size` = 0.4 x (0.4 nobles + 0.35 clergy + 0.25 burghers literacy). Each estate's literacy is its own
+pop-weighted average and the three are weighted by fixed weights, NOT by headcount. An estate without pops drops
+out and its weight is shared. The vanilla average-literacy term (x1) is kept. Recomputed yearly
+(`yearly_country_pulse`) and at game start. Files: `script_values/lo_research_values.txt`,
+`static_modifiers/lo_static_modifiers.txt`, `on_action/lo_on_actions.txt`.
+
+Expected 1511 (caps, pops at cap): Hamburg 13.7 + 20.3 = 34%, Florence 28, Brabant 26, Castile 25, Portugal 24,
+Yuan 24, Morocco 23, England 19, Muscovy 19, Great Horde 14 (vanilla age 3 is about 20-25%).
+
+| Law / policy | Before | Now |
+|---|---|---|
+| `education_elites_law` → `education_of_the_people` | B5, lower 5 | B5, lower 3 |
+| `education_elites_law` → `education_of_the_court` | N5 | N10 |
+| `education_elites_law` → `confucian_academies_education` | N5 | N10, B5 |
+| `education_masses_law` → `apprenticeships_education` | N10 C10 B10 | N10 C10 B15, laborers 3 |
