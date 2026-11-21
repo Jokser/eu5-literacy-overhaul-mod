@@ -237,13 +237,13 @@ REPLACE_OR_CREATE:humanism = {
 REPLACE_OR_CREATE:enlightened_court = {
 	age = age_6_revolutions
 	icon = court_accounting
-	# LO: all 5 -> upper 5 / lower 3 (v0.24: 2 -> 3)
+	# LO: all 5 -> nobles + clergy 5 / burghers 10 / lower 5 (v0.24 lower 3; v0.28 burghers 10, lower 5: Enlightenment school reforms, Prussia 1763, Austria 1774)
 	global_nobles_max_literacy = 5
 	global_clergy_max_literacy = 5
-	global_burghers_max_literacy = 5
-	global_laborers_max_literacy = 3
-	global_soldiers_max_literacy = 3
-	global_peasants_max_literacy = 3
+	global_burghers_max_literacy = 10
+	global_laborers_max_literacy = 5
+	global_soldiers_max_literacy = 5
+	global_peasants_max_literacy = 5
 	cultural_influence_modifier = 0.25
 
 	requires = modern_bureaucracy
@@ -254,10 +254,22 @@ REPLACE_OR_CREATE:newspapers_advance = {
 	age = age_5_absolutism
 	requires = scientific_revolution_advance
 	unlock_law = press_law
-	# LO v0.24: lower classes +4 (cheap press, almanacs)
+	# LO v0.24: lower classes +4 (cheap press, almanacs); v0.28: nobles + burghers 5 (journals, salons)
+	global_nobles_max_literacy = 5
+	global_burghers_max_literacy = 5
 	global_laborers_max_literacy = 4
 	global_soldiers_max_literacy = 4
 	global_peasants_max_literacy = 4
+}
+
+# --- from base advances\0_age_of_renaissance.txt ---
+REPLACE_OR_CREATE:global_nobles_max_literacy_advance = {
+	age = age_2_renaissance
+	requires = renaissance_subject_opinions_advance
+
+	global_nobles_max_literacy = 10
+
+	ai_weight = { add = 50 }	# LO v0.28: the AI skipped it (France, Castile, Sweden, Milan in 1800)
 }
 
 # --- from base advances\region_africa.txt ---

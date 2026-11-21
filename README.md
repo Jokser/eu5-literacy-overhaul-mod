@@ -384,3 +384,18 @@ France in the observer run: nobles 44 -> 57, clergy 70 -> 84 (much of it at the 
 
 Expected France burghers ~39 (1605) / ~51 (1740). Clergy is left as is: late Catholics reach the 100 ceiling, so more
 clergy bonuses do little there.
+
+### Elites around 1800 (v0.28, 2026-11-21)
+France 1800 country caps, decomposed from the save to the decimal: nobles 68.44 (advances 40 + basic religious
+education 10 + education of the court 10 + enlightened aristocracy 5 + innovative 3.44), burghers 48.44 (advances 40 +
+law 5 + innovative), clergy 78.44, lower 17.03, plus global 2. Historically (rough) nobles ~85-90%, the urban bourgeoisie
+~65-75%. France, Castile, Sweden and Milan never took `global_nobles_max_literacy_advance` although they had its
+prerequisite.
+| What | Before | Now |
+|---|---|---|
+| `global_nobles_max_literacy_advance` (age 2, nobles 10) | no AI weight | `ai_weight = { add = 50 }` |
+| `newspapers_advance` (age 5) | lower 4 | nobles 5, burghers 5, lower 4 (journals, salons, coffee houses) |
+| `enlightened_court` (age 6) | upper 5 / lower 3 | nobles + clergy 5, burghers 10, lower 5 (Enlightenment school reforms) |
+
+Expected France 1800: nobles ~85, burghers ~60 + town buildings, lower ~21 (mass schooling stays with the age-6 laws
+and the Protestant aspects).

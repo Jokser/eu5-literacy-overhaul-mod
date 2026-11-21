@@ -221,11 +221,15 @@ $targets = @(
   @{ f='advances\4_choices_adm.txt'; k='humanism'; out='advances'
      e=@( ,@('(?m)^\tglobal_max_literacy = 10[ \t]*\r?$', ("${T1}# LO: all 10 -> upper 10 only (humanism = culture of the educated)`n" + (Strat $T1 'global' 10 $null))) ) },
   @{ f='advances\0_age_of_revolutions.txt'; k='enlightened_court'; out='advances'
-     e=@( ,@('(?m)^\tglobal_max_literacy = 5[ \t]*\r?$', ("${T1}# LO: all 5 -> upper 5 / lower 3 (v0.24: 2 -> 3)`n" + (Strat $T1 'global' 5 3))) ) },
+     e=@( ,@('(?m)^\tglobal_max_literacy = 5[ \t]*\r?$', ("${T1}# LO: all 5 -> nobles + clergy 5 / burghers 10 / lower 5 (v0.24 lower 3; v0.28 burghers 10, lower 5: Enlightenment school reforms, Prussia 1763, Austria 1774)`n" + ((Strat $T1 'global' 5 5) -replace 'global_burghers_max_literacy = 5', 'global_burghers_max_literacy = 10'))) ) },
   # v0.24: newspapers (age 5, after the scientific revolution) had no literacy in vanilla. The cheap press,
-  # almanacs and coffee-house reading of c. 1690-1750 -> lower classes +4 (the elites already have the press).
+  # almanacs and coffee-house reading of c. 1690-1750 -> lower classes +4; v0.28: + nobles 5 / burghers 5
+  # (journals, salons, coffee houses and subscriptions were above all a bourgeois and noble milieu).
   @{ f='advances\0_age_of_absolutism.txt'; k='newspapers_advance'; out='advances'
-     e=@( ,@('(?m)^(\tunlock_law = press_law[ \t]*)(\r?)$', ('$1$2' + "`n${T1}# LO v0.24: lower classes +4 (cheap press, almanacs)`n${T1}global_laborers_max_literacy = 4`n${T1}global_soldiers_max_literacy = 4`n${T1}global_peasants_max_literacy = 4")) ) },
+     e=@( ,@('(?m)^(\tunlock_law = press_law[ \t]*)(\r?)$', ('$1$2' + "`n${T1}# LO v0.24: lower classes +4 (cheap press, almanacs); v0.28: nobles + burghers 5 (journals, salons)`n${T1}global_nobles_max_literacy = 5`n${T1}global_burghers_max_literacy = 5`n${T1}global_laborers_max_literacy = 4`n${T1}global_soldiers_max_literacy = 4`n${T1}global_peasants_max_literacy = 4")) ) },
+  # v0.28: the AI skipped this (+10 nobles) in France, Castile, Sweden and Milan by 1800 although it had the prerequisite
+  @{ f='advances\0_age_of_renaissance.txt'; k='global_nobles_max_literacy_advance'; out='advances'
+     e=@( ,@('(?m)^(\tglobal_nobles_max_literacy = 10[ \t]*)(\r?)$', ('$1$2' + "`n`n${T1}ai_weight = { add = 50 }`t# LO v0.28: the AI skipped it (France, Castile, Sweden, Milan in 1800)")) ) },
   @{ f='laws\01_common.txt'; k='press_law'; out='laws'
      e=@(
        @('(?m)^\t\t\tglobal_max_literacy = 10[ \t]*\r?$', ("${T3}# LO: free_press all 10 -> upper 10 / laborers+soldiers 5 / peasants 3 (newspapers were read in towns)`n" + (Strat $T3 'global' 10 $null) + "`n${T3}global_laborers_max_literacy = 5`n${T3}global_soldiers_max_literacy = 5`n${T3}global_peasants_max_literacy = 3")),
