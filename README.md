@@ -413,3 +413,8 @@ part moves into `definition_modifier`; the aspects stay as extras.
 | `anglican` | clergy 15, nobles + burghers 5, lower 2 | clergy 25, nobles + burghers 10, lower 5 (Oxbridge clergy, grammar schools, Prayer Book, SPCK charity schools) |
 
 Lutherans are now the strongest mass-literacy church, as Sweden and northern Germany were historically.
+
+### Education of the court (v0.30, 2026-11-21)
+| What | Before | Now |
+|---|---|---|
+| `education_elites_law` → `education_of_the_court` | nobles 10 (vanilla 5) | nobles 15 |

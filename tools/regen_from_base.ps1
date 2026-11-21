@@ -211,7 +211,7 @@ $targets = @(
        @('(?s)(education_of_the_people = \{.*?)global_peasants_max_literacy = 5([ \t]*\r?\n[ \t]*)global_soldiers_max_literacy = 5([ \t]*\r?\n[ \t]*)global_laborers_max_literacy = 5',
          '${1}global_peasants_max_literacy = 3${2}global_soldiers_max_literacy = 3${3}global_laborers_max_literacy = 3	# LO: lower 5 -> 3'),
        @('(?s)(education_of_the_court = \{.*?)global_nobles_max_literacy = 5',
-         '${1}global_nobles_max_literacy = 10	# LO: 5 -> 10 (= clerical_institutions for the clergy)'),
+         '${1}global_nobles_max_literacy = 15	# LO: 5 -> 15 (v0.19: 10; v0.30: 15, the court education of a whole estate: tutors, academies, colleges)'),
        @('(?s)(confucian_academies_education = \{.*?)global_nobles_max_literacy = 5([ \t]*\r?\n)',
          "`${1}global_nobles_max_literacy = 10`t# LO: 5 -> 10, + burghers 5 (exam candidates from merchant families)`${2}${T3}global_burghers_max_literacy = 5`${2}")
      ) },

@@ -350,7 +350,7 @@ REPLACE_OR_CREATE:education_elites_law = {
 	education_of_the_court = {
 		country_modifier = {
 			replace_cabinet_member_cost_modifier = -0.15
-			global_nobles_max_literacy = 10	# LO: 5 -> 10 (= clerical_institutions for the clergy)
+			global_nobles_max_literacy = 15	# LO: 5 -> 15 (v0.19: 10; v0.30: 15, the court education of a whole estate: tutors, academies, colleges)
 			country_cabinet_efficiency = 0.05
 
 			monthly_towards_aristocracy = societal_value_minor_monthly_move
