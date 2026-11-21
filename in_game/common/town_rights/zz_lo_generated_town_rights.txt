@@ -19,3 +19,31 @@ REPLACE_OR_CREATE:enlightened_leadership_reform_town_right = {
 
 	color = map_dithmarschen
 }
+
+# --- from base town_rights\14_britain.txt ---
+REPLACE_OR_CREATE:borough_customals = {
+	kept_at_conquest = no
+
+	location_modifier = {
+		local_pop_promotion_speed_modifier = 0.2
+		# LO v0.32: all 5 -> burghers 5 / laborers 2 (burgess records, town grammar schools)
+		local_burghers_max_literacy = 5
+		local_laborers_max_literacy = 2
+
+		local_rgo_build_time = 1.0
+	}
+
+	potential = {
+		culture = {
+			has_culture_group = culture_group:british_group
+		}
+	}
+
+	allow = {
+		scope:target = {
+			NOT = { has_town_rights = town_rights_type:manorial_customals }
+		}
+	}
+
+	color = map_SCO
+}

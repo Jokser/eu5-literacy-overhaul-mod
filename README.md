@@ -433,3 +433,27 @@ No age gets faster or slower by more than a few points (elite literacy grows rou
 - `lo_learned_elite` size: 0.4 -> 0.6 x the weighted elite index.
 - Institution spread compensation (`$INST_F`): ages 1-2 x3, ages 3-4 and 5-6 x3 -> x2.5 (printing press, newspapers and
   the Protestant religions raised the lower caps; observer saves 1760-1800 vs vanilla 1707 give ~x2.3-2.5).
+
+### Observer run to 1500: AI choices, burghers, Orthodoxy, Islam, growth (v0.32, 2026-11-21)
+A new observer run (cuts 1375 / 1400 / 1450 / 1500, parsed with `tools/save_literacy.awk` and
+`tools/save_institutions.awk`) showed:
+- the AI skips the age-2 burgher literacy advance for 100+ years (1375: 1 of 17 big countries; France, Austria and Milan
+  still without it in 1500) and often the clergy one;
+- burghers far below history (1500: Florence 44, France 21);
+- Muscovite nobles above every Western nobility (start cap 37 vs 32): the Orthodox profile gave the nobles +5;
+- the ulema had no religion base (Ottoman clergy 42 vs Catholic 56-86 in 1500);
+- growth in ages 1-2 is only written_alphabet's 0.01/month, so a +10 cap takes 60-80 years to fill.
+
+| What | Before | Now |
+|---|---|---|
+| `global_burghers_max_literacy_advance`, `global_clergy_max_literacy_advance` | no AI weight | `ai_weight = { add = 50 }` |
+| `banking_advance` (needs banking → Italy first) | — | burghers 10 (abacus schools, double-entry bookkeeping) |
+| `renaissance_advance` | — | nobles 5, burghers 5 (humanist schools) |
+| `printing_press_advance` | — | `global_monthly_literacy` 0.01 (doubles the growth) |
+| `orthodox` (+ the RSF compatibility patch) | upper 5 | clergy 10, burghers 5, nobles 0 (monastic book culture) |
+| `sunni`, `shia`, `ibadi` | — | clergy 10 (madrasa ulema); the school bonuses stay on top |
+| `sanjiao` | upper 8, lower 3 | nobles 13 (scholar-gentry), clergy / burghers 8, lower 3 |
+| `borough_customals` (British town right) | local all 5 | local burghers 5, laborers 2 |
+
+Kept: early institution spread x3 (slower spread left e.g. Muscovy with nothing to research before 1450); Learned
+Elite k 0.6 (the late game has leftover early advances to research).

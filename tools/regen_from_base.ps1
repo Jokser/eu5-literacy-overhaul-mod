@@ -38,7 +38,7 @@ $targets = @(
   @{ f='advances\0_age_of_traditions.txt'; k='written_alphabet'; out='advances'
      e=@( ,@('(?m)^\tglobal_max_literacy = 5[ \t]*\r?$', "${T1}global_max_literacy = 2`t# LO: 5 -> 2 (Flavorium)") ) },
   @{ f='advances\0_age_of_discovery.txt'; k='printing_press_advance'; out='advances'
-     e=@( ,@('(?m)^\tglobal_max_literacy = 10[ \t]*\r?$', ("${T1}# LO: global 10 -> nobles + clergy 5 / burghers 10 / lower 4 (Flavorium upper 5; v0.24 lower 4: primers and chapbooks; v0.27 burghers 10: printing was a burgher trade and market)`n" + ((Strat $T1 'global' 5 4) -replace 'global_burghers_max_literacy = 5', 'global_burghers_max_literacy = 10'))) ) },
+     e=@( ,@('(?m)^\tglobal_max_literacy = 10[ \t]*\r?$', ("${T1}# LO: global 10 -> nobles + clergy 5 / burghers 10 / lower 4 (Flavorium upper 5; v0.24 lower 4: primers and chapbooks; v0.27 burghers 10: printing was a burgher trade and market)`n" + ((Strat $T1 'global' 5 4) -replace 'global_burghers_max_literacy = 5', 'global_burghers_max_literacy = 10') + "`n${T1}global_monthly_literacy = 0.01`t# LO v0.32: cheap books double the growth (ages 1-2 only had written_alphabet 0.01)")) ) },
   @{ f='advances\4_choices_adm.txt'; k='innovativeness'; out='advances'
      e=@( ,@('(?m)^\tglobal_max_literacy = 5[ \t]*\r?$', ("${T1}# LO: global 5 -> upper classes 5 (Flavorium)`n" + (Strat $T1 'global' 5 $null))) ) },
   @{ f='advances\country_nov.txt'; k='birch_bark_manuscript'; out='advances'
@@ -121,6 +121,9 @@ $targets = @(
   @{ f='town_rights\10_country_specific.txt'; k='enlightened_leadership_reform_town_right'; out='town_rights'
      e=@( ,@('(?m)^\t\tlocal_peasants_max_literacy = 10[ \t]*\r?\n\t\tlocal_laborers_max_literacy = 10[ \t]*\r?\n\t\tlocal_soldiers_max_literacy = 10[ \t]*\r?$',
              "${T2}# LO: lower 10 -> laborers / soldiers 5, peasants 3 (town schooling reaches the townsfolk first)`n${T2}local_peasants_max_literacy = 3`n${T2}local_laborers_max_literacy = 5`n${T2}local_soldiers_max_literacy = 5") ) },
+  # v0.32: borough customs = burgh self-government, burgess records, town grammar schools - not a school for the countryside
+  @{ f='town_rights\14_britain.txt'; k='borough_customals'; out='town_rights'
+     e=@( ,@('(?m)^\t\tlocal_max_literacy = 5[ \t]*\r?$', "${T2}# LO v0.32: all 5 -> burghers 5 / laborers 2 (burgess records, town grammar schools)`n${T2}local_burghers_max_literacy = 5`n${T2}local_laborers_max_literacy = 2") ) },
   # ---------- literacy growth speed (ours, 2026-11-21) ----------
   # invite_foreign_cleric: 20 religious influence, AI re-invites every 5 years -> a decaying 0.33 averaged ~8x the
   # whole background growth (written_alphabet + educated_bureaucrats = 0.02) and pinned every class at its cap.
@@ -235,6 +238,19 @@ $targets = @(
   # v0.28: the AI skipped this (+10 nobles) in France, Castile, Sweden and Milan by 1800 although it had the prerequisite
   @{ f='advances\0_age_of_renaissance.txt'; k='global_nobles_max_literacy_advance'; out='advances'
      e=@( ,@('(?m)^(\tglobal_nobles_max_literacy = 10[ \t]*)(\r?)$', ('$1$2' + "`n`n${T1}ai_weight = { add = 50 }`t# LO v0.28: the AI skipped it (France, Castile, Sweden, Milan in 1800)")) ) },
+  # v0.32: same for burghers (1375: 1 of 17 big countries had it; FRA / HAB / MLO still without it in 1500 and, in the
+  # old run, HAB / MLO until 1605) and clergy (ENG, HAB, MLO, FLO, LUB, YUA without it in 1375)
+  @{ f='advances\0_age_of_renaissance.txt'; k='global_burghers_max_literacy_advance'; out='advances'
+     e=@( ,@('(?m)^(\tglobal_burghers_max_literacy = 10[ \t]*)(\r?)$', ('$1$2' + "`n`n${T1}ai_weight = { add = 50 }`t# LO v0.32: the AI skipped it for 100+ years")) ) },
+  @{ f='advances\0_age_of_renaissance.txt'; k='global_clergy_max_literacy_advance'; out='advances'
+     e=@( ,@('(?m)^(\tglobal_clergy_max_literacy = 10[ \t]*)(\r?)$', ('$1$2' + "`n`n${T1}ai_weight = { add = 50 }`t# LO v0.32: the AI often skipped it")) ) },
+  # v0.32: banking (needs the banking institution -> Italy first): abacus schools and double-entry bookkeeping made
+  # merchants and artisans literate (Villani 1338: 8-10k Florentine children learning to read)
+  @{ f='advances\0_age_of_renaissance.txt'; k='banking_advance'; out='advances'
+     e=@( ,@('(?m)^(\tcan_sell_bonds = yes[ \t]*)(\r?)$', ('$1$2' + "`n${T1}global_burghers_max_literacy = 10`t# LO v0.32: abacus schools, double-entry bookkeeping")) ) },
+  # v0.32: humanist schools (Vittorino da Feltre, Guarino) educated nobles and patricians
+  @{ f='advances\0_age_of_renaissance.txt'; k='renaissance_advance'; out='advances'
+     e=@( ,@('(?m)^(\tcultural_influence_modifier = 0\.05[ \t]*)(\r?)$', ('$1$2' + "`n${T1}global_nobles_max_literacy = 5`t# LO v0.32: humanist schools`n${T1}global_burghers_max_literacy = 5")) ) },
   @{ f='laws\01_common.txt'; k='press_law'; out='laws'
      e=@(
        @('(?m)^\t\t\tglobal_max_literacy = 10[ \t]*\r?$', ("${T3}# LO: free_press all 10 -> upper 10 / laborers+soldiers 5 / peasants 3 (newspapers were read in towns)`n" + (Strat $T3 'global' 10 $null) + "`n${T3}global_laborers_max_literacy = 5`n${T3}global_soldiers_max_literacy = 5`n${T3}global_peasants_max_literacy = 3")),
@@ -308,16 +324,19 @@ $targets = @(
      e=@( ,@('(?m)^\t\tglobal_max_literacy = 10[ \t]*\r?$', "${T2}# LO: all 10 -> burghers 10 / nobles + clergy 5 / lower 2 (urban lay movement)`n${T2}global_nobles_max_literacy = 5`n${T2}global_clergy_max_literacy = 5`n${T2}global_burghers_max_literacy = 10`n${T2}global_laborers_max_literacy = 2`n${T2}global_soldiers_max_literacy = 2`n${T2}global_peasants_max_literacy = 2") ) },
   # ---------- religions (Flavorium) ----------
   @{ f='religions\buddhist.txt'; k='sanjiao'; out='religions'
-     e=@( ,@('(?m)^\t\tglobal_max_literacy = 10[ \t]*\r?$', ("${T2}# LO: 10 -> upper 8 / lower 3 (Flavorium)`n" + (Strat $T2 'global' 8 3))) ) },
+     e=@( ,@('(?m)^\t\tglobal_max_literacy = 10[ \t]*\r?$', ("${T2}# LO: 10 -> upper 8 / lower 3 (Flavorium); v0.32 nobles 13 (scholar-gentry, examination system)`n" + ((Strat $T2 'global' 8 3) -replace 'global_nobles_max_literacy = 8', 'global_nobles_max_literacy = 13'))) ) },
   @{ f='religions\buddhist.txt'; k='shinto'; out='religions'
      e=@( ,@('(?m)^\t\tglobal_max_literacy = 10[ \t]*\r?$', ("${T2}# LO: 10 -> upper 8 / lower 3 (Flavorium)`n" + (Strat $T2 'global' 8 3))) ) },
   @{ f='religions\buddhist.txt'; k='tibetan_buddhism'; out='religions'
      e=@( ,@('(?m)^\t\tglobal_max_literacy = 5[ \t]*\r?$', ("${T2}# LO: 5 -> upper 5 / lower 2 (Flavorium)`n" + (Strat $T2 'global' 5 2))) ) }
 )
 # ---------- Orthodox + Miaphysite (standalone: from vanilla christian.txt) ----------
-# Orthodox: all 5 -> upper classes 5, lower 0. Miaphysite: + clergy 5 (vardapets / monastic book culture).
+# Orthodox: all 5 -> clergy 10 / burghers 5 / nobles 0 / lower 0 (v0.32; was upper 5). Monastic book culture
+# (Trinity-Sergius, Kirillo-Belozersky); Muscovite boyars were not more literate than Western nobles (Russians: + lo_stoglav
+# clergy 10 in age 4 = 20, still below Catholic 25). Miaphysite: + clergy 5 (vardapets / monastic book culture).
+$orthoLines = "${T2}# LO v0.32: all 5 -> clergy 10 / burghers 5 / nobles 0 / lower 0 (monastic book culture)`n${T2}global_clergy_max_literacy = 10`n${T2}global_burghers_max_literacy = 5"
 $targets += @{ f='religions\christian.txt'; k='orthodox'; out='religions'
-               e=@( ,@('(?m)^\t\tglobal_max_literacy = 5[ \t]*\r?$', ("${T2}# LO: all 5 -> upper classes 5, lower classes 0`n" + (Strat $T2 'global' 5 $null)))) }
+               e=@( ,@('(?m)^\t\tglobal_max_literacy = 5[ \t]*\r?$', $orthoLines)) }
 $targets += @{ f='religions\christian.txt'; k='miaphysite'; out='religions'
                e=@( ,@('(?m)^(\tdefinition_modifier = \{)[ \t]*\r?$', "`$1`n${T2}global_clergy_max_literacy = 5`t# LO: vardapets / monastic book culture")) }
 
@@ -328,7 +347,7 @@ $targets += @{ f='religions\christian.txt'; k='miaphysite'; out='religions'
 $compat = Join-Path (Split-Path -Parent $mod) 'Literacy overhaul - RSF compatibility'
 $rsfRel = @(
   @{ k='TRY_REPLACE:orthodox'
-     e=@( ,@('(?m)^\t\tglobal_max_literacy = 5[ \t]*\r?$', ("${T2}# LO: all 5 -> upper classes 5, lower classes 0`n" + (Strat $T2 'global' 5 $null)))) },
+     e=@( ,@('(?m)^\t\tglobal_max_literacy = 5[ \t]*\r?$', $orthoLines)) },
   @{ k='TRY_REPLACE:miaphysite'
      e=@( ,@('(?m)^(\tdefinition_modifier = \{)[ \t]*\r?$', "`$1`n${T2}global_clergy_max_literacy = 5`t# LO: vardapets / monastic book culture")) }
 )
@@ -369,7 +388,12 @@ $defAdds = @(
   # Mesoamerica (2026-11-21, user OK): the only true writing system of the Americas + pictographic codices
   @('tonal.txt','mayan',        @{clergy=10; nobles=5}),   # ah k'in priests, ah tz'ib scribes, glyphic codices; nobles read glyphs
   @('tonal.txt','nahuatl',      @{clergy=5}),              # temple tlacuilo scribes, tlamatinime (nobles: via calmecac)
-  @('tonal.txt','mesoamerican', @{clergy=5; nobles=5})     # Mixtec / Zapotec genealogical codices kept for the nobility
+  @('tonal.txt','mesoamerican', @{clergy=5; nobles=5}),    # Mixtec / Zapotec genealogical codices kept for the nobility
+  # Islam (v0.32, user OK): the ulema were madrasa-trained (Ottoman Sahn-i Seman 1470, al-Azhar, Qarawiyyin) -> base
+  # clergy +10 in the religion; the madhhab / school bonuses stay on top (+10 or +5)
+  @('muslim.txt','sunni', @{clergy=10}),
+  @('muslim.txt','shia',  @{clergy=10}),
+  @('muslim.txt','ibadi', @{clergy=10})
 )
 # Miaphysites (2026-11-21, user OK): clergy +5 - in the orthodox/miaphysite targets above (+ RSF compat patch)
 # regnal_chronicles (all of Africa): court chronicles were kept by a few court clerics -> clergy 10 -> 5
@@ -478,7 +502,7 @@ if (-not (Test-Path $rcSrc)) {
     if ($rcOk) {
         $hdr = "# Literacy overhaul - RSF compatibility: same-path override of RSF's file, GENERATED by Literacy overhaul\tools\regen_from_base.ps1`n# from RSF's current copy. Only the Orthodox / Miaphysite literacy lines (# LO) differ from RSF. Load after RSF and Literacy overhaul.`n"
         [IO.File]::WriteAllText($rcDst, $hdr + $rc, (New-Object System.Text.UTF8Encoding($rcBom)))
-        Write-Host "  ok  RSF compatibility patch: RSF_christian.txt (orthodox upper 5 / lower 0, miaphysite clergy 5) -> $compat"
+        Write-Host "  ok  RSF compatibility patch: RSF_christian.txt (orthodox clergy 10 / burghers 5, miaphysite clergy 5) -> $compat"
     } else {
         if (Test-Path $rcDst) { Remove-Item $rcDst -Force }
         Write-Warning "RSF_christian.txt override NOT written (anchor missing) - RSF values used"; $warn++
