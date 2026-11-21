@@ -192,6 +192,5 @@ country. They are left unchanged.
 
 ### Discriminated cultures (v0.10, 2026-11-21)
 `loading_screen/common/defines/zz_lo_defines.txt`: `NPop.DISCRIMINATED_CULTURE_MAX_LITERACY` −15 → **−5**. With our
-stratified caps, −15 would wipe out a discriminated culture's peasant literacy for most of the game. Note that
-`IGNORED_CULTURE_MAX_LITERACY` (culture with no policy set) is also −5 in base, so discriminating a culture no longer
-costs extra literacy compared with ignoring it.
+stratified caps, −15 would wipe out a discriminated culture's peasant literacy for most of the game.
+`IGNORED_CULTURE_MAX_LITERACY` (culture with no policy set) −5 → **−2**, so discriminating stays worse than ignoring.

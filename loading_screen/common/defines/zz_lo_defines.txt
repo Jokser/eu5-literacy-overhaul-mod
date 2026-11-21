@@ -3,4 +3,6 @@ NPop = {
 	# Max-literacy penalty for a discriminated culture. Base -15 is huge next to our stratified caps
 	# (Catholic peasants sit at ~4 for most of the game), so it is cut to -5.
 	DISCRIMINATED_CULTURE_MAX_LITERACY = -5
+	# Culture with no policy set: base -5 -> -2 (keeps discrimination worse than simply ignoring a culture)
+	IGNORED_CULTURE_MAX_LITERACY = -2
 }
