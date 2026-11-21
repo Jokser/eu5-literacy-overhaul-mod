@@ -68,6 +68,12 @@ $targets = @(
              "${T2}# LO: all 5 -> nobles 3 / clergy 3 / burghers 2, monthly 0.1 -> 0.03 (Flavorium)`n${T2}local_nobles_max_literacy = 3`n${T2}local_clergy_max_literacy = 3`n${T2}local_burghers_max_literacy = 2`n${T2}local_monthly_literacy = 0.03") ) },
   @{ f='building_types\culture_buildings.txt'; k='confucian_school'; out='building_types'
      e=@( ,@('(?m)^\t\tlocal_max_literacy = 5[ \t]*\r?$', ("${T2}# LO: 5 -> upper 5 / lower 2 (Flavorium)`n" + (Strat $T2 'local' 5 2))) ) },
+  # ---------- research balance (ours, 2026-11-21) ----------
+  # average_control_50 = research 0.5 x (average control - 50%): a one-location state (Hamburg) always has 100% control
+  # -> a flat +25%. Our Learned Elite bonus now rewards an educated elite instead, so the control term is halved
+  # (+12.5% at 100% control; a big empire at 30% control: -10% -> -5%).
+  @{ base='main_menu\common'; f='static_modifiers\country.txt'; k='average_control_50'; out='static_modifiers'
+     e=@( ,@('(?m)^\tresearch_speed_modifier = 0\.5[ \t]*\r?$', "${T1}research_speed_modifier = 0.25`t# LO: 0.5 -> 0.25 (city-states got a flat +25%)") ) },
   # ---------- holy sites (ours, 2026-11-21) ----------
   # holy_site_types location_modifier is SCALED BY the site's importance (1-5, holy_site_types/readme.txt), so
   # clergy 10 = +50 in Constantinople / Jerusalem / Mecca / Baghdad. Base per point of importance: clergy 2

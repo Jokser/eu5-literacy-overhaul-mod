@@ -2,6 +2,16 @@
 # 'zz_' sorts after vanilla and RSF files so these definitions win.
 
 # --- from base static_modifiers\country.txt ---
+REPLACE_OR_CREATE:average_control_50 = {
+	game_data = {
+		category = country
+	}
+
+	research_speed_modifier = 0.25	# LO: 0.5 -> 0.25 (city-states got a flat +25%)
+	crown_power_from_population = 0.5
+}
+
+# --- from base static_modifiers\country.txt ---
 REPLACE_OR_CREATE:plc_zaluski_library_modifier = {
 	game_data = {
 		category = country

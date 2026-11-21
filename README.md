@@ -309,3 +309,9 @@ Yuan 24, Morocco 23, England 19, Muscovy 19, Great Horde 14 (vanilla age 3 is ab
 | `education_elites_law` → `education_of_the_court` | N5 | N10 |
 | `education_elites_law` → `confucian_academies_education` | N5 | N10, B5 |
 | `education_masses_law` → `apprenticeships_education` | N10 C10 B10 | N10 C10 B15, laborers 3 |
+
+### Average control research halved (v0.20, 2026-11-21)
+`average_control_50` (static) gives research 0.5 x (average control - 50%), so a one-location state such as Hamburg
+always got a flat +25%. The Learned Elite bonus now rewards an educated elite, so this is halved: research 0.5 → 0.25
+(+12.5% at 100% control; an empire at 30% control: -10% → -5%). `crown_power_from_population` is unchanged.
+Clergy-satisfaction research (0.5 x (satisfaction - 50%), Catholics high via the tax exemption) is kept.
