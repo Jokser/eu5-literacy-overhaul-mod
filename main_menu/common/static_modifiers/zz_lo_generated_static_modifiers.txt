@@ -2,6 +2,68 @@
 # 'zz_' sorts after vanilla and RSF files so these definitions win.
 
 # --- from base static_modifiers\country.txt ---
+REPLACE_OR_CREATE:plc_zaluski_library_modifier = {
+	game_data = {
+		category = country
+	}
+	
+	# LO: all 10 -> upper 10 / lower 3 (Zaluski library, a scholars' library)
+	global_nobles_max_literacy = 10
+	global_clergy_max_literacy = 10
+	global_burghers_max_literacy = 10
+	global_laborers_max_literacy = 3
+	global_soldiers_max_literacy = 3
+	global_peasants_max_literacy = 3
+	research_speed_modifier = 0.1
+}
+
+# --- from base static_modifiers\country.txt ---
+REPLACE_OR_CREATE:mian_mir = {
+	game_data = {
+		category = country
+	}
+	# LO: all 5 -> upper 5 / lower 2
+	global_nobles_max_literacy = 5
+	global_clergy_max_literacy = 5
+	global_burghers_max_literacy = 5
+	global_laborers_max_literacy = 2
+	global_soldiers_max_literacy = 2
+	global_peasants_max_literacy = 2
+}
+
+# --- from base static_modifiers\country.txt ---
+REPLACE_OR_CREATE:aftermath_of_the_scientific_revolution = {
+	game_data = {
+		category = country
+	}
+	global_monthly_literacy = 0.01
+	research_speed_modifier = 0.05
+	# LO: all 5 -> upper 5 / lower 2
+	global_nobles_max_literacy = 5
+	global_clergy_max_literacy = 5
+	global_burghers_max_literacy = 5
+	global_laborers_max_literacy = 2
+	global_soldiers_max_literacy = 2
+	global_peasants_max_literacy = 2
+}
+
+# --- from base static_modifiers\country.txt ---
+REPLACE_OR_CREATE:increased_literacy_from_religious_sects = {
+	game_data = {
+		category = country
+	}
+	global_monthly_literacy = 0.05
+	research_speed_modifier = 0.05
+	# LO: all 5 -> upper 5 / lower 2
+	global_nobles_max_literacy = 5
+	global_clergy_max_literacy = 5
+	global_burghers_max_literacy = 5
+	global_laborers_max_literacy = 2
+	global_soldiers_max_literacy = 2
+	global_peasants_max_literacy = 2
+}
+
+# --- from base static_modifiers\country.txt ---
 REPLACE_OR_CREATE:invited_foreign_cleric_modifier = {
 	game_data = {
 		category = country

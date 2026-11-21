@@ -83,6 +83,24 @@ $targets = @(
      e=@( ,@('(?m)^\t\tlocal_clergy_max_literacy = 10[ \t]*\r?$', "${T2}local_clergy_max_literacy = 2`t# LO: 10 -> 2 (x importance 1-5: max +10, was +50)") ) },
   @{ f='holy_site_types\00_holy_site_types.txt'; k='mountain'; out='holy_site_types'
      e=@( ,@('(?m)^\t\tlocal_max_literacy = 2[ \t]*\r?$', "${T2}local_clergy_max_literacy = 1`t# LO: all 2 -> clergy 1 (x importance: max +5, was +10 to every class)") ) },
+  # ---------- leftover country-wide "all classes" modifiers -> stratified (ours, 2026-11-21) ----------
+  @{ base='main_menu\common'; f='static_modifiers\country.txt'; k='plc_zaluski_library_modifier'; out='static_modifiers'
+     e=@( ,@('(?m)^\tglobal_max_literacy = 10[ \t]*\r?$', ("${T1}# LO: all 10 -> upper 10 / lower 3 (Zaluski library, a scholars' library)`n" + (Strat $T1 'global' 10 3))) ) },
+  @{ base='main_menu\common'; f='static_modifiers\country.txt'; k='mian_mir'; out='static_modifiers'
+     e=@( ,@('(?m)^\tglobal_max_literacy = 5[ \t]*\r?$', ("${T1}# LO: all 5 -> upper 5 / lower 2`n" + (Strat $T1 'global' 5 2))) ) },
+  @{ base='main_menu\common'; f='static_modifiers\country.txt'; k='aftermath_of_the_scientific_revolution'; out='static_modifiers'
+     e=@( ,@('(?m)^\tglobal_max_literacy = 5[ \t]*\r?$', ("${T1}# LO: all 5 -> upper 5 / lower 2`n" + (Strat $T1 'global' 5 2))) ) },
+  @{ base='main_menu\common'; f='static_modifiers\country.txt'; k='increased_literacy_from_religious_sects'; out='static_modifiers'
+     e=@( ,@('(?m)^\tglobal_max_literacy = 5[ \t]*\r?$', ("${T1}# LO: all 5 -> upper 5 / lower 2`n" + (Strat $T1 'global' 5 2))) ) },
+  @{ f='cabinet_actions\kbo_sharia_courts.txt'; k='kbo_sharia_courts'; out='cabinet_actions'
+     e=@( ,@('(?m)^\t\tglobal_max_literacy = 5[ \t]*\r?$', ("${T2}# LO: all 5 -> upper 5 / lower 2`n" + (Strat $T2 'global' 5 2))) ) },
+  @{ f='gods\norse.txt'; k='odin_god'; out='gods'
+     e=@( ,@('(?m)^\t\tglobal_max_literacy = 5[ \t]*\r?$', ("${T2}# LO: all 5 -> upper 5 / lower 2 (runic lore)`n" + (Strat $T2 'global' 5 2))) ) },
+  @{ f='traits\06_religious_figure.txt'; k='stargazer'; out='traits'
+     e=@( ,@('(?m)^\t\tglobal_max_literacy = 5[ \t]*\r?$', ("${T2}# LO: all 5 -> upper 5 / lower 2`n" + (Strat $T2 'global' 5 2))) ) },
+  @{ f='town_rights\10_country_specific.txt'; k='enlightened_leadership_reform_town_right'; out='town_rights'
+     e=@( ,@('(?m)^\t\tlocal_peasants_max_literacy = 10[ \t]*\r?\n\t\tlocal_laborers_max_literacy = 10[ \t]*\r?\n\t\tlocal_soldiers_max_literacy = 10[ \t]*\r?$',
+             "${T2}# LO: lower 10 -> laborers / soldiers 5, peasants 3 (town schooling reaches the townsfolk first)`n${T2}local_peasants_max_literacy = 3`n${T2}local_laborers_max_literacy = 5`n${T2}local_soldiers_max_literacy = 5") ) },
   # ---------- literacy growth speed (ours, 2026-11-21) ----------
   # invite_foreign_cleric: 20 religious influence, AI re-invites every 5 years -> a decaying 0.33 averaged ~8x the
   # whole background growth (written_alphabet + educated_bureaucrats = 0.02) and pinned every class at its cap.

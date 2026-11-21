@@ -276,3 +276,14 @@ The Stoglav advance file is renamed to `zz_lo_orthodox_literacy_advances.txt`: i
 
 Hussite clergy 10 → 15 (= Lutheran / Calvinist): Hussites have no monasteries (-10) and no Catholic +25, so a Hussite
 city clergy capped at 75 in age 3 and could never pass the university gate (clergy > 85).
+
+### Leftover country-wide modifiers (v0.18, 2026-11-21)
+| Modifier | Before | Now |
+|---|---|---|
+| `plc_zaluski_library_modifier` (Poland, event) | all 10 | upper 10 / lower 3 |
+| `mian_mir`, `aftermath_of_the_scientific_revolution`, `increased_literacy_from_religious_sects` (static) | all 5 | upper 5 / lower 2 |
+| `kbo_sharia_courts` (cabinet action), `odin_god` (Norse god), `stargazer` (religious figure trait) | all 5 | upper 5 / lower 2 |
+| `enlightened_leadership_reform_town_right` (town right from the reform) | lower 10 | laborers / soldiers 5, peasants 3 |
+
+Kept: institution-birth location bonuses (printing press 5, scientific revolution 10, one location only),
+blue_stockings_society (lower 5, late), and the tiny magnet_for_scholars / pol_excellent_noble_education / por_estudo_geral.
