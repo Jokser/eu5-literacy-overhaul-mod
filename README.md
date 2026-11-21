@@ -514,3 +514,12 @@ efficiency +2.5% at 100 and RGO size +10%; soldiers: defence and manpower +10% -
 to market prices (LO peasants are slightly calmer); the Reformation movements' `literacy = positive` spread weight; the
 plausible birthplaces of the scientific revolution and the Enlightenment (university + location literacy > 30: 75
 locations qualified in a 1740 LO run, Cambridge among them).
+
+### Sola scriptura events (v0.38, 2026-11-21)
+`church_aspects.12` (sola scriptura + printing press, country average literacy > 30: religious influence / clergy /
+stability bonus) and `church_aspects.13` (< 30: penalties). With stratified literacy Protestants sit at ~15-25, so they
+always got the penalty. Threshold 30 -> **13** in both (vanilla/LO average ~x2.3), via a generated same-path override of
+`in_game/events/religion/church_aspects.txt` (only those two lines differ; removed with a warning if they change).
+No trigger in the game reads MAX literacy; the other current-literacy uses (Chinese examinations, succession-crisis
+chronicle, a mission research bonus, town-rights event penalty x literacy, "most literate" orderings) are small or
+relative and left as is.

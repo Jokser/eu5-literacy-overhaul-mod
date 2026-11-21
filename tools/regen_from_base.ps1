@@ -609,6 +609,27 @@ if ($null -ne $cut) {
     Write-Warning "orthodox_flavor.101.b (university) not found in base - override removed, base used"; $warn++
 }
 
+# ---------- v0.38: sola scriptura events (events/religion/church_aspects.txt, same-path override) ----------
+# church_aspects.12 (sola_scriptura + printing press, country average literacy > 30 -> bonus) and .13 (< 30 -> penalty):
+# with stratified literacy Protestants sit at ~15-25, so they always got the penalty. 30 -> 13 (vanilla/LO ~x2.3).
+# Both lines must be found exactly once inside their events, otherwise the override is removed (base used).
+$caRel = 'in_game\events\religion\church_aspects.txt'
+$caSrc = Join-Path $game $caRel; $caDst = Join-Path $mod $caRel
+$caRaw = [IO.File]::ReadAllBytes($caSrc)
+$caBom = $caRaw.Length -ge 3 -and $caRaw[0] -eq 0xEF -and $caRaw[1] -eq 0xBB -and $caRaw[2] -eq 0xBF
+$ca = [IO.File]::ReadAllText($caSrc).TrimStart([char]0xFEFF); $caOk = $true
+foreach ($p in @(@('church_aspects.12', '>'), @('church_aspects.13', '<'))) {
+    $rx = '(?s)(^|\n)(' + [regex]::Escape($p[0]) + ' = \{.*?\n\t\taverage_country_literacy ' + $p[1] + ' )30([ \t]*\r?\n)'
+    $mm = [regex]::Matches($ca, $rx)
+    if ($mm.Count -ne 1) { Write-Warning "$($p[0]): literacy $($p[1]) 30 not found exactly once - church_aspects override removed"; $caOk = $false; $warn++; break }
+    $ca = ([regex]$rx).Replace($ca, ('${1}${2}13	# LO v0.38: 30 -> 13 (stratified literacy)${3}'), 1)
+}
+if ($caOk) {
+    $d2 = Split-Path $caDst -Parent; if (-not (Test-Path $d2)) { New-Item -ItemType Directory -Path $d2 -Force | Out-Null }
+    [IO.File]::WriteAllText($caDst, $ca, (New-Object System.Text.UTF8Encoding($caBom)))
+    Write-Host "  ok  church_aspects.12/.13 (sola scriptura) literacy 30 -> 13 -> $caRel"
+} elseif (Test-Path $caDst) { Remove-Item $caDst -Force }
+
 # ---------- scripted trigger lo_university_site (location scope) ----------
 $stDst = Join-Path $mod 'in_game\common\scripted_triggers\lo_university_triggers.txt'
 $st = @"
