@@ -226,3 +226,20 @@ Already done earlier: `the_education_act`, `visionary_thinkers`, `ottoman_imperi
 | `divine_cause_law` → `pursuit_of_knowledge_policy` (theocracy) | all 5 | upper 5 / lower 2 |
 
 The other literacy laws and all 8 literacy privileges were reviewed and kept, see the review in the commit history.
+
+### Buildings pass (v0.14, 2026-11-21)
+| Building | Before | Now |
+|---|---|---|
+| `fortress_church` (Orthodox, built instead of a monastery) | clergy 10 | clergy 5 (= `orthodox_monastery`) |
+| `local_schools` (peasants estate) | peasants 1, needs average country literacy > 20 | laborers / soldiers / peasants 3, needs > 10 (with stratified caps 20 was out of reach for most countries) |
+| `bardic_school` (Celtic reform) | peasants 5 | nobles 5 / burghers 3 (the fili served noble patrons) |
+| `gymnasium_building` (capital) | country-wide all 5 | country-wide upper classes 5 (local nobles 10 kept) |
+| `jesuit_college` | nobles 10 | nobles 5 / burghers 5 |
+| `confucian_academy` | burghers 10 | nobles 5 / burghers 5 (scholar-gentry = nobles) |
+| `merchant_guild_chapel` | all 2 | burghers 3 |
+| `globe_theatre`, `teatro_san_cassiano` (event) | country-wide lower classes 10 | country-wide lower classes 2 (local growth kept) |
+| `papal_archives` (event) | country-wide all 5 | country-wide upper classes 5 |
+| `greek_latin_academy` (Moscow) | country-wide nobles + lower classes 5 | country-wide clergy / nobles / burghers 5, lower 0 |
+
+Kept: temple / cathedral / monastery / sufi lodge (clergy 10), madrasa (5), chanceries, modern council hall, and the
+one-location wonders (Vatican libraries, Corviniana, al-Azhar, Bavarian buildings, calmecac, Moscow orphanage...).

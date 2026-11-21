@@ -68,6 +68,47 @@ $targets = @(
              "${T2}# LO: all 5 -> nobles 3 / clergy 3 / burghers 2, monthly 0.1 -> 0.03 (Flavorium)`n${T2}local_nobles_max_literacy = 3`n${T2}local_clergy_max_literacy = 3`n${T2}local_burghers_max_literacy = 2`n${T2}local_monthly_literacy = 0.03") ) },
   @{ f='building_types\culture_buildings.txt'; k='confucian_school'; out='building_types'
      e=@( ,@('(?m)^\t\tlocal_max_literacy = 5[ \t]*\r?$', ("${T2}# LO: 5 -> upper 5 / lower 2 (Flavorium)`n" + (Strat $T2 'local' 5 2))) ) },
+  # ---------- buildings review (ours, 2026-11-21) ----------
+  # fortress church is built INSTEAD of a monastery (location_potential) -> same clergy value as orthodox_monastery
+  @{ f='building_types\religion_buildings.txt'; k='fortress_church'; out='building_types'
+     e=@( ,@('(?m)^\t\tlocal_clergy_max_literacy = 10[ \t]*\r?$', "${T2}local_clergy_max_literacy = 5`t# LO: 10 -> 5 (= orthodox_monastery)") ) },
+  # parish / village schools: the mass layer. Base +1 peasants was negligible, and with our stratified caps an
+  # average country literacy of 20 is rarely reached before age 5-6 (peasants dominate the average) -> gate 10.
+  @{ f='building_types\estate_buildings.txt'; k='local_schools'; out='building_types'
+     e=@(
+       @('(?m)^\t\taverage_country_literacy > 20[ \t]*\r?$', "${T2}average_country_literacy > 10`t# LO: 20 -> 10 (stratified caps keep the average low)"),
+       @('(?m)^\t\tlocal_peasants_max_literacy = 1[ \t]*\r?$', "${T2}# LO: peasants 1 -> laborers / soldiers / peasants 3 (parish schools)`n${T2}local_laborers_max_literacy = 3`n${T2}local_soldiers_max_literacy = 3`n${T2}local_peasants_max_literacy = 3")
+     ) },
+  # Irish bardic schools trained the fili for noble patrons - a secular elite, not peasants
+  @{ f='building_types\unique_buildings.txt'; k='bardic_school'; out='building_types'
+     e=@( ,@('(?m)^\t\tlocal_peasants_max_literacy = 5[ \t]*\r?$', "${T2}# LO: peasants 5 -> nobles 5 / burghers 3 (bardic schools trained the fili for noble patrons)`n${T2}local_nobles_max_literacy = 5`n${T2}local_burghers_max_literacy = 3") ) },
+  # classical gymnasium = elite schooling: the country-wide bonus goes to the upper classes only
+  @{ f='building_types\unique_buildings.txt'; k='gymnasium_building'; out='building_types'
+     e=@( ,@('(?m)^\t\tglobal_max_literacy = 5[ \t]*\r?$', ("${T2}# LO: global all 5 -> upper classes 5`n" + (Strat $T2 'global' 5 $null))) ) },
+  # Jesuit colleges schooled noble AND town sons free of charge (same total)
+  @{ f='building_types\culture_buildings.txt'; k='jesuit_college'; out='building_types'
+     e=@( ,@('(?m)^\t\tlocal_nobles_max_literacy = 10[ \t]*\r?$', "${T2}# LO: nobles 10 -> nobles 5 / burghers 5`n${T2}local_nobles_max_literacy = 5`n${T2}local_burghers_max_literacy = 5") ) },
+  # shuyuan academies taught the scholar-gentry, which is the nobles estate in game terms
+  @{ f='building_types\culture_buildings.txt'; k='confucian_academy'; out='building_types'
+     e=@( ,@('(?m)^\t\tlocal_burghers_max_literacy = 10[ \t]*\r?$', "${T2}# LO: burghers 10 -> nobles 5 / burghers 5 (scholar-gentry = nobles)`n${T2}local_nobles_max_literacy = 5`n${T2}local_burghers_max_literacy = 5") ) },
+  @{ f='building_types\foreign_buildings.txt'; k='merchant_guild_chapel'; out='building_types'
+     e=@( ,@('(?m)^\tmodifier = \{ local_max_literacy = 2 \}[ \t]*\r?$', "${T1}modifier = { local_burghers_max_literacy = 3 }`t# LO: all 2 -> burghers 3 (the merchants)") ) },
+  # one theatre gave every peasant of the country +10 (~ the whole Reformation on our scale) -> 2
+  @{ f='building_types\event_only_buildings.txt'; k='globe_theatre'; out='building_types'
+     e=@( ,@('(?m)^\t\tglobal_peasants_max_literacy = 10[ \t]*\r?\n\t\tglobal_soldiers_max_literacy = 10[ \t]*\r?\n\t\tglobal_laborers_max_literacy = 10[ \t]*\r?$',
+             "${T2}# LO: country-wide lower classes 10 -> 2`n${T2}global_peasants_max_literacy = 2`n${T2}global_soldiers_max_literacy = 2`n${T2}global_laborers_max_literacy = 2") ) },
+  @{ f='building_types\event_only_buildings.txt'; k='teatro_san_cassiano'; out='building_types'
+     e=@( ,@('(?m)^\t\tglobal_peasants_max_literacy = 10[ \t]*\r?\n\t\tglobal_soldiers_max_literacy = 10[ \t]*\r?\n\t\tglobal_laborers_max_literacy = 10[ \t]*\r?$',
+             "${T2}# LO: country-wide lower classes 10 -> 2`n${T2}global_peasants_max_literacy = 2`n${T2}global_soldiers_max_literacy = 2`n${T2}global_laborers_max_literacy = 2") ) },
+  @{ f='building_types\event_only_buildings.txt'; k='papal_archives'; out='building_types'
+     e=@( ,@('(?m)^\t\tglobal_max_literacy = 5[ \t]*\r?$', ("${T2}# LO: global all 5 -> upper classes 5`n" + (Strat $T2 'global' 5 $null))) ) },
+  # Slavo-Greek-Latin Academy (Moscow 1687) trained clergy and officials; base gave nobles + all lower classes
+  # but nothing to clergy / burghers (looks like a vanilla slip) -> clergy / nobles / burghers 5, lower 0
+  @{ f='building_types\unique_buildings.txt'; k='greek_latin_academy'; out='building_types'
+     e=@(
+       @('(?m)^\t\tglobal_nobles_max_literacy = 5[ \t]*\r?$', ("${T2}# LO: nobles + lower classes 5 -> clergy / nobles / burghers 5, lower 0`n" + (Strat $T2 'global' 5 $null))),
+       @('(?m)^\t\tglobal_peasants_max_literacy = 5[ \t]*\r?\n\t\tglobal_soldiers_max_literacy = 5[ \t]*\r?\n\t\tglobal_laborers_max_literacy = 5[ \t]*\r?\n', '')
+     ) },
   @{ f='building_types\culture_buildings.txt'; k='university'; out='building_types'
      e=@(
        # town = yes kept (base): many historical universities sat in small towns (Oxford, Cambridge, Salamanca,

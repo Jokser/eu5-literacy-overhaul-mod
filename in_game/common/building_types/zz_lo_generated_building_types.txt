@@ -157,6 +157,597 @@ REPLACE_OR_CREATE:confucian_school = {
 	}
 }
 
+# --- from base building_types\religion_buildings.txt ---
+REPLACE_OR_CREATE:fortress_church = {
+	audio_tier = 2
+	is_foreign = no
+	pop_type = clergy
+	max_levels = 1
+	
+	employment_size = large_religious_building_employment
+	category = defense_category
+	
+	rural_settlement = yes
+	town = yes
+	city = yes
+	megalopolis = yes
+	
+	build_time = religious_building_time
+
+	country_potential = {
+		OR = {
+			modifier:can_have_monasteries = yes
+			has_reform = government_reform:shield_of_the_faith_reform
+			religion ?= religion:orthodox
+		}
+	}
+	
+	location_potential = {
+		OR = {
+			location_building_level = {
+				building_type = building_type:monastery
+				value > 0
+			}
+			location_building_level = {
+				building_type = building_type:orthodox_monastery
+				value > 0
+			}
+			owner ?= {
+				has_reform = government_reform:shield_of_the_faith_reform
+			}
+		}
+	}
+	remove_if = {
+		location = {
+			NOT = { has_building = building_type:monastery }
+			NOT = { has_building = building_type:orthodox_monastery }
+			}
+		NOT = {
+			location.owner = {
+				has_reform = government_reform:shield_of_the_faith_reform
+			}
+		}
+	}
+	graphical_tags = { medium_religious }
+
+	expensive = yes
+	possible_production_methods = {
+		fortress_church_maintenance
+	}
+	construction_demand = fortress_church_construction
+
+	modifier = {
+		local_clergy_food_consumption = 0.1
+		local_clergy_max_literacy = 5	# LO: 10 -> 5 (= orthodox_monastery)
+		local_clergy_estate_power = 0.2
+		local_garrison_size = 0.05
+	}
+	
+	raw_modifier = {
+		local_defensive = 0.1
+		pure_tooltip_entry = pte_no_propagating_zone_of_control            # propagating_zone_of_control = no
+	}
+}
+
+# --- from base building_types\estate_buildings.txt ---
+REPLACE_OR_CREATE:local_schools = {
+	audio_tier = 1
+	is_foreign = no
+	max_levels = estate_building_single_level
+	pop_type = peasants
+	
+	category = estate_category
+	employment_size = estate_peasants_employment
+	
+	rural_settlement = no
+	town = yes
+	city = yes
+	megalopolis = yes
+	
+	estate = peasants_estate
+	build_time = estate_build_time
+	
+
+
+	possible_production_methods = {
+		estate_building_input
+	}
+
+	country_potential = {
+		average_country_literacy > 10	# LO: 20 -> 10 (stratified caps keep the average low)
+		NOT = { has_policy = uneducated_masses_education }
+	}
+
+	construction_demand = estate_construct_building
+	
+	modifier = {
+		local_peasants_estate_power = 0.5
+		# LO: peasants 1 -> laborers / soldiers / peasants 3 (parish schools)
+		local_laborers_max_literacy = 3
+		local_soldiers_max_literacy = 3
+		local_peasants_max_literacy = 3
+	}
+
+}
+
+# --- from base building_types\unique_buildings.txt ---
+REPLACE_OR_CREATE:bardic_school = {
+	audio_tier = 2
+	is_special = yes
+	is_foreign = no
+	pop_type = peasants
+	max_levels = 1
+
+	employment_size = estate_peasants_employment
+
+	category = cultural_category
+
+	rural_settlement = yes
+	town = yes
+	city = yes
+	megalopolis = yes
+
+	estate = peasants_estate
+
+	country_potential = {
+		has_reform = government_reform:celtic_traditions_reform
+	}
+	allow = {
+	}
+
+
+
+	
+
+	build_time = guild_build_time
+	
+	modifier = {
+		local_cultural_tradition = 0.1
+		# LO: peasants 5 -> nobles 5 / burghers 3 (bardic schools trained the fili for noble patrons)
+		local_nobles_max_literacy = 5
+		local_burghers_max_literacy = 3
+	}
+
+	possible_production_methods = {
+		estate_building_input
+	}
+	construction_demand = library_construction
+}
+
+# --- from base building_types\unique_buildings.txt ---
+REPLACE_OR_CREATE:gymnasium_building = {
+	audio_tier = 3
+	is_special = yes
+	is_foreign = no
+	pop_type = clergy
+	max_levels = 1
+	
+	category = cultural_category
+	employment_size = huge_religious_building_employment
+	
+	town = yes
+	city = yes
+	megalopolis = yes
+
+	expensive = yes
+
+	country_potential = {
+		has_reform = government_reform:study_of_the_classics
+	}
+
+	build_time = large_cultural_building_time
+	
+	forbidden_for_estates = yes
+
+	location_potential = {
+		counts_as_capital = yes
+	}
+
+	allow = {
+		is_capital = yes
+		country_has_no_other_copy_of_building = { type = gymnasium_building }
+	}
+
+	remove_if = {
+		location.owner ?= {
+			NOT = {
+				has_reform = government_reform:study_of_the_classics
+			}
+		}
+	}
+	
+	modifier = {
+		local_cultural_tradition = 0.5
+		local_nobles_max_literacy = 10
+		local_monthly_literacy = 0.1
+		local_institution_growth_modifier = 0.33
+	}
+
+	capital_country_modifier = {
+		research_speed_modifier = 0.05
+		# LO: global all 5 -> upper classes 5
+		global_nobles_max_literacy = 5
+		global_clergy_max_literacy = 5
+		global_burghers_max_literacy = 5
+	}
+	
+	possible_production_methods = {
+		university_maintenance
+	}
+	
+	construction_demand = university_construction
+}
+
+# --- from base building_types\culture_buildings.txt ---
+REPLACE_OR_CREATE:jesuit_college = {
+	audio_tier = 2
+	is_special = yes
+	is_foreign = no
+	pop_type = clergy
+	max_levels = 1
+	
+	category = cultural_category
+	employment_size = religious_building_employment
+	
+	town = yes
+	city = yes
+	megalopolis = yes
+
+	expensive = yes
+
+	build_time = large_religious_building_time
+
+	country_potential = {
+		has_unlocked_building_trigger = { type = jesuit_college }
+	}
+	allow = {
+		owner = {
+			has_policy = jesuits_allowed
+		}
+	}
+
+	remove_if = {
+		NOT = {
+			owner = {
+				has_policy = jesuits_allowed
+			}
+		}
+	}
+	graphical_tags = { medium_religious }
+	
+	modifier = {
+		local_cultural_influence = 0.2
+		# LO: nobles 10 -> nobles 5 / burghers 5
+		local_nobles_max_literacy = 5
+		local_burghers_max_literacy = 5
+		local_monthly_literacy = 0.1
+		local_lutheranism_movement_growth_modifier = -0.4
+		local_calvinism_movement_growth_modifier = -0.4
+	}
+
+	unique_production_methods = {
+		
+		jesuit_college_maintenance = {
+			icon_type = building_type
+			icon = jesuit_college
+			paper = 0.5
+			books = 1.0
+			fine_cloth = 0.2
+			beeswax = 0.1
+
+			category = building_maintenance
+		}
+	}
+	
+	construction_demand = university_construction
+}
+
+# --- from base building_types\culture_buildings.txt ---
+REPLACE_OR_CREATE:confucian_academy = {
+	audio_tier = 2
+	is_special = yes
+	is_foreign = no
+	pop_type = nobles
+	max_levels = 1
+	
+	category = cultural_category
+	employment_size = noble_cultural_employment
+	
+	AI_ignore_available_worker_flag = yes #since we may build this to increase pop promotion we don't want lack of workers to block it
+
+	town = yes
+	city = yes
+	megalopolis = yes
+
+	expensive = yes
+
+	build_time = cultural_building_time
+
+	allow = {	
+		is_core_of = owner
+	}
+	
+	modifier = {
+		# LO: burghers 10 -> nobles 5 / burghers 5 (scholar-gentry = nobles)
+		local_nobles_max_literacy = 5
+		local_burghers_max_literacy = 5
+		local_pop_promotion_speed = 0.001
+		local_institution_growth_modifier = 0.5
+	}
+	capital_country_modifier = {
+		monthly_towards_sinicized = societal_value_tiny_monthly_move
+	}
+	
+	unique_production_methods = {
+		confucian_academy_maintenance = {
+			icon_type = building_type
+			icon = confucian_academy
+			paper = 0.4
+			beeswax = 0.1
+			books = 0.2
+			cloth = 0.3
+			fine_cloth = 0.1
+			
+			category = building_maintenance
+		}
+
+	}
+
+	
+	construction_demand = academy_construction
+}
+
+# --- from base building_types\foreign_buildings.txt ---
+REPLACE_OR_CREATE:merchant_guild_chapel = {
+	audio_tier = 1
+	is_foreign = yes
+	need_good_relation = yes
+	want_foreign_pop_created = no
+	pop_type = clergy
+
+	max_levels = 1
+	expensive = yes
+	category = colonial_category
+
+	employment_size = religious_building_employment
+	
+	pop_size_created = religious_building_employment
+
+	price = merchant_guild_chapel_price
+	
+	rural_settlement = setup_only
+	town = setup_only
+	city = yes
+	megalopolis = yes
+
+	country_potential = {
+		country_type = building
+		has_reform = government_reform:merchant_republic
+	}
+	
+	possible_production_methods = { merchant_guild_chapel_requirements }
+	construction_demand = merchant_guild_chapel_construction
+
+	
+	build_time = generic_town_build_time
+	
+	modifier = { local_burghers_max_literacy = 3 }	# LO: all 2 -> burghers 3 (the merchants)
+
+	capital_country_modifier = { monthly_religious_influence = 0.2 }
+}
+
+# --- from base building_types\event_only_buildings.txt ---
+REPLACE_OR_CREATE:globe_theatre = {
+	audio_tier = 4
+	is_special = yes
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 1
+	
+	category = cultural_category
+	
+	employment_size = cultural_employment
+	
+	rural_settlement = no
+	town = no
+	city = yes
+	megalopolis = yes
+
+	country_potential = {
+		custom_tooltip = globe_theatre_why
+		OR = {
+			has_or_had_tag = ENG
+			has_or_had_tag = GBR
+		}
+	}
+	
+	allow = {
+		custom_tooltip = {
+			text = globe_theatre_why
+			always = no
+		}
+	}
+
+	expensive = yes
+
+	build_time = cultural_building_time
+	
+	modifier = {
+		local_cultural_tradition = 0.25
+		local_monthly_literacy = 0.25
+	}
+
+	capital_country_modifier = {
+		# LO: country-wide lower classes 10 -> 2
+		global_peasants_max_literacy = 2
+		global_soldiers_max_literacy = 2
+		global_laborers_max_literacy = 2
+		cultural_influence_modifier = 0.05
+	}
+	
+	unique_production_methods = {
+		globe_theater_maintenance = {
+			icon_type = building_type
+			icon = globe_theatre
+			cloth = 0.2
+			furniture = 0.1
+			wine = 0.3
+			paper = 0.5
+			fine_cloth = 0.4
+			
+			category = building_maintenance
+		}
+	}
+
+	construction_demand = globe_construction
+}
+
+# --- from base building_types\event_only_buildings.txt ---
+REPLACE_OR_CREATE:teatro_san_cassiano = {
+	audio_tier = 3
+	is_special = yes
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 1
+	
+	category = cultural_category
+	
+	employment_size = cultural_employment
+	
+	rural_settlement = no
+	town = no
+	city = yes
+	megalopolis = yes
+
+	country_potential = {
+		custom_tooltip = {
+			text = unlocked_teatro_san_cassiano_tt
+			has_variable = unlocked_teatro_san_cassiano
+		}
+	}
+	allow = { always = no }
+
+	expensive = yes
+
+	build_time = large_cultural_building_time
+	
+	modifier = {
+		local_cultural_tradition = 0.2
+		local_monthly_literacy = 0.2
+	}
+
+	capital_country_modifier = {
+		# LO: country-wide lower classes 10 -> 2
+		global_peasants_max_literacy = 2
+		global_soldiers_max_literacy = 2
+		global_laborers_max_literacy = 2
+	}
+	
+	possible_production_methods = {
+		theater_maintenance
+	}
+	construction_demand = globe_construction
+}
+
+# --- from base building_types\event_only_buildings.txt ---
+REPLACE_OR_CREATE:papal_archives = {
+	audio_tier = 4
+	is_special = yes
+	is_foreign = no
+	pop_type = clergy
+	graphical_tags = { medium_religious }
+	max_levels = 1
+	category = government_category
+	employment_size = huge_religious_building_employment
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = no
+	country_potential = { always = no }
+	allow = { 
+		owner_owns_no_copies_of_building = { type = papal_archives }
+	}
+	expensive = yes
+	build_time = cultural_building_time
+	possible_production_methods = { 
+		library_maintenance 
+	}
+
+	modifier = {
+		local_monthly_literacy = 0.1
+		local_cultural_influence = 0.5
+	}
+	capital_country_modifier = {
+		global_monthly_literacy = 0.1
+		# LO: global all 5 -> upper classes 5
+		global_nobles_max_literacy = 5
+		global_clergy_max_literacy = 5
+		global_burghers_max_literacy = 5
+		monthly_papal_authority = 0.05
+	}
+}
+
+# --- from base building_types\unique_buildings.txt ---
+REPLACE_OR_CREATE:greek_latin_academy = {
+	audio_tier = 4
+	is_special = yes
+	is_foreign = no
+	pop_type = clergy
+	max_levels = 1
+	
+	employment_size = huge_religious_building_employment
+	
+	category = cultural_category
+	
+	rural_settlement = no
+	town = yes
+	city = yes
+	megalopolis = yes
+
+	country_potential = {
+		custom_tooltip = {
+			text = greek_latin_academy_why
+			OR = {
+				tag = MOS
+				tag = RUS
+			}
+			has_variable = greek_latin_academy
+		}
+	}
+
+	allow = {
+		always = no
+	}
+
+	can_destroy = {
+		always = yes
+	}
+
+	
+
+	build_time = cultural_building_time
+
+	possible_production_methods = {
+		estate_building_input
+	}
+
+	construction_demand = school_construction
+
+	location_potential = {
+		this = location:moscow
+	}
+
+	capital_country_modifier = {
+		# LO: nobles + lower classes 5 -> clergy / nobles / burghers 5, lower 0
+		global_nobles_max_literacy = 5
+		global_clergy_max_literacy = 5
+		global_burghers_max_literacy = 5
+		monthly_towards_spiritualist = societal_value_minor_monthly_move
+		global_monthly_art_start_chance = 0.15
+	}
+
+}
+
 # --- from base building_types\culture_buildings.txt ---
 REPLACE_OR_CREATE:university = {
 	audio_tier = 3
