@@ -7,7 +7,7 @@ $ErrorActionPreference = 'Stop'
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $mod  = Split-Path -Parent $here
 $game = 'c:\Program Files (x86)\Steam\steamapps\common\Europa Universalis V\game'
-$rsf  = 'c:\Program Files (x86)\Steam\steamapps\workshop\content\3450310\3608237308'   # RSF (for its Orthodox TRY_REPLACE)
+$rsf  = 'c:\Program Files (x86)\Steam\steamapps\workshop\content\3450310\3608237308'   # RSF - ONLY for the separate RSF compatibility patch mod
 $utf8bom = New-Object System.Text.UTF8Encoding($true)
 
 function Get-Block([string]$t, [string]$key) {        # top-level "key = { ... }" by brace matching
@@ -282,10 +282,18 @@ $targets = @(
   @{ f='religions\buddhist.txt'; k='tibetan_buddhism'; out='religions'
      e=@( ,@('(?m)^\t\tglobal_max_literacy = 5[ \t]*\r?$', ("${T2}# LO: 5 -> upper 5 / lower 2 (Flavorium)`n" + (Strat $T2 'global' 5 2))) ) }
 )
-# ---------- Orthodox + Miaphysite: RSF TRY_REPLACEs both in RSF_christian.txt ----------
-# Neither a TRY_INJECT delta nor a zz_ REPLACE_OR_CREATE beat RSF's TRY_REPLACE in game (user test 2026-11-21:
-# Orthodox still all +5) -> same-path override of RSF's file (LO mounts after RSF), generated from RSF's current
-# file with only our literacy lines changed. RSF's Romuva TRY_INJECT (RSF_religion_relations.txt) still applies.
+# ---------- Orthodox + Miaphysite (standalone: from vanilla christian.txt) ----------
+# Orthodox: all 5 -> upper classes 5, lower 0. Miaphysite: + clergy 5 (vardapets / monastic book culture).
+$targets += @{ f='religions\christian.txt'; k='orthodox'; out='religions'
+               e=@( ,@('(?m)^\t\tglobal_max_literacy = 5[ \t]*\r?$', ("${T2}# LO: all 5 -> upper classes 5, lower classes 0`n" + (Strat $T2 'global' 5 $null)))) }
+$targets += @{ f='religions\christian.txt'; k='miaphysite'; out='religions'
+               e=@( ,@('(?m)^(\tdefinition_modifier = \{)[ \t]*\r?$', "`$1`n${T2}global_clergy_max_literacy = 5`t# LO: vardapets / monastic book culture")) }
+
+# ---------- RSF compatibility patch (SEPARATE mod; LO itself has NO RSF dependency) ----------
+# RSF TRY_REPLACEs orthodox/miaphysite in RSF_christian.txt, and that beat our zz_ REPLACE_OR_CREATE in game (user
+# test 2026-11-21: Orthodox still all +5). The patch mod is a same-path override of RSF's file (it must load after
+# RSF), generated from RSF's current file with only the same literacy lines changed. Skipped if RSF is not installed.
+$compat = Join-Path (Split-Path -Parent $mod) 'Literacy overhaul - RSF compatibility'
 $rsfRel = @(
   @{ k='TRY_REPLACE:orthodox'
      e=@( ,@('(?m)^\t\tglobal_max_literacy = 5[ \t]*\r?$', ("${T2}# LO: all 5 -> upper classes 5, lower classes 0`n" + (Strat $T2 'global' 5 $null)))) },
@@ -327,7 +335,7 @@ $defAdds = @(
   @('mandean.txt','mandeaism',       @{clergy=10}),   # tarmide priests copying Mandaic texts
   @('christian.txt','bosnian_church',@{clergy=5})     # krstjani communities, Bosancica books
 )
-# Miaphysites (2026-11-21, user OK): clergy +5 - done in the RSF_christian.txt same-path override ($rsfRel above)
+# Miaphysites (2026-11-21, user OK): clergy +5 - in the orthodox/miaphysite targets above (+ RSF compat patch)
 # regnal_chronicles (all of Africa): court chronicles were kept by a few court clerics -> clergy 10 -> 5
 $targets += @{ f='advances\region_africa.txt'; k='regnal_chronicles'; out='advances'
                e=@( ,@('(?m)^\tglobal_clergy_max_literacy = 10[ \t]*\r?$', "${T1}global_clergy_max_literacy = 5`t# LO: 10 -> 5 (court chronicles, not mass schooling)") ) }
@@ -404,13 +412,19 @@ foreach ($dir in $outs.Keys) {
     Write-Host "wrote $p ($($outs[$dir].Count) blocks)"
 }
 
-# ---------- RSF_christian.txt same-path override (Orthodox / Miaphysite literacy) ----------
+# ---------- RSF compatibility patch: RSF_christian.txt same-path override (separate mod $compat) ----------
 $rcRel = 'in_game\common\religions\RSF_christian.txt'
-$rcSrc = Join-Path $rsf $rcRel; $rcDst = Join-Path $mod $rcRel
+$rcSrc = Join-Path $rsf $rcRel; $rcDst = Join-Path $compat $rcRel
+$stale = Join-Path $mod $rcRel   # LO itself must never ship RSF content (it did in v0.16-v0.20)
+if (Test-Path $stale) { Remove-Item $stale -Force; Write-Host "  removed RSF_christian.txt from LO itself (moved to the RSF compatibility patch)" }
 if (-not (Test-Path $rcSrc)) {
     if (Test-Path $rcDst) { Remove-Item $rcDst -Force }
-    Write-Warning "RSF_christian.txt not found in RSF - override removed (Orthodox/Miaphysite literacy NOT changed)"; $warn++
+    Write-Host "  RSF not installed - RSF compatibility patch not generated (LO itself is unaffected)"
 } else {
+    $rcDir = Split-Path $rcDst -Parent; if (-not (Test-Path $rcDir)) { New-Item -ItemType Directory -Path $rcDir -Force | Out-Null }
+    $mdDir = Join-Path $compat '.metadata'; if (-not (Test-Path $mdDir)) { New-Item -ItemType Directory -Path $mdDir -Force | Out-Null }
+    $md = "{`n`t`"name`":`t`"Literacy overhaul - RSF compatibility`",`n`t`"id`":`t`"literacy.overhaul.rsf`",`n`t`"version`":`t`"1.0`",`n`t`"supported_game_version`":`t`"1.4`",`n`t`"short_description`":`t`"Compatibility patch for Literacy overhaul + Ruthenia and Steppe Fix: applies the Orthodox and Miaphysite literacy changes on top of RSF's religion edits. Load after both mods.`",`n`t`"tags`":`t[`"Gameplay`"],`n`t`"relationships`":`t[],`n`t`"game_custom_data`":`t{`n`t}`n}"
+    [IO.File]::WriteAllText((Join-Path $mdDir 'metadata.json'), $md, $utf8bom)
     $rcBytes = [IO.File]::ReadAllBytes($rcSrc); $rcBom = ($rcBytes.Length -ge 3 -and $rcBytes[0] -eq 0xEF -and $rcBytes[1] -eq 0xBB -and $rcBytes[2] -eq 0xBF)
     $rc = [IO.File]::ReadAllText($rcSrc).TrimStart([char]0xFEFF); $rcOk = $true
     foreach ($r in $rsfRel) {
@@ -426,9 +440,9 @@ if (-not (Test-Path $rcSrc)) {
         $rc = $rc.Replace($blk, $new)
     }
     if ($rcOk) {
-        $hdr = "# Literacy overhaul: same-path override of RSF's file, GENERATED by tools\regen_from_base.ps1 from RSF's current copy.`n# Only the Orthodox / Miaphysite literacy lines (# LO) differ from RSF.`n"
+        $hdr = "# Literacy overhaul - RSF compatibility: same-path override of RSF's file, GENERATED by Literacy overhaul\tools\regen_from_base.ps1`n# from RSF's current copy. Only the Orthodox / Miaphysite literacy lines (# LO) differ from RSF. Load after RSF and Literacy overhaul.`n"
         [IO.File]::WriteAllText($rcDst, $hdr + $rc, (New-Object System.Text.UTF8Encoding($rcBom)))
-        Write-Host "  ok  RSF_christian.txt same-path override (orthodox upper 5 / lower 0, miaphysite clergy 5)"
+        Write-Host "  ok  RSF compatibility patch: RSF_christian.txt (orthodox upper 5 / lower 0, miaphysite clergy 5) -> $compat"
     } else {
         if (Test-Path $rcDst) { Remove-Item $rcDst -Force }
         Write-Warning "RSF_christian.txt override NOT written (anchor missing) - RSF values used"; $warn++

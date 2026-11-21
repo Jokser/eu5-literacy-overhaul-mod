@@ -315,3 +315,10 @@ Yuan 24, Morocco 23, England 19, Muscovy 19, Great Horde 14 (vanilla age 3 is ab
 always got a flat +25%. The Learned Elite bonus now rewards an educated elite, so this is halved: research 0.5 → 0.25
 (+12.5% at 100% control; an empire at 30% control: -10% → -5%). `crown_power_from_population` is unchanged.
 Clergy-satisfaction research (0.5 x (satisfaction - 50%), Catholics high via the tax exemption) is kept.
+
+### Standalone: no RSF dependency (v0.21, 2026-11-21)
+LO no longer ships `RSF_christian.txt`, which carried RSF's religion edits to players without RSF. Orthodox (upper 5 /
+lower 0) and Miaphysite (clergy +5) are generated from vanilla `christian.txt` as REPLACE_OR_CREATE like everything
+else. RSF's `TRY_REPLACE` of those religions wins over that, so for RSF players the regen script also writes a
+separate mod **`mod/Literacy overhaul - RSF compatibility`**: a same-path override of RSF's `RSF_christian.txt` with
+the same literacy lines. Load it after RSF and LO. It is skipped if RSF is not installed.

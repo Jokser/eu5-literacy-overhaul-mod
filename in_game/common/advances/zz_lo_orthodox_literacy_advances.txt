@@ -9,7 +9,7 @@ lo_stoglav = {
 
 	potential = {
 		religion = religion:orthodox
-		culture = { has_culture_group = culture_group:russian_group }	# RSF russian_group = all East Slavs (Great Russians, Ruthenians, Belarusians, Cossacks...)
+		culture = { has_culture_group = culture_group:russian_group }	# base culture group (East Slavic Russians); mods that widen it (e.g. RSF: all East Slavs) widen the advance too
 	}
 
 	requires = national_rites
