@@ -342,3 +342,21 @@ Institution spread (`script_values/institution_spread.txt`) is ~proportional to 
 Same-path override generated from vanilla: `multiply = 3` right after each of the 18 `value = average_location_literacy`
 lines (tiers early / mid / late, all x3 as a starting value; `$INST_F` in the regen script). The development part of
 trade spread is unchanged. Other mods that override this file conflict.
+
+### Lower classes in ages 3-6 (v0.24, 2026-11-21)
+An observer run (saves 1450-1740 parsed with `tools/save_literacy.awk`) showed peasant/laborer literacy sitting AT
+its cap and barely moving for 300 years: France 5.1 (1508) -> 6.6 (1740), Britain 10, Muscovy 2.5. Catholic France in
+1740 had only written alphabet 2 + scientific revolution 2 + basic religious education 2 + innovative ~1 = 7; the AI
+rarely takes humanism, free press or the education act. Historically, overall literacy c. 1740 was roughly France 25%,
+England 40%. Only generic advances that every country gets are raised:
+| What | Before | Now |
+|---|---|---|
+| `printing_press_advance` (age 3) | upper 5 / lower 0 | upper 5 / lower 4 (primers, chapbooks) |
+| `scientific_revolution_advance` (age 5) | upper 10 / lower 2 | upper 10 / lower 3 |
+| `newspapers_advance` (age 5) | — | lower 4 (cheap press, almanacs) |
+| `enlightened_court` (age 6) | upper 5 / lower 2 | upper 5 / lower 3 |
+
+Model, lower cap in 1740: France 7 -> 16, Britain 10 -> 19, Castile ~7 -> ~16, Ottomans ~6 -> ~15 (the Ottoman
+printing ban is not modelled), Muscovy 2.5 -> 6.5-11.5 depending on how far behind in advances it is. 1555 (printing
+only): France ~5 -> ~9. Vanilla/LO average then drops from ~x3-4 to ~x2.4-2.7, so the institution-spread x3 may now be
+slightly high (to re-check in the next run before touching it).

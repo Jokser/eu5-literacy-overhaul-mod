@@ -38,7 +38,7 @@ $targets = @(
   @{ f='advances\0_age_of_traditions.txt'; k='written_alphabet'; out='advances'
      e=@( ,@('(?m)^\tglobal_max_literacy = 5[ \t]*\r?$', "${T1}global_max_literacy = 2`t# LO: 5 -> 2 (Flavorium)") ) },
   @{ f='advances\0_age_of_discovery.txt'; k='printing_press_advance'; out='advances'
-     e=@( ,@('(?m)^\tglobal_max_literacy = 10[ \t]*\r?$', ("${T1}# LO: global 10 -> upper classes 5 (Flavorium)`n" + (Strat $T1 'global' 5 $null))) ) },
+     e=@( ,@('(?m)^\tglobal_max_literacy = 10[ \t]*\r?$', ("${T1}# LO: global 10 -> upper 5 / lower 4 (Flavorium upper; lower 4 since v0.24: primers and chapbooks, the main early-modern lay-literacy driver)`n" + (Strat $T1 'global' 5 4))) ) },
   @{ f='advances\4_choices_adm.txt'; k='innovativeness'; out='advances'
      e=@( ,@('(?m)^\tglobal_max_literacy = 5[ \t]*\r?$', ("${T1}# LO: global 5 -> upper classes 5 (Flavorium)`n" + (Strat $T1 'global' 5 $null))) ) },
   @{ f='advances\country_nov.txt'; k='birch_bark_manuscript'; out='advances'
@@ -209,11 +209,15 @@ $targets = @(
      ) },
   # ---------- lower-class pass (ours, 2026-11-20): flat "all classes" bonuses that are really elite phenomena ----------
   @{ f='advances\0_age_of_absolutism.txt'; k='scientific_revolution_advance'; out='advances'
-     e=@( ,@('(?m)^\tglobal_max_literacy = 10[ \t]*\r?$', ("${T1}# LO: all 10 -> upper 10 / lower 2 (science is an elite phenomenon)`n" + (Strat $T1 'global' 10 2))) ) },
+     e=@( ,@('(?m)^\tglobal_max_literacy = 10[ \t]*\r?$', ("${T1}# LO: all 10 -> upper 10 / lower 3 (v0.24: 2 -> 3)`n" + (Strat $T1 'global' 10 3))) ) },
   @{ f='advances\4_choices_adm.txt'; k='humanism'; out='advances'
      e=@( ,@('(?m)^\tglobal_max_literacy = 10[ \t]*\r?$', ("${T1}# LO: all 10 -> upper 10 only (humanism = culture of the educated)`n" + (Strat $T1 'global' 10 $null))) ) },
   @{ f='advances\0_age_of_revolutions.txt'; k='enlightened_court'; out='advances'
-     e=@( ,@('(?m)^\tglobal_max_literacy = 5[ \t]*\r?$', ("${T1}# LO: all 5 -> upper 5 / lower 2`n" + (Strat $T1 'global' 5 2))) ) },
+     e=@( ,@('(?m)^\tglobal_max_literacy = 5[ \t]*\r?$', ("${T1}# LO: all 5 -> upper 5 / lower 3 (v0.24: 2 -> 3)`n" + (Strat $T1 'global' 5 3))) ) },
+  # v0.24: newspapers (age 5, after the scientific revolution) had no literacy in vanilla. The cheap press,
+  # almanacs and coffee-house reading of c. 1690-1750 -> lower classes +4 (the elites already have the press).
+  @{ f='advances\0_age_of_absolutism.txt'; k='newspapers_advance'; out='advances'
+     e=@( ,@('(?m)^(\tunlock_law = press_law[ \t]*)(\r?)$', ('$1$2' + "`n${T1}# LO v0.24: lower classes +4 (cheap press, almanacs)`n${T1}global_laborers_max_literacy = 4`n${T1}global_soldiers_max_literacy = 4`n${T1}global_peasants_max_literacy = 4")) ) },
   @{ f='laws\01_common.txt'; k='press_law'; out='laws'
      e=@(
        @('(?m)^\t\t\tglobal_max_literacy = 10[ \t]*\r?$', ("${T3}# LO: free_press all 10 -> upper 10 / laborers+soldiers 5 / peasants 3 (newspapers were read in towns)`n" + (Strat $T3 'global' 10 $null) + "`n${T3}global_laborers_max_literacy = 5`n${T3}global_soldiers_max_literacy = 5`n${T3}global_peasants_max_literacy = 3")),
