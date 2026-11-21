@@ -245,9 +245,9 @@ REPLACE_OR_CREATE:education_masses_law = {
 		country_modifier = {
 			clergy_estate_target_satisfaction = medium_permanent_target_satisfaction
 			nobles_estate_target_satisfaction = medium_permanent_target_satisfaction_penalty
-			# LO: vedic all 5 -> upper 5 / lower 2
+			# LO: vedic all 5 -> clergy 15 / nobles + burghers 5 / lower 2 (Brahmin pathshalas)
+			global_clergy_max_literacy = 15
 			global_nobles_max_literacy = 5
-			global_clergy_max_literacy = 5
 			global_burghers_max_literacy = 5
 			global_laborers_max_literacy = 2
 			global_soldiers_max_literacy = 2

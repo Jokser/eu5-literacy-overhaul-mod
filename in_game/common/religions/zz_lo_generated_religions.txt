@@ -576,3 +576,166 @@ REPLACE_OR_CREATE:orthodox = {
 
 	tags = { orthodox_gfx eastern_christian_gfx christian_gfx abrahamic_gfx }
 }
+
+# --- from base religions\dharmic.txt ---
+REPLACE_OR_CREATE:hindu = {
+	color = color_hindu
+	group = dharmic
+
+	language = sanskrit_language
+
+	has_avatars = yes
+
+	religious_schools_for_characters_only = yes
+
+	religious_school = samkhya_school
+	religious_school = yoga_school
+	religious_school = nyaya_school
+	religious_school = vaisheshika_school
+	religious_school = mimamsa_school
+	religious_school = vedanta_school
+
+	goods_demand_modifier = {
+		livestock = 0.25
+	}
+
+	definition_modifier = {
+		global_burghers_max_literacy = 5	# LO: Indian religions / Theravada
+		global_clergy_max_literacy = 15	# LO: Indian religions / Theravada
+		tolerance_heathen = 1
+		tolerance_own = 1
+		number_of_allowed_religious_figures = 1
+	}
+
+	max_religious_figures_for_religion = {
+		every_country_in_religion = {
+			add = 1.5
+		}
+		every_holy_site_in_religion = {
+			add = 1
+		}
+	}
+
+	tags = { dharmic_gfx }
+}
+
+# --- from base religions\dharmic.txt ---
+REPLACE_OR_CREATE:jain = {
+	color = color_jain
+	group = dharmic
+
+	has_karma = yes
+
+	religious_schools_for_characters_only = yes
+
+	religious_school = mula_sangh_school
+	religious_school = balatkara_gana_school
+	religious_school = kashtha_sangha_school
+	religious_school = upkesa_gaccha_school
+	religious_school = kharatara_gaccha_school
+	religious_school = tapa_gaccha_school
+	religious_school = tristutik_gaccha_school
+
+	goods_demand_modifier = {
+		wine = 0
+		liquor = 0
+		beer = 0
+		fur = 0
+		ivory = 0
+		weaponry = 0
+		firearms = 0
+		fish = 0
+		livestock = 0
+		potato = 0
+		wild_game = 0
+	}
+
+	definition_modifier = {
+		global_burghers_max_literacy = 10	# LO: Indian religions / Theravada
+		global_clergy_max_literacy = 5	# LO: Indian religions / Theravada
+		cannot_declare_no_cb_wars = yes
+		global_monthly_literacy = 0.03
+		allow_self_control = yes
+		can_have_monasteries = yes
+		number_of_allowed_religious_figures = 1
+	}
+
+	max_religious_figures_for_religion = {
+		every_country_in_religion = {
+			add = 1.5
+		}
+		every_holy_site_in_religion = {
+			add = 1
+		}
+	}
+
+	tags = { dharmic_gfx }
+}
+
+# --- from base religions\dharmic.txt ---
+REPLACE_OR_CREATE:sikhism = {
+	color = color_sikhism
+	group = dharmic
+	enable = 1526.01.01
+
+	goods_demand_modifier = {
+		wine = 0
+		liquor = 0
+		beer = 0
+	}
+
+	definition_modifier = {
+		global_burghers_max_literacy = 5	# LO: Indian religions / Theravada
+		global_clergy_max_literacy = 5	# LO: Indian religions / Theravada
+		global_laborers_max_literacy = 3	# LO: Indian religions / Theravada
+		global_peasants_max_literacy = 3	# LO: Indian religions / Theravada
+		global_soldiers_max_literacy = 3	# LO: Indian religions / Theravada
+		research_speed_modifier = 0.1
+		global_estate_target_satisfaction = small_permanent_target_satisfaction
+	}
+
+	tags = { sikhism_gfx dharmic_gfx }
+}
+
+# --- from base religions\buddhist.txt ---
+REPLACE_OR_CREATE:theravada = { 
+	color = color_theravada
+	group = buddhist
+
+	language = pali_language
+	
+	has_karma = yes
+	max_sects = 1
+
+	definition_modifier = {
+		global_laborers_max_literacy = 3	# LO: Indian religions / Theravada
+		global_peasants_max_literacy = 3	# LO: Indian religions / Theravada
+		global_soldiers_max_literacy = 3	# LO: Indian religions / Theravada
+		tolerance_heretic = 1
+		monthly_karma = 0.1
+		country_cabinet_efficiency = 0.05
+		can_have_monasteries = yes
+	}
+
+	tags = { buddhist_gfx }
+}
+
+# --- from base religions\buddhist.txt ---
+REPLACE_OR_CREATE:sammitiya = { 
+	color = color_sammitiya
+	group = buddhist
+
+	has_karma = yes
+
+	definition_modifier = {
+		global_laborers_max_literacy = 3	# LO: Indian religions / Theravada
+		global_peasants_max_literacy = 3	# LO: Indian religions / Theravada
+		global_soldiers_max_literacy = 3	# LO: Indian religions / Theravada
+		tolerance_heretic = 1
+		monthly_karma = 0.1
+		stability_investment = tiny_stability_investment
+		can_have_monasteries = yes
+	}
+
+	tags = { buddhist_gfx }
+}

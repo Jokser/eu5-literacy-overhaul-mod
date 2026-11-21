@@ -169,3 +169,15 @@ In base, only Hanafi gives literacy (clergy +10). Every school keeps its own bas
 
 History: Shafi'i (al-Azhar, Mamluk Cairo and Damascus), Maliki (Qarawiyyin, Timbuktu), Twelvers (Hilla and Najaf),
 Zaidis (Yemeni manuscripts), Ibadis (halqa circles), Ash'ari (theology of the Nizamiyya madrasas).
+
+### Indian religions and Theravada (v0.8, 2026-11-21)
+| Source | Before | Now |
+|---|---|---|
+| Hindu definition | — | clergy +15 (Brahmins), burghers +5 (scribal and merchant castes) |
+| law `vedic_education` (Hindu, unlocked by event) | upper 5 / lower 2 (v0.3) | clergy 15 / nobles + burghers 5 / lower 2: now stronger than basic religious education for clergy |
+| Jain definition | monthly +0.03 | + burghers +10, clergy +5 (merchant community, bhandara libraries) |
+| Sikh definition | — | clergy 5 / burghers 5 / lower 3 (Gurmukhi, lay scripture reading) |
+| Theravada, Sammitiya | — | lower +3 (village monastery schools) |
+
+Hindu and Jain religious schools are `religious_schools_for_characters_only`, so their country modifiers do not act on the
+country. They are left unchanged.

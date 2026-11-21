@@ -96,8 +96,8 @@ $targets = @(
        # LO (lower-class pass): theocratic_education lower 5 -> 2, like basic_religious_education (Flavorium missed it)
        @('(?s)(theocratic_education = \{.*?)global_peasants_max_literacy = 5([ \t]*\r?\n[ \t]*)global_soldiers_max_literacy = 5([ \t]*\r?\n[ \t]*)global_laborers_max_literacy = 5',
          '${1}global_peasants_max_literacy = 2${2}global_soldiers_max_literacy = 2${3}global_laborers_max_literacy = 2	# LO: theocratic lower 5 -> 2'),
-       # LO: vedic_education all 5 -> upper 5 / lower 2 (Brahmin learning)
-       @('(?m)^\t\t\tglobal_max_literacy = 5[ \t]*\r?$', ("${T3}# LO: vedic all 5 -> upper 5 / lower 2`n" + (Strat $T3 'global' 5 2)))
+       # LO: vedic_education = Brahmanical pathshala system: clergy 15 / nobles + burghers 5 / lower 2 (better than basic for clergy)
+       @('(?m)^\t\t\tglobal_max_literacy = 5[ \t]*\r?$', "${T3}# LO: vedic all 5 -> clergy 15 / nobles + burghers 5 / lower 2 (Brahmin pathshalas)`n${T3}global_clergy_max_literacy = 15`n${T3}global_nobles_max_literacy = 5`n${T3}global_burghers_max_literacy = 5`n${T3}global_laborers_max_literacy = 2`n${T3}global_soldiers_max_literacy = 2`n${T3}global_peasants_max_literacy = 2")
      ) },
   # ---------- lower-class pass (ours, 2026-11-20): flat "all classes" bonuses that are really elite phenomena ----------
   @{ f='advances\0_age_of_absolutism.txt'; k='scientific_revolution_advance'; out='advances'
@@ -191,6 +191,25 @@ $schoolEdits = @(
   @('ibadi.txt','ibadi_school',   @{clergy=10}),
   @('sufi.txt','mevlevi_school',  @{burghers=5})
 )
+# ---------- Indian religions + Theravada (2026-11-21, user OK): definition_modifier additions ----------
+# Hindu: Brahmins = hereditary learned caste (pathshalas, agraharas; Varanasi, Mithila, Navadvipa, Sringeri) -> clergy 15;
+#        scribal (Kayastha, Karnam) and merchant castes (mahajani scripts) -> burghers 5.
+# Jain: merchant community with great manuscript libraries (bhandaras of Patan, Jaisalmer) -> burghers 10, clergy 5.
+# Sikh: Gurmukhi (Guru Angad) and lay reading of scripture -> clergy 5, burghers 5, lower 3.
+# Theravada / Sammitiya: village monastery schools taught most boys to read (Burma, Siam, Ceylon) -> lower 3.
+$defAdds = @(
+  @('dharmic.txt','hindu',     @{clergy=15; burghers=5}),
+  @('dharmic.txt','jain',      @{burghers=10; clergy=5}),
+  @('dharmic.txt','sikhism',   @{clergy=5; burghers=5; laborers=3; soldiers=3; peasants=3}),
+  @('buddhist.txt','theravada',@{laborers=3; soldiers=3; peasants=3}),
+  @('buddhist.txt','sammitiya',@{laborers=3; soldiers=3; peasants=3})
+)
+foreach ($da in $defAdds) {
+    $lines = ($da[2].GetEnumerator() | Sort-Object Name | ForEach-Object { "${T2}global_$($_.Name)_max_literacy = $($_.Value)`t# LO: Indian religions / Theravada" }) -join "`n"
+    $targets += @{ f=('religions\' + $da[0]); k=$da[1]; out='religions'
+                   e=@( ,@('(?m)^(\tdefinition_modifier = \{)[ \t]*\r?$', ("`$1`n" + $lines)) ) }
+}
+
 foreach ($se in $schoolEdits) {
     $lines = ($se[2].GetEnumerator() | Sort-Object Name | ForEach-Object { "${T2}global_$($_.Name)_max_literacy = $($_.Value)`t# LO: Muslim school rebalance" }) -join "`n"
     $targets += @{ f=('religious_schools\' + $se[0]); k=$se[1]; out='religious_schools'
