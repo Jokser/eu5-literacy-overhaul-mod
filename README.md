@@ -333,3 +333,12 @@ the same literacy lines. Load it after RSF and LO. It is skipped if RSF is not i
 | `epic_poetry_advance` (Hellenism) | all 5 | upper 5 / lower 2 |
 
 Kept at 0: Inti (khipu accounting, no writing), Chichimec. telpochcalli (commoners' military school) gives no literacy.
+
+### Institution spread compensation (v0.23, 2026-11-21)
+Institution spread (`script_values/institution_spread.txt`) is ~proportional to the receiving location's
+`average_location_literacy`, which is ~the lower-class cap. Stratification cut it ~x2.5-3.3 in every age (vanilla saves
+1416-1707 vs an LO model, `tools/vanilla_vs_lo_average_literacy.md`), so institutions spread and were embraced 2-4x later
+(Muscovy without age-2 institutions in 1488, Ottomans late to embrace professional armies).
+Same-path override generated from vanilla: `multiply = 3` right after each of the 18 `value = average_location_literacy`
+lines (tiers early / mid / late, all x3 as a starting value; `$INST_F` in the regen script). The development part of
+trade spread is unchanged. Other mods that override this file conflict.
