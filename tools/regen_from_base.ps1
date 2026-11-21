@@ -135,6 +135,9 @@ $targets = @(
   # Irish bardic schools trained the fili for noble patrons - a secular elite, not peasants
   @{ f='building_types\unique_buildings.txt'; k='bardic_school'; out='building_types'
      e=@( ,@('(?m)^\t\tlocal_peasants_max_literacy = 5[ \t]*\r?$', "${T2}# LO: peasants 5 -> nobles 5 / burghers 3 (bardic schools trained the fili for noble patrons)`n${T2}local_nobles_max_literacy = 5`n${T2}local_burghers_max_literacy = 3") ) },
+  # v0.26: a cardinal's seat = his household of clerics, secretaries and notaries, not a school for the town
+  @{ f='building_types\unique_buildings.txt'; k='seat_of_cardinal'; out='building_types'
+     e=@( ,@('(?m)^\t\tlocal_max_literacy = 2\.5[ \t]*\r?$', "${T2}# LO: all 2.5 -> clergy 5 / burghers 2 (the cardinal's familia: clerics, secretaries, notaries)`n${T2}local_clergy_max_literacy = 5`n${T2}local_burghers_max_literacy = 2") ) },
   # classical gymnasium = elite schooling: the country-wide bonus goes to the upper classes only
   @{ f='building_types\unique_buildings.txt'; k='gymnasium_building'; out='building_types'
      e=@( ,@('(?m)^\t\tglobal_max_literacy = 5[ \t]*\r?$', ("${T2}# LO: global all 5 -> upper classes 5`n" + (Strat $T2 'global' 5 $null))) ) },

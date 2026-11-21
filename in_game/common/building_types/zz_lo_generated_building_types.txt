@@ -364,6 +364,82 @@ REPLACE_OR_CREATE:bardic_school = {
 }
 
 # --- from base building_types\unique_buildings.txt ---
+REPLACE_OR_CREATE:seat_of_cardinal = {
+	audio_tier = 3
+	is_special = yes
+	is_foreign = no
+	max_levels = 1
+	pop_type = clergy
+	
+	employment_size = religious_building_employment
+
+	rural_settlement = yes
+	town = yes
+	city = yes
+	megalopolis = yes
+
+	category = religious_category
+	
+	allow = {
+		always = no #requested with request_cardinal_seat
+	}
+
+	country_potential = {
+		custom_tooltip = {
+			text = seat_of_cardinal_why
+			always = no #build with catholic_flavor.1000
+		}
+	}
+	
+	build_time = religious_building_time
+	
+	possible_production_methods = {
+		cardinal_maintenance
+	}
+	
+	construction_demand = cardinal_construction
+
+	
+	modifier = {
+		# LO: all 2.5 -> clergy 5 / burghers 2 (the cardinal's familia: clerics, secretaries, notaries)
+		local_clergy_max_literacy = 5
+		local_burghers_max_literacy = 2
+		local_clergy_food_consumption = 0.2
+	}
+
+	raw_modifier = {
+		gives_cardinal = yes
+	}
+
+	is_indestructible = yes
+	can_close = no
+
+	remove_if = {
+		NOT = { owner = { religion ?= religion:catholic } }
+	}
+
+	can_destroy = {
+		situation:western_schism = {
+			situation_is_active = no
+		}
+	}
+
+	on_built = {
+		location = {
+			set_up_cardinal = yes
+		}
+	}
+
+	on_destroyed = {
+		location = {
+			cardinal = {
+				remove_cardinal_variables = yes
+			}
+		}
+	}
+}
+
+# --- from base building_types\unique_buildings.txt ---
 REPLACE_OR_CREATE:gymnasium_building = {
 	audio_tier = 3
 	is_special = yes

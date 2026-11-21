@@ -369,3 +369,8 @@ which the AI values at ~0.
 - `basic_religious_education`: `ai_will_do` +100 with `lo_stoglav` (the Stoglav council of 1551 ordered schools at
   the churches). The AI law score is otherwise hardcoded (modifier utility + estate_preferences); `ai_will_do` is the
   only scripted lever, so this is a nudge and may still lose to strong nobles.
+
+### Cardinal seat (v0.26, 2026-11-21)
+| What | Before | Now |
+|---|---|---|
+| `seat_of_cardinal` (building) | local all 2.5 | local clergy 5 / burghers 2 (the cardinal's familia of clerics, secretaries and notaries, not a town school) |
