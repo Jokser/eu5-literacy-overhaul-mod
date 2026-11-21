@@ -34,4 +34,6 @@ Vanilla research from literacy uses the [i]average[/i] literacy of all pops. Pea
 [h2]Compatibility[/h2]
 Changes are made by replacing single entries (REPLACE_OR_CREATE), not whole files, so most mods that do not touch literacy are compatible. Mods that also change the literacy values of the same advances, buildings, laws or religions will conflict. Whichever loads last wins.
 
+[b]Ruthenia and Steppe Fix (RSF):[/b] RSF rewrites the Orthodox and Miaphysite religions. To get this mod's literacy for them on top of RSF's changes, also use [b]Literacy overhaul - RSF compatibility[/b] and load it after both mods. Literacy overhaul itself does not need RSF.
+
 Based in part on the literacy changes of Flavorium Universalis Balance.
