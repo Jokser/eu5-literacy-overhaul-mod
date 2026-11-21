@@ -9,22 +9,24 @@ location's `average_location_literacy`; tiers: `_early` = institutions of ages 1
 Goal: one multiplier per tier = median(vanilla / LO) at matching dates.
 
 ## Vanilla
-| Country | 1416 (age 2) | 1483 (age 3) | 1527 (age 3) | 1584 (age 4) | 1656 (age 5) |
-|---|---|---|---|---|---|
-| Castile / Spain | 11.0 | 11.4 | 13.2 | 25.0 | 30.6 |
-| France | — | 16.9 | 21.8 | 33.4 | 34.3 |
-| England | 10.7 | 11.4 | 16.9 | 27.2 (Great Britain) | 35.6 |
-| Milan | 15.6 | 23.3 | 27.3 | 35.1 | 39.7 |
-| Florence | 15.0 | 20.5 | 25.4 | 41.4 | 38.9 |
-| Bohemia | 14.3 | 18.5 | 24.0 | 28.7 | 34.4 |
-| Ottomans | 15.5 | 20.2 | 25.3 | 34.9 | 36.9 |
-| Muscovy | 10.8 | 11.0 | 12.8 | (player) | (player) |
-| Ming | 26.2 | 32.6 | 33.5 | 32.1 | 36.5 (Xi an) |
-| Brandenburg | — | — | — | 20.3 | 21.4 (Prussia) |
-| Lithuania | — | — | — | 21.5 | 26.4 |
-| Sweden | — | — | — | 22.2 | 22.8 |
-| Morocco | — | — | — | 32.9 | 32.7 |
-| Alodia | — | — | — | 34.5 | — |
+| Country | 1416 (age 2) | 1483 (age 3) | 1527 (age 3) | 1584 (age 4) | 1656 (age 5) | 1707 (age 5) |
+|---|---|---|---|---|---|---|
+| Castile / Spain | 11.0 | 11.4 | 13.2 | 25.0 | 30.6 | 35.4 |
+| France | — | 16.9 | 21.8 | 33.4 | 34.3 | 43.2 |
+| England | 10.7 | 11.4 | 16.9 | 27.2 (Great Britain) | 35.6 | 52.0 |
+| Milan | 15.6 | 23.3 | 27.3 | 35.1 | 39.7 | 51.0 |
+| Florence | 15.0 | 20.5 | 25.4 | 41.4 | 38.9 | 47.9 |
+| Bohemia | 14.3 | 18.5 | 24.0 | 28.7 | 34.4 | 43.3 |
+| Ottomans | 15.5 | 20.2 | 25.3 | 34.9 | 36.9 | 37.2 |
+| Muscovy | 10.8 | 11.0 | 12.8 | (player) | (player) | (player) |
+| Ming | 26.2 | 32.6 | 33.5 | 32.1 | 36.5 (Xi an) | 38.5 |
+| Brandenburg | — | — | — | 20.3 | 21.4 (Prussia) | 29.0 |
+| Lithuania | — | — | — | 21.5 | 26.4 | 34.4 |
+| Sweden | — | — | — | 22.2 | 22.8 | — |
+| Morocco | — | — | — | 32.9 | 32.7 | 42.6 |
+| Goryeo | — | — | — | — | — | 38.8 |
+| Punjab | — | — | — | — | — | 32.4 |
+| Alodia | — | — | — | 34.5 | — | — |
 
 Vanilla 1416 lower-class caps (own + global): England 10, Castile 10, Muscovy 10, Bohemia 12.6, Florence 11.2,
 Milan 11.8, Ottomans 15, Ming 30.2 -> the average ~ the lower-class cap.
@@ -34,8 +36,8 @@ Milan 11.8, Ottomans 15, Ming 30.2 -> the average ~ the lower-class cap.
 |---|---|---|
 | Portugal | 5.9 | 6.1 (1511) |
 | Castile | 5.9 | |
-| England | 3.0 | | 35.6 |
-| Muscovy | 3.1 | | (player) |
+| England | 3.0 | | 35.6 | 52.0 |
+| Muscovy | 3.1 | | (player) | (player) |
 | Florence | 7.8 | |
 | Brabant | 6.3 | |
 | Bulgaria | 7.7 | |
@@ -52,3 +54,13 @@ Note (1656): vanilla Lutherans are the LOWEST (Prussia 21.4, Sweden 22.8): vanil
 while Catholics (+25 clergy), Muslims (`freedom_of_interpretation` all +5) and the Chinese (+25 all) have one. LO already
 fixes this (Lutheran clergy 15 + lower 3, translated_bibles 5/5, pietism lower 5 in ages 5-6, personal_religious
 all 5; freedom_of_interpretation -> 5/2), so in LO the vanilla/LO ratio is SMALLER for Lutherans than for Catholics.
+
+## Model (LO cannot be measured at the same dates: without the compensation the whole LO world lags)
+avg ≈ lower-class cap (95% of pops). Recompute the vanilla lower cap with LO values:
+- France 1707 vanilla: global 45.22 (innovative 5.22, sci rev 10, printing press 10, written alphabet 5, education act 5,
+  free press 10) + class lower 5 (religious teachings) = peasants 50.2. LO: innovative 3x52% = 1.6, sci rev 2, printing 0,
+  alphabet 2, education act 2, free press 3 (laborers 5), religious teachings 2 = peasants 12.6 / laborers 14.6
+  -> avg ~13 vs vanilla 43.2 = x3.3.
+- 1416 (age 2): vanilla lower ~10 (alphabet 5 + religious teachings 5), LO ~4-4.5 -> x2.3-2.5 (Italy/Ottomans ~x2.6-3).
+- ~1511-1527 (age 3): Portugal LO 6.1 (game) vs Castile vanilla 13.2 / median 24 -> x2.2-4, ~x3.
+Earlier calc expected LO late-game lower ~25-35 (x1.5): WRONG, LO late lower ~13-15 -> late tier also ~x3.
