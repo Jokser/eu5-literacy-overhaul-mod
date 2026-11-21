@@ -499,6 +499,10 @@ if (-not (Test-Path $rcSrc)) {
     [IO.File]::WriteAllText((Join-Path $mdDir 'metadata.json'), $md, $utf8bom)
     $rcBytes = [IO.File]::ReadAllBytes($rcSrc); $rcBom = ($rcBytes.Length -ge 3 -and $rcBytes[0] -eq 0xEF -and $rcBytes[1] -eq 0xBB -and $rcBytes[2] -eq 0xBF)
     $rc = [IO.File]::ReadAllText($rcSrc).TrimStart([char]0xFEFF); $rcOk = $true
+    # If RSF already injects orthodox / miaphysite instead of TRY_REPLACE (the user's EU5_RSF_patches reapply section R,
+    # or a future RSF), LO's own REPLACE_OR_CREATE is not beaten and the patch is not needed.
+    $needsPatch = $false; foreach ($r in $rsfRel) { if ($rc -match ('(?m)^' + [regex]::Escape($r.k) + ' = \{')) { $needsPatch = $true } }
+    if (-not $needsPatch) { $rsfRel = @(); $rcOk = $false; Write-Host "  RSF has no TRY_REPLACE:orthodox/miaphysite - RSF compatibility patch not needed" }
     foreach ($r in $rsfRel) {
         $blk = Get-Block $rc $r.k
         if ($null -eq $blk) { Write-Warning "$($r.k): not found in RSF_christian.txt"; $rcOk = $false; break }
@@ -517,7 +521,7 @@ if (-not (Test-Path $rcSrc)) {
         Write-Host "  ok  RSF compatibility patch: RSF_christian.txt (orthodox clergy 10 / burghers 5, miaphysite clergy 5) -> $compat"
     } else {
         if (Test-Path $rcDst) { Remove-Item $rcDst -Force }
-        Write-Warning "RSF_christian.txt override NOT written (anchor missing) - RSF values used"; $warn++
+        if ($needsPatch) { Write-Warning "RSF_christian.txt override NOT written (anchor missing) - RSF values used"; $warn++ }
     }
 }
 
