@@ -201,8 +201,8 @@ $defAdds = @(
   @('dharmic.txt','hindu',     @{clergy=15; burghers=5}),
   @('dharmic.txt','jain',      @{burghers=10; clergy=5}),
   @('dharmic.txt','sikhism',   @{clergy=5; burghers=5; laborers=3; soldiers=3; peasants=3}),
-  @('buddhist.txt','theravada',@{laborers=3; soldiers=3; peasants=3}),
-  @('buddhist.txt','sammitiya',@{laborers=3; soldiers=3; peasants=3}),
+  @('buddhist.txt','theravada',@{clergy=5; laborers=3; soldiers=3; peasants=3}),   # + clergy 5 (Pali monastic learning, 2026-11-21)
+  @('buddhist.txt','sammitiya',@{clergy=5; laborers=3; soldiers=3; peasants=3}),
   # small Near-East / Balkan churches and faiths (2026-11-21, user OK): literacy = the priestly / initiated layer
   @('christian.txt','nestorianism',  @{clergy=10}),   # Syriac learning of the Church of the East (Nisibis legacy)
   @('zoroastrian.txt','zoroastrian', @{clergy=10}),   # mobeds, keepers of the Pahlavi texts
