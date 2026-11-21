@@ -294,10 +294,10 @@ average is ~95% lower classes, so stratified caps cut it 3-4x (Portugal 1511: 6.
 mattered (+10 noble literacy = +0.05% research), while burgher city-states (Hamburg 13.7%) led everyone.
 
 New: **Learned Elite** static modifier (`lo_learned_elite`, research_speed_modifier 0.01 x size), size =
-`lo_learned_elite_size` = 0.4 x (0.4 nobles + 0.35 clergy + 0.25 burghers literacy). Each estate's literacy is its own
+0.4 x (0.4 nobles + 0.35 clergy + 0.25 burghers literacy). Each estate's literacy is its own
 pop-weighted average and the three are weighted by fixed weights, NOT by headcount. An estate without pops drops
 out and its weight is shared. The vanilla average-literacy term (x1) is kept. Recomputed yearly
-(`yearly_country_pulse`) and at game start. Files: `script_values/lo_research_values.txt`,
+(`yearly_country_pulse`) and at game start. Files: `scripted_effects/lo_research_effects.txt` (one pass over the pops, local variables),
 `static_modifiers/lo_static_modifiers.txt`, `on_action/lo_on_actions.txt`.
 
 Expected 1511 (caps, pops at cap): Hamburg 13.7 + 20.3 = 34%, Florence 28, Brabant 26, Castile 25, Portugal 24,

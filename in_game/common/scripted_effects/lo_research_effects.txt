@@ -1,0 +1,78 @@
+﻿# Literacy overhaul - "Learned elite" research bonus (2026-11-21), ONE pass over the country's pops.
+# Vanilla research from literacy = average_literacy static (research_speed_modifier 1 x the country's average
+# literacy). That average is ~95% lower classes, so with stratified caps it fell 3-4x and an estate's education
+# barely mattered. We keep the vanilla term (x1) and add the static modifier lo_learned_elite
+# (research_speed_modifier 0.01) with
+#   size = 0.4 x (0.4 x nobles + 0.35 x clergy + 0.25 x burghers literacy)
+# where each estate's literacy is its own pop-weighted average and the three get FIXED weights (not headcount).
+# An estate with no pops drops out and its weight is shared by the others.
+# Scope: country. Called yearly (yearly_country_pulse) and at game start (on_action/lo_on_actions.txt).
+lo_update_learned_elite_effect = {
+	save_scope_as = lo_country
+	set_local_variable = { name = lo_pn value = 0 }	# nobles: size
+	set_local_variable = { name = lo_ln value = 0 }	# nobles: sum of literacy x size
+	set_local_variable = { name = lo_pc value = 0 }
+	set_local_variable = { name = lo_lc value = 0 }
+	set_local_variable = { name = lo_pb value = 0 }
+	set_local_variable = { name = lo_lb value = 0 }
+	every_pop = {	# the only pass over the pops
+		limit = {
+			OR = {
+				pop_type = pop_type:nobles
+				pop_type = pop_type:clergy
+				pop_type = pop_type:burghers
+			}
+		}
+		if = {
+			limit = { pop_type = pop_type:nobles }
+			scope:lo_country = {
+				change_local_variable = { name = lo_pn add = prev.pop_size }
+				change_local_variable = { name = lo_ln add = { value = prev.pop_literacy multiply = prev.pop_size } }
+			}
+		}
+		else_if = {
+			limit = { pop_type = pop_type:clergy }
+			scope:lo_country = {
+				change_local_variable = { name = lo_pc add = prev.pop_size }
+				change_local_variable = { name = lo_lc add = { value = prev.pop_literacy multiply = prev.pop_size } }
+			}
+		}
+		else = {
+			scope:lo_country = {
+				change_local_variable = { name = lo_pb add = prev.pop_size }
+				change_local_variable = { name = lo_lb add = { value = prev.pop_literacy multiply = prev.pop_size } }
+			}
+		}
+	}
+	# weighted sum (lo_s) and the sum of the weights of the estates that exist (lo_w)
+	set_local_variable = { name = lo_s value = 0 }
+	set_local_variable = { name = lo_w value = 0 }
+	if = {
+		limit = { local_var:lo_pn > 0 }
+		change_local_variable = { name = lo_s add = { value = local_var:lo_ln divide = local_var:lo_pn multiply = 0.4 } }
+		change_local_variable = { name = lo_w add = 0.4 }
+	}
+	if = {
+		limit = { local_var:lo_pc > 0 }
+		change_local_variable = { name = lo_s add = { value = local_var:lo_lc divide = local_var:lo_pc multiply = 0.35 } }
+		change_local_variable = { name = lo_w add = 0.35 }
+	}
+	if = {
+		limit = { local_var:lo_pb > 0 }
+		change_local_variable = { name = lo_s add = { value = local_var:lo_lb divide = local_var:lo_pb multiply = 0.25 } }
+		change_local_variable = { name = lo_w add = 0.25 }
+	}
+	if = {
+		limit = { local_var:lo_w > 0 }
+		change_local_variable = { name = lo_s divide = local_var:lo_w }
+	}
+	add_country_modifier = {
+		modifier = lo_learned_elite
+		years = -1
+		mode = replace
+		size = {
+			value = local_var:lo_s
+			multiply = 0.4	# k: +0.4% research per point of weighted elite literacy
+		}
+	}
+}
