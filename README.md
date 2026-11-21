@@ -218,3 +218,11 @@ Unchanged: Yazidism (oral tradition), Bogomils, Manichaeism and Samaritanism (al
 
 Already done earlier: `the_education_act`, `visionary_thinkers`, `ottoman_imperial_harem`. The other literacy reforms
 (citizenship_through_service, enlightened_aristocracy, nautical_education_act, peasant_labor_rights) are unchanged.
+
+### Laws and privileges pass (v0.13, 2026-11-21)
+| Law → option | Before | Now |
+|---|---|---|
+| `press_law` → `censored_press` | all 5 | upper 5 / lower 2 (it gave peasants more than free press) |
+| `divine_cause_law` → `pursuit_of_knowledge_policy` (theocracy) | all 5 | upper 5 / lower 2 |
+
+The other literacy laws and all 8 literacy privileges were reviewed and kept, see the review in the commit history.

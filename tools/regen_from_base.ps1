@@ -107,7 +107,13 @@ $targets = @(
   @{ f='advances\0_age_of_revolutions.txt'; k='enlightened_court'; out='advances'
      e=@( ,@('(?m)^\tglobal_max_literacy = 5[ \t]*\r?$', ("${T1}# LO: all 5 -> upper 5 / lower 2`n" + (Strat $T1 'global' 5 2))) ) },
   @{ f='laws\01_common.txt'; k='press_law'; out='laws'
-     e=@( ,@('(?m)^\t\t\tglobal_max_literacy = 10[ \t]*\r?$', ("${T3}# LO: free_press all 10 -> upper 10 / laborers+soldiers 5 / peasants 3 (newspapers were read in towns)`n" + (Strat $T3 'global' 10 $null) + "`n${T3}global_laborers_max_literacy = 5`n${T3}global_soldiers_max_literacy = 5`n${T3}global_peasants_max_literacy = 3")) ) },
+     e=@(
+       @('(?m)^\t\t\tglobal_max_literacy = 10[ \t]*\r?$', ("${T3}# LO: free_press all 10 -> upper 10 / laborers+soldiers 5 / peasants 3 (newspapers were read in towns)`n" + (Strat $T3 'global' 10 $null) + "`n${T3}global_laborers_max_literacy = 5`n${T3}global_soldiers_max_literacy = 5`n${T3}global_peasants_max_literacy = 3")),
+       # censored_press all 5 -> upper 5 / lower 2 (it gave peasants MORE than free press)
+       @('(?m)^\t\t\tglobal_max_literacy = 5[ \t]*\r?$', ("${T3}# LO: censored_press all 5 -> upper 5 / lower 2`n" + (Strat $T3 'global' 5 2)))
+     ) },
+  @{ f='laws\00_theocracies.txt'; k='divine_cause_law'; out='laws'
+     e=@( ,@('(?m)^\t\t\tglobal_max_literacy = 5[ \t]*\r?$', ("${T3}# LO: pursuit_of_knowledge all 5 -> upper 5 / lower 2`n" + (Strat $T3 'global' 5 2))) ) },
   @{ f='societal_values\00_default.txt'; k='traditionalist_vs_innovative'; out='societal_values'
      e=@( ,@('(?m)^\t\tglobal_max_literacy = 10[ \t]*\r?$', ("${T2}# LO: innovative all 10 -> upper 10 / lower 3`n" + (Strat $T2 'global' 10 3))) ) },
   @{ f='government_reforms\common.txt'; k='visionary_thinkers'; out='government_reforms'
