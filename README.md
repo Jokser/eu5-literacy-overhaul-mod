@@ -457,3 +457,10 @@ A new observer run (cuts 1375 / 1400 / 1450 / 1500, parsed with `tools/save_lite
 
 Kept: early institution spread x3 (slower spread left e.g. Muscovy with nothing to research before 1450); Learned
 Elite k 0.6 (the late game has leftover early advances to research).
+
+### Greek nobility (v0.33, 2026-11-21)
+v0.32 took the nobles +5 out of the Orthodox profile; the Byzantine aristocracy (grammar and rhetoric from private
+teachers and the Constantinople schools, Attic Greek in office) gets it back via its culture:
+| What | Before | Now |
+|---|---|---|
+| new advance `lo_byzantine_paideia` (age 1, culture group `greek_group`, requires written_alphabet, ai_weight 50) | — | nobles 5 |

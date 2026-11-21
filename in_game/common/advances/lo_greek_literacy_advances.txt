@@ -1,0 +1,19 @@
+﻿# Literacy overhaul - Greek nobility (v0.33, 2026-11-21).
+# v0.32 took the nobles +5 out of the Orthodox profile (Muscovite boyars were not more literate than Western nobles).
+# The Byzantine aristocracy was different: its sons learned grammar and rhetoric (enkyklios paideia) from private
+# teachers and the Constantinople schools, and officials and archontes wrote in Attic Greek. -> Greek culture group:
+# nobles +5, from the start (age 1, after the written alphabet).
+lo_byzantine_paideia = {
+	age = age_1_traditions
+	icon = scholasticism
+
+	potential = {
+		culture = { has_culture_group = culture_group:greek_group }
+	}
+
+	requires = written_alphabet
+
+	global_nobles_max_literacy = 5
+
+	ai_weight = { add = 50 }	# the AI values literacy at ~0
+}
