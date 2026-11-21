@@ -1,0 +1,37 @@
+[h1]Literacy Overhaul[/h1]
+
+In vanilla, literacy is one number for everyone: a printing press or a new religion teaches peasants as much as priests. This mod gives every class its own literacy, so a medieval country has a learned elite and an illiterate countryside, as it historically did. Research now depends on how well educated your elite is, not on how many peasants you have.
+
+[h2]Class-stratified literacy[/h2]
+[list]
+[*][b]Nobles, clergy and burghers[/b] can reach high literacy. [b]Peasants, laborers and soldiers[/b] stay low until mass schooling: parish schools, Protestant Bible reading, the Enlightenment.
+[*]Advances, buildings, laws, reforms, privileges, religions and holy sites have been reviewed one by one. Bonuses now go to the classes that actually benefited from them.
+[*][b]Religions differ historically.[/b] Catholic clergy are highly literate. Orthodox parish clergy start low, and Russians catch up with the Stoglav council in the age of Reformation. Protestants and Hussites teach the laity to read. Each Muslim school, Hindu Brahmins and Jain merchants, Theravada village monasteries and Armenian vardapets get their own profile.
+[*]Holy sites no longer give +50 literacy, and theatres no longer teach a whole country's peasantry.
+[/list]
+
+[h2]Learned Elite: a new research bonus[/h2]
+Vanilla research from literacy uses the [i]average[/i] literacy of all pops. Peasants are about 95% of the population, so that average is mostly the peasants'.
+[list]
+[*]A new [b]Learned Elite[/b] modifier adds research speed based on the literacy of your [b]nobles (40%), clergy (35%) and burghers (25%)[/b]. Each estate counts by how educated it is, not by how many people it has.
+[*]Every source of elite literacy now matters for research. That includes Education of the Court, noble advances and clerical privileges.
+[*]A peasant kingdom with a learned elite keeps pace with a burgher city-state. The vanilla average-literacy bonus is kept on top, and the research bonus from average control is halved.
+[*]Recalculated once a year in a single pass over the pops.
+[/list]
+
+[h2]Universities[/h2]
+[list]
+[*]A university needs a developed town (development 30+) with highly literate clergy (85+) and burghers (25+). It gives a big literacy boost to all three upper classes and costs more to build and maintain.
+[*]Loopholes that built universities anywhere are closed: the cheap Orthodox event option and parliament sponsorship.
+[/list]
+
+[h2]Also[/h2]
+[list]
+[*]Libraries and invited foreign clerics no longer make literacy jump. Libraries grow it slowly, and the foreign cleric's boost is cut by two thirds.
+[*]Discriminated and ignored cultures get smaller literacy penalties (-5 and -2 instead of -15 and -5), to match the lower caps.
+[/list]
+
+[h2]Compatibility[/h2]
+Changes are made by replacing single entries (REPLACE_OR_CREATE), not whole files, so most mods that do not touch literacy are compatible. Mods that also change the literacy values of the same advances, buildings, laws or religions will conflict. Whichever loads last wins.
+
+Based in part on the literacy changes of Flavorium Universalis Balance.
