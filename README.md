@@ -189,3 +189,9 @@ country. They are left unchanged.
 | New `lo_armenian_scriptoria` (age 1, Armenian culture) | — | clergy +5, burghers +5 (Mashtots' script, Gladzor / Tatev, diaspora merchants) |
 | New `lo_armenian_printing` (age 3, after printing press) | — | burghers +5, lower +2 (Hakob Meghapart, Venice 1512) |
 | `regnal_chronicles` (all of Africa) | clergy 10 | clergy 5 (court chronicles, not schooling) |
+
+### Discriminated cultures (v0.10, 2026-11-21)
+`loading_screen/common/defines/zz_lo_defines.txt`: `NPop.DISCRIMINATED_CULTURE_MAX_LITERACY` −15 → **−5**. With our
+stratified caps, −15 would wipe out a discriminated culture's peasant literacy for most of the game. Note that
+`IGNORED_CULTURE_MAX_LITERACY` (culture with no policy set) is also −5 in base, so discriminating a culture no longer
+costs extra literacy compared with ignoring it.
