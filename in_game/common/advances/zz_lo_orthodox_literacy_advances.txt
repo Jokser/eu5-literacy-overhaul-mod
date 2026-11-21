@@ -15,4 +15,8 @@ lo_stoglav = {
 	requires = national_rites
 
 	global_clergy_max_literacy = 10
+
+	# v0.25: the AI values clergy literacy at ~0 and Muscovy never took this in a 1337-1740 run.
+	# It also gates the AI weight for basic_religious_education (laws/zz_lo_generated_laws.txt).
+	ai_weight = { add = 100 }
 }

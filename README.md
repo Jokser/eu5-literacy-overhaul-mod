@@ -360,3 +360,12 @@ Model, lower cap in 1740: France 7 -> 16, Britain 10 -> 19, Castile ~7 -> ~16, O
 printing ban is not modelled), Muscovy 2.5 -> 6.5-11.5 depending on how far behind in advances it is. 1555 (printing
 only): France ~5 -> ~9. Vanilla/LO average then drops from ~x3-4 to ~x2.4-2.7, so the institution-spread x3 may now be
 slightly high (to re-check in the next run before touching it).
+
+### Muscovy and church schools (v0.25, 2026-11-21)
+In the 1337-1740 observer run Catholic Lithuania left `uneducated_masses` on its own, but Muscovy never did (the default
+first option; the nobles outweigh the clergy). It also never took `lo_stoglav`, which gives only clergy literacy and
+which the AI values at ~0.
+- `lo_stoglav`: `ai_weight = { add = 100 }`.
+- `basic_religious_education`: `ai_will_do` +100 with `lo_stoglav` (the Stoglav council of 1551 ordered schools at
+  the churches). The AI law score is otherwise hardcoded (modifier utility + estate_preferences); `ai_will_do` is the
+  only scripted lever, so this is a nudge and may still lose to strong nobles.

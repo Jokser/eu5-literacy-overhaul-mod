@@ -194,7 +194,12 @@ $targets = @(
        @('(?m)^\t\t\tglobal_max_literacy = 5[ \t]*\r?$', "${T3}# LO: vedic all 5 -> clergy 15 / nobles + burghers 5 / lower 2 (Brahmin pathshalas)`n${T3}global_clergy_max_literacy = 15`n${T3}global_nobles_max_literacy = 5`n${T3}global_burghers_max_literacy = 5`n${T3}global_laborers_max_literacy = 2`n${T3}global_soldiers_max_literacy = 2`n${T3}global_peasants_max_literacy = 2"),
        # LO (2026-11-21, research pass): apprenticeships = the burghers' answer to religious schooling -> B15 + laborers 3
        @('(?s)(apprenticeships_education = \{.*?)global_burghers_max_literacy = 10([ \t]*\r?\n)',
-         "`${1}global_burghers_max_literacy = 15`t# LO: 10 -> 15, + laborers 3 (guild apprentices)`${2}${T3}global_laborers_max_literacy = 3`${2}")
+         "`${1}global_burghers_max_literacy = 15`t# LO: 10 -> 15, + laborers 3 (guild apprentices)`${2}${T3}global_laborers_max_literacy = 3`${2}"),
+       # LO v0.25: AI weight. The AI keeps the default uneducated_masses while the nobles outweigh the clergy (Muscovy
+       # never left it in a 1337-1740 run). The Stoglav council (1551) ordered schools at the churches -> after
+       # lo_stoglav the AI wants basic_religious_education.
+       @('(?s)(basic_religious_education = \{.*?)(\r?\n)(\t\tyears = 2)',
+         ('${1}${2}' + "${T2}ai_will_do = {`n${T3}if = {`n${T3}`tlimit = { has_advance = lo_stoglav }`n${T3}`tadd = {`n${T3}`t`tdesc = `"LO: Stoglav ordered church schools`"`n${T3}`t`tvalue = 100`n${T3}`t}`n${T3}}`n${T2}}" + '${2}${3}'))
      ) },
   # LO (2026-11-21, research pass): with the learned-elite research bonus every elite variant is worth something;
   # education_of_the_people stops being the best ELITE-education law by teaching the peasants most.

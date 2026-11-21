@@ -39,6 +39,15 @@ REPLACE_OR_CREATE:education_masses_law = {
 		estate_preferences = {
 			clergy_estate
 		}
+		ai_will_do = {
+			if = {
+				limit = { has_advance = lo_stoglav }
+				add = {
+					desc = "LO: Stoglav ordered church schools"
+					value = 100
+				}
+			}
+		}
 		years = 2
 	}
 
