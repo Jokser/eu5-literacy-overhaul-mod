@@ -68,6 +68,21 @@ $targets = @(
              "${T2}# LO: all 5 -> nobles 3 / clergy 3 / burghers 2, monthly 0.1 -> 0.03 (Flavorium)`n${T2}local_nobles_max_literacy = 3`n${T2}local_clergy_max_literacy = 3`n${T2}local_burghers_max_literacy = 2`n${T2}local_monthly_literacy = 0.03") ) },
   @{ f='building_types\culture_buildings.txt'; k='confucian_school'; out='building_types'
      e=@( ,@('(?m)^\t\tlocal_max_literacy = 5[ \t]*\r?$', ("${T2}# LO: 5 -> upper 5 / lower 2 (Flavorium)`n" + (Strat $T2 'local' 5 2))) ) },
+  # ---------- holy sites (ours, 2026-11-21) ----------
+  # holy_site_types location_modifier is SCALED BY the site's importance (1-5, holy_site_types/readme.txt), so
+  # clergy 10 = +50 in Constantinople / Jerusalem / Mecca / Baghdad. Base per point of importance: clergy 2
+  # (importance 5 = +10, one cathedral). Mountain sites gave ALL pops 2 x importance (Fuji +10 to peasants) ->
+  # clergy 1 x importance (mountain monasteries / shugendo, max +5).
+  @{ f='holy_site_types\00_holy_site_types.txt'; k='episcopal_see'; out='holy_site_types'
+     e=@( ,@('(?m)^\t\tlocal_clergy_max_literacy = 10[ \t]*\r?$', "${T2}local_clergy_max_literacy = 2`t# LO: 10 -> 2 (x importance 1-5: max +10, was +50)") ) },
+  @{ f='holy_site_types\00_holy_site_types.txt'; k='orthodox_church_holy_site'; out='holy_site_types'
+     e=@( ,@('(?m)^\t\tlocal_clergy_max_literacy = 10[ \t]*\r?$', "${T2}local_clergy_max_literacy = 2`t# LO: 10 -> 2 (x importance 1-5: max +10, was +50)") ) },
+  @{ f='holy_site_types\00_holy_site_types.txt'; k='islam_holy_site'; out='holy_site_types'
+     e=@( ,@('(?m)^\t\tlocal_clergy_max_literacy = 10[ \t]*\r?$', "${T2}local_clergy_max_literacy = 2`t# LO: 10 -> 2 (x importance 1-5: max +10, was +50)") ) },
+  @{ f='holy_site_types\00_holy_site_types.txt'; k='mayan_holy_site'; out='holy_site_types'
+     e=@( ,@('(?m)^\t\tlocal_clergy_max_literacy = 10[ \t]*\r?$', "${T2}local_clergy_max_literacy = 2`t# LO: 10 -> 2 (x importance 1-5: max +10, was +50)") ) },
+  @{ f='holy_site_types\00_holy_site_types.txt'; k='mountain'; out='holy_site_types'
+     e=@( ,@('(?m)^\t\tlocal_max_literacy = 2[ \t]*\r?$', "${T2}local_clergy_max_literacy = 1`t# LO: all 2 -> clergy 1 (x importance: max +5, was +10 to every class)") ) },
   # ---------- literacy growth speed (ours, 2026-11-21) ----------
   # invite_foreign_cleric: 20 religious influence, AI re-invites every 5 years -> a decaying 0.33 averaged ~8x the
   # whole background growth (written_alphabet + educated_bureaucrats = 0.02) and pinned every class at its cap.
@@ -210,7 +225,7 @@ $targets = @(
   @{ f='religions\christian.txt'; k='anglican'; out='religions'
      e=@( ,@('(?m)^\t\tglobal_max_literacy = 5[ \t]*\r?$', "${T2}# LO: all 5 -> clergy 15 (Oxford/Cambridge clergy) / nobles + burghers 5 / lower 2`n${T2}global_clergy_max_literacy = 15`n${T2}global_nobles_max_literacy = 5`n${T2}global_burghers_max_literacy = 5`n${T2}global_laborers_max_literacy = 2`n${T2}global_soldiers_max_literacy = 2`n${T2}global_peasants_max_literacy = 2") ) },
   @{ f='religions\christian.txt'; k='hussite'; out='religions'
-     e=@( ,@('(?m)^(\tdefinition_modifier = \{)[ \t]*\r?$', "`$1`n${T2}# LO: Czech bible, lay reading (Aeneas Silvius 1451 on Taborite women), Unity of Brethren; Utraquist ordination was hard`n${T2}global_clergy_max_literacy = 10`n${T2}global_burghers_max_literacy = 5`n${T2}global_laborers_max_literacy = 3`n${T2}global_soldiers_max_literacy = 3`n${T2}global_peasants_max_literacy = 3") ) },
+     e=@( ,@('(?m)^(\tdefinition_modifier = \{)[ \t]*\r?$', "`$1`n${T2}# LO: Czech bible, lay reading (Aeneas Silvius 1451 on Taborite women), Unity of Brethren; Utraquist clergy trained at Prague; clergy 10 -> 15 (= Lutheran / Calvinist, 2026-11-21: no monasteries)`n${T2}global_clergy_max_literacy = 15`n${T2}global_burghers_max_literacy = 5`n${T2}global_laborers_max_literacy = 3`n${T2}global_soldiers_max_literacy = 3`n${T2}global_peasants_max_literacy = 3") ) },
   @{ f='religions\christian.txt'; k='lollardy'; out='religions'
      e=@( ,@('(?m)^\t\tglobal_max_literacy = 10[ \t]*\r?$', "${T2}# LO: all 10 -> burghers 10 / nobles + clergy 5 / lower 3 (persecuted movement of literate artisans, Wycliffe bible)`n${T2}global_nobles_max_literacy = 5`n${T2}global_clergy_max_literacy = 5`n${T2}global_burghers_max_literacy = 10`n${T2}global_laborers_max_literacy = 3`n${T2}global_soldiers_max_literacy = 3`n${T2}global_peasants_max_literacy = 3") ) },
   @{ f='religions\christian.txt'; k='waldensian'; out='religions'

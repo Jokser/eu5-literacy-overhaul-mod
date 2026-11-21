@@ -231,8 +231,8 @@ REPLACE_OR_CREATE:hussite = {
 	has_religious_influence = yes
 	
 	definition_modifier = {
-		# LO: Czech bible, lay reading (Aeneas Silvius 1451 on Taborite women), Unity of Brethren; Utraquist ordination was hard
-		global_clergy_max_literacy = 10
+		# LO: Czech bible, lay reading (Aeneas Silvius 1451 on Taborite women), Unity of Brethren; Utraquist clergy trained at Prague; clergy 10 -> 15 (= Lutheran / Calvinist, 2026-11-21: no monasteries)
+		global_clergy_max_literacy = 15
 		global_burghers_max_literacy = 5
 		global_laborers_max_literacy = 3
 		global_soldiers_max_literacy = 3

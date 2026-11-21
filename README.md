@@ -261,3 +261,18 @@ and our `zz_` REPLACE_OR_CREATE. Now LO ships a **same-path override of RSF's `i
 (clergy +5) literacy lines differ. RSF's Romuva opinion inject is untouched. **Re-run the regen after every RSF update.**
 The Stoglav advance file is renamed to `zz_lo_orthodox_literacy_advances.txt`: its `requires = national_rites` failed
 ("Failed to read key reference"), because an advance can only reference advances from files that load earlier.
+
+### Holy sites + Hussite clergy (v0.17, 2026-11-21)
+`holy_site_types` location modifiers are **multiplied by the site's importance (1-5)**, so a base clergy 10 meant
++50 in Constantinople, Jerusalem, Mecca or Baghdad (user saw the +50 from an episcopal see in game).
+
+| Holy site type | Before (x importance) | Now (x importance) |
+|---|---|---|
+| `episcopal_see` (Orthodox/Miaphysite, Nestorian sees) | clergy 10 → up to +50 | clergy 2 → up to +10 |
+| `orthodox_church_holy_site` (Athos, Sinai, Kyiv...) | clergy 10 → up to +30 | clergy 2 → up to +6 |
+| `islam_holy_site` (Mecca, Medina, Kufa, Karbala...) | clergy 10 → up to +50 | clergy 2 → up to +10 |
+| `mayan_holy_site` | clergy 10 → up to +40 | clergy 2 → up to +8 |
+| `mountain` (Fuji, Emei, Jain hills...) | all classes 2 → up to +10 | clergy 1 → up to +5 |
+
+Hussite clergy 10 → 15 (= Lutheran / Calvinist): Hussites have no monasteries (-10) and no Catholic +25, so a Hussite
+city clergy capped at 75 in age 3 and could never pass the university gate (clergy > 85).
