@@ -8,6 +8,8 @@ In vanilla, literacy is one number for everyone: a printing press or a new relig
 [*]Advances, buildings, laws, reforms, privileges, religions and holy sites have been reviewed one by one. Bonuses now go to the classes that actually benefited from them.
 [*][b]Religions differ historically.[/b] Catholic clergy are highly literate. Orthodox parish clergy start low, and Russians catch up with the Stoglav council in the age of Reformation. Protestants and Hussites teach the laity to read. Each Muslim school, Hindu Brahmins and Jain merchants, Theravada village monasteries and Armenian vardapets get their own profile.
 [*]Holy sites no longer give +50 literacy, and theatres no longer teach a whole country's peasantry.
+[*][b]Printed primers[/b], a cheap follow-up to the printing press, bring reading to the common people. In the Muslim world they come only in the age of absolutism (the first Ottoman press opened in 1727), and madrasas educate the ulema, not the villages.
+[*][b]Lutherans[/b] teach the laity to read from the Reformation and become the most literate church after the church reading examinations of the age of absolutism.
 [/list]
 
 [h2]Learned Elite: a new research bonus[/h2]

@@ -464,3 +464,21 @@ teachers and the Constantinople schools, Attic Greek in office) gets it back via
 | What | Before | Now |
 |---|---|---|
 | new advance `lo_byzantine_paideia` (age 1, culture group `greek_group`, requires written_alphabet, ai_weight 50) | — | nobles 5 |
+
+### Print, Lutherans and madrasas (v0.34, 2026-11-21)
+Observer cuts 1550 / 1600 (run c03b841a): Ottoman and Moroccan peasants (8.9 / 10.4) were above Catholic France (8.6),
+Sweden was massively literate right after the Reformation (peasants 15.5 in 1550).
+| What | Before | Now |
+|---|---|---|
+| `printing_press_advance` | nobles/clergy 5, burghers 10, lower 4, growth 0.01 | nobles/clergy 5, burghers 10 |
+| new `lo_printed_primers` (age 3, requires the printing press, research cost x0.5, ai_weight 50) | — | lower 4, `global_monthly_literacy` 0.01; Muslims only from age 5 (Muteferrika 1727) |
+| `lutheran` | lower 8 | lower 4 (catechism, school church orders) |
+| new `lo_church_reading_examinations` (age 5, Lutherans, research cost x0.5, ai_weight 50) | — | lower 4 (Swedish church law 1686, Pietist schools) |
+| `freedom_of_interpretation` (Muslim clergy privilege) | upper 5, lower 2 | clergy 10, burghers 5, nobles 2.5, lower 0 |
+| madrasa academy advances (`mor_marinid_madrasas`, `fez_qarawiyyin_school`, `bah_madrasa_of_mahmud_gawan`, `hassaniya_shinqit_libraries`, `tunisian_maliki_heartland`) | academy rule upper X / lower X/3 | upper X / lower 0 |
+| `monument_qarawiyyin` (Fez) | local all 2.5 | local clergy 10, burghers 2.5, nobles 2.5 |
+| `monument_bou_inania_madrasa` (Fez) | local all 2.5 | local clergy 5 |
+| `al_azhar_madrasa` (event) | local all 5, growth 0.1 | local clergy 10, burghers 2.5, growth 0.1 |
+| `mahmud_gawan_madrasa` (event) | local all 5, growth 0.15 | local clergy 10, nobles 2.5, growth 0.15 |
+
+Madrasas trained the ulema and the urban elite; the village kuttab / msid taught Quran recitation, not reading.

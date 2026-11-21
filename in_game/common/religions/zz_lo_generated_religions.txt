@@ -75,9 +75,10 @@ REPLACE_OR_CREATE:lutheran = {
 		global_clergy_max_literacy = 20
 		global_nobles_max_literacy = 5
 		global_burghers_max_literacy = 5
-		global_laborers_max_literacy = 8
-		global_soldiers_max_literacy = 8
-		global_peasants_max_literacy = 8
+		# v0.34: lower 8 -> 4 here + 4 from age 5 (lo_church_reading_examinations, Swedish church law 1686)
+		global_laborers_max_literacy = 4
+		global_soldiers_max_literacy = 4
+		global_peasants_max_literacy = 4
 	
 		clergy_estate_target_satisfaction = medium_permanent_target_satisfaction
 		tax_income_efficiency = medium_tax_income_efficiency_bonus

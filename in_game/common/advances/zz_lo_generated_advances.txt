@@ -23,13 +23,10 @@ REPLACE_OR_CREATE:printing_press_advance = {
 	icon = printing_press_advance
 		
 	# LO: global 10 -> nobles + clergy 5 / burghers 10 / lower 4 (Flavorium upper 5; v0.24 lower 4: primers and chapbooks; v0.27 burghers 10: printing was a burgher trade and market)
+	# v0.34: the lower +4 and global_monthly_literacy 0.01 moved to lo_printed_primers (advances/lo_printing_literacy_advances.txt)
 	global_nobles_max_literacy = 5
 	global_clergy_max_literacy = 5
 	global_burghers_max_literacy = 10
-	global_laborers_max_literacy = 4
-	global_soldiers_max_literacy = 4
-	global_peasants_max_literacy = 4
-	global_monthly_literacy = 0.01	# LO v0.32: cheap books double the growth (ages 1-2 only had written_alphabet 0.01)
 
 	depth = 0
 	allow = { has_embraced_institution = institution:printing_press }
@@ -464,13 +461,10 @@ REPLACE_OR_CREATE:bah_madrasa_of_mahmud_gawan = {
         culture.language = language:kannada_language
     }
 	requires = subject_income_revolutions_advance
-	# LO academy rule: all 10 -> upper 10 / lower 3
+	# LO academy rule: all 10 -> upper 10 / lower 0
 	global_nobles_max_literacy = 10
 	global_clergy_max_literacy = 10
 	global_burghers_max_literacy = 10
-	global_laborers_max_literacy = 3
-	global_soldiers_max_literacy = 3
-	global_peasants_max_literacy = 3
     global_monthly_literacy = 0.02
 }
 
@@ -637,13 +631,10 @@ REPLACE_OR_CREATE:fez_qarawiyyin_school = {
 		has_or_had_tag = FEZ
 	}
 
-	# LO academy rule: all 5 -> upper 5 / lower 2
+	# LO academy rule: all 5 -> upper 5 / lower 0
 	global_nobles_max_literacy = 5
 	global_clergy_max_literacy = 5
 	global_burghers_max_literacy = 5
-	global_laborers_max_literacy = 2
-	global_soldiers_max_literacy = 2
-	global_peasants_max_literacy = 2
 	research_speed_modifier = 0.05
 
 	requires = legalism_advance
@@ -704,13 +695,10 @@ REPLACE_OR_CREATE:hassaniya_shinqit_libraries = {
 	}
 
 	cultural_influence_modifier = 0.1
-	# LO academy rule: all 5 -> upper 5 / lower 2
+	# LO academy rule: all 5 -> upper 5 / lower 0
 	global_nobles_max_literacy = 5
 	global_clergy_max_literacy = 5
 	global_burghers_max_literacy = 5
-	global_laborers_max_literacy = 2
-	global_soldiers_max_literacy = 2
-	global_peasants_max_literacy = 2
 
 	requires = enlightened_court
 }
@@ -834,13 +822,10 @@ REPLACE_OR_CREATE:mor_marinid_madrasas = {
 		original_tag = MOR
 	}
 
-	# LO academy rule: all 5 -> upper 5 / lower 2
+	# LO academy rule: all 5 -> upper 5 / lower 0
 	global_nobles_max_literacy = 5
 	global_clergy_max_literacy = 5
 	global_burghers_max_literacy = 5
-	global_laborers_max_literacy = 2
-	global_soldiers_max_literacy = 2
-	global_peasants_max_literacy = 2
 	improve_relation_impact = 0.1
 
 	requires = renaissance_thought
@@ -1262,13 +1247,10 @@ REPLACE_OR_CREATE:tunisian_maliki_heartland = {
 	}
 
 	global_clergy_max_literacy = 5
-	# LO academy rule: all 5 -> upper 5 / lower 2
+	# LO academy rule: all 5 -> upper 5 / lower 0
 	global_nobles_max_literacy = 5
 	global_clergy_max_literacy = 5
 	global_burghers_max_literacy = 5
-	global_laborers_max_literacy = 2
-	global_soldiers_max_literacy = 2
-	global_peasants_max_literacy = 2
 
 	requires = written_alphabet
 }

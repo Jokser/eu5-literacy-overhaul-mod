@@ -38,7 +38,7 @@ $targets = @(
   @{ f='advances\0_age_of_traditions.txt'; k='written_alphabet'; out='advances'
      e=@( ,@('(?m)^\tglobal_max_literacy = 5[ \t]*\r?$', "${T1}global_max_literacy = 2`t# LO: 5 -> 2 (Flavorium)") ) },
   @{ f='advances\0_age_of_discovery.txt'; k='printing_press_advance'; out='advances'
-     e=@( ,@('(?m)^\tglobal_max_literacy = 10[ \t]*\r?$', ("${T1}# LO: global 10 -> nobles + clergy 5 / burghers 10 / lower 4 (Flavorium upper 5; v0.24 lower 4: primers and chapbooks; v0.27 burghers 10: printing was a burgher trade and market)`n" + ((Strat $T1 'global' 5 4) -replace 'global_burghers_max_literacy = 5', 'global_burghers_max_literacy = 10') + "`n${T1}global_monthly_literacy = 0.01`t# LO v0.32: cheap books double the growth (ages 1-2 only had written_alphabet 0.01)")) ) },
+     e=@( ,@('(?m)^\tglobal_max_literacy = 10[ \t]*\r?$', ("${T1}# LO: global 10 -> nobles + clergy 5 / burghers 10 / lower 4 (Flavorium upper 5; v0.24 lower 4: primers and chapbooks; v0.27 burghers 10: printing was a burgher trade and market)`n${T1}# v0.34: the lower +4 and global_monthly_literacy 0.01 moved to lo_printed_primers (advances/lo_printing_literacy_advances.txt)`n" + ((Strat $T1 'global' 5 $null) -replace 'global_burghers_max_literacy = 5', 'global_burghers_max_literacy = 10'))) ) },
   @{ f='advances\4_choices_adm.txt'; k='innovativeness'; out='advances'
      e=@( ,@('(?m)^\tglobal_max_literacy = 5[ \t]*\r?$', ("${T1}# LO: global 5 -> upper classes 5 (Flavorium)`n" + (Strat $T1 'global' 5 $null))) ) },
   @{ f='advances\country_nov.txt'; k='birch_bark_manuscript'; out='advances'
@@ -121,6 +121,15 @@ $targets = @(
   @{ f='town_rights\10_country_specific.txt'; k='enlightened_leadership_reform_town_right'; out='town_rights'
      e=@( ,@('(?m)^\t\tlocal_peasants_max_literacy = 10[ \t]*\r?\n\t\tlocal_laborers_max_literacy = 10[ \t]*\r?\n\t\tlocal_soldiers_max_literacy = 10[ \t]*\r?$',
              "${T2}# LO: lower 10 -> laborers / soldiers 5, peasants 3 (town schooling reaches the townsfolk first)`n${T2}local_peasants_max_literacy = 3`n${T2}local_laborers_max_literacy = 5`n${T2}local_soldiers_max_literacy = 5") ) },
+  # v0.34: madrasas trained the ulema and the urban elite; the village kuttab / msid taught Quran recitation -> no peasants
+  @{ f='building_types\unique_buildings.txt'; k='monument_qarawiyyin'; out='building_types'
+     e=@( ,@('(?m)^\t\tlocal_max_literacy = 2\.5[ \t]*\r?$', "${T2}# LO v0.34: all 2.5 -> clergy 10 / burghers 2.5 / nobles 2.5 (al-Qarawiyyin, the learned centre of the Maghreb)`n${T2}local_clergy_max_literacy = 10`n${T2}local_burghers_max_literacy = 2.5`n${T2}local_nobles_max_literacy = 2.5") ) },
+  @{ f='building_types\unique_buildings.txt'; k='monument_bou_inania_madrasa'; out='building_types'
+     e=@( ,@('(?m)^\t\tlocal_max_literacy = 2\.5[ \t]*\r?$', "${T2}local_clergy_max_literacy = 5`t# LO v0.34: all 2.5 -> clergy 5 (madrasa)") ) },
+  @{ f='building_types\event_only_buildings.txt'; k='al_azhar_madrasa'; out='building_types'
+     e=@( ,@('(?m)^\t\tlocal_max_literacy = 5[ \t]*\r?$', "${T2}# LO v0.34: all 5 -> clergy 10 / burghers 2.5 (al-Azhar)`n${T2}local_clergy_max_literacy = 10`n${T2}local_burghers_max_literacy = 2.5") ) },
+  @{ f='building_types\event_only_buildings.txt'; k='mahmud_gawan_madrasa'; out='building_types'
+     e=@( ,@('(?m)^([ \t]+)local_max_literacy = 5[ \t]*\r?$', "`${1}# LO v0.34: all 5 -> clergy 10 / nobles 2.5 (Bidar madrasa)`n`${1}local_clergy_max_literacy = 10`n`${1}local_nobles_max_literacy = 2.5") ) },
   # v0.32: borough customs = burgh self-government, burgess records, town grammar schools - not a school for the countryside
   @{ f='town_rights\14_britain.txt'; k='borough_customals'; out='town_rights'
      e=@( ,@('(?m)^\t\tlocal_max_literacy = 5[ \t]*\r?$', "${T2}# LO v0.32: all 5 -> burghers 5 / laborers 2 (burgess records, town grammar schools)`n${T2}local_burghers_max_literacy = 5`n${T2}local_laborers_max_literacy = 2") ) },
@@ -192,7 +201,7 @@ $targets = @(
      ) },
   # ---------- privileges / reforms / laws ----------
   @{ f='estate_privileges\clergy_estate.txt'; k='freedom_of_interpretation'; out='estate_privileges'
-     e=@( ,@('(?m)^\t\tglobal_max_literacy = 5[ \t]*\r?$', ("${T2}# LO: 5 -> upper 5 / lower 2 (Flavorium)`n" + (Strat $T2 'global' 5 2))) ) },
+     e=@( ,@('(?m)^\t\tglobal_max_literacy = 5[ \t]*\r?$', "${T2}# LO v0.34: all 5 -> clergy 10 / burghers 5 / nobles 2.5 / lower 0 (ijtihad and the Sufi orders = a learned-elite matter)`n${T2}global_clergy_max_literacy = 10`n${T2}global_burghers_max_literacy = 5`n${T2}global_nobles_max_literacy = 2.5") ) },
   @{ f='government_reforms\common.txt'; k='the_education_act'; out='government_reforms'
      e=@( ,@('(?m)^\t\tglobal_max_literacy = 5[ \t]*\r?$', ("${T2}# LO: 5 -> upper 5 / lower 2 (Flavorium)`n" + (Strat $T2 'global' 5 2))) ) },
   @{ f='laws\01_common.txt'; k='education_masses_law'; out='laws'
@@ -304,7 +313,7 @@ $targets = @(
   # v0.29: the AI never picks translated_bibles / pietism (0 Lutheran countries in the 1605/1687/1800 saves; aspects are
   # chosen by modifier_utility, which values literacy at ~0), so the guaranteed Protestant literacy goes into the religion.
   @{ f='religions\christian.txt'; k='lutheran'; out='religions'
-     e=@( ,@('(?m)^(\tdefinition_modifier = \{)[ \t]*\r?$', "`$1`n${T2}# LO v0.29: the strongest mass-literacy church: university-trained pastors, Luther's Small Catechism (1529), church`n${T2}# orders making schools a parish duty, Swedish church law 1686 (household reading examinations)`n${T2}global_clergy_max_literacy = 20`n${T2}global_nobles_max_literacy = 5`n${T2}global_burghers_max_literacy = 5`n${T2}global_laborers_max_literacy = 8`n${T2}global_soldiers_max_literacy = 8`n${T2}global_peasants_max_literacy = 8") ) },
+     e=@( ,@('(?m)^(\tdefinition_modifier = \{)[ \t]*\r?$', "`$1`n${T2}# LO v0.29: the strongest mass-literacy church: university-trained pastors, Luther's Small Catechism (1529), church`n${T2}# orders making schools a parish duty, Swedish church law 1686 (household reading examinations)`n${T2}global_clergy_max_literacy = 20`n${T2}global_nobles_max_literacy = 5`n${T2}global_burghers_max_literacy = 5`n${T2}# v0.34: lower 8 -> 4 here + 4 from age 5 (lo_church_reading_examinations, Swedish church law 1686)`n${T2}global_laborers_max_literacy = 4`n${T2}global_soldiers_max_literacy = 4`n${T2}global_peasants_max_literacy = 4") ) },
   @{ f='religions\christian.txt'; k='calvinist'; out='religions'
      e=@( ,@('(?m)^(\tdefinition_modifier = \{)[ \t]*\r?$', "`$1`n${T2}# LO v0.29: university-trained ministers; catechism / parish schools (Geneva, Scotland 1560 + 1696, Dutch schools)`n${T2}global_clergy_max_literacy = 20`n${T2}global_burghers_max_literacy = 5`n${T2}global_laborers_max_literacy = 6`n${T2}global_soldiers_max_literacy = 6`n${T2}global_peasants_max_literacy = 6") ) },
   # other Protestant / proto-Protestant churches (2026-11-20, user OK)
@@ -426,6 +435,7 @@ $academies = @(
   'rhaetian_the_national_revival','sar_enlightened_reforms','sar_university_of_cagliari','ser_the_transcribers_of_resava','sic_sicilian_enlightenment',
   'sie_artists','tet_andalusi_quarter','tunisian_maliki_heartland','urb_the_enlightened_university','urb_the_mathematical_school'
 )
+$madrasaAcad = @('mor_marinid_madrasas','fez_qarawiyyin_school','bah_madrasa_of_mahmud_gawan','hassaniya_shinqit_libraries','tunisian_maliki_heartland')
 $warn = 0
 $advDir = Join-Path $game 'in_game\common\advances'
 $advTexts = @{}; foreach ($af in Get-ChildItem $advDir -Filter *.txt) { $advTexts[$af.Name] = [IO.File]::ReadAllText($af.FullName).TrimStart([char]0xFEFF) }
@@ -437,7 +447,9 @@ foreach ($k in $academies) {
     $mm = if ($blk) { [regex]::Matches($blk, $rxAcad) } else { @() }
     if ($mm.Count -ne 1) { Write-Warning "${k}: expected 1 global_max_literacy line, found $($mm.Count) - SKIPPED"; $warn++; continue }
     $x = [double]$mm[0].Groups[1].Value; $low = [math]::Round($x / 3)
-    $rep = "${T1}# LO academy rule: all $x -> upper $x / lower $low`n" + (Strat $T1 'global' $x $low)
+    # v0.34: madrasa academies trained ulema and the urban elite; village kuttab/msid taught Quran recitation -> lower 0
+    if ($madrasaAcad -contains $k) { $low = 0 }
+    $rep = "${T1}# LO academy rule: all $x -> upper $x / lower $low`n" + (Strat $T1 'global' $x $(if ($low -gt 0) { $low } else { $null }))
     $targets += @{ f=('advances\' + $fn); k=$k; out='advances'; e=@( ,@($rxAcad, $rep) ) }
 }
 
