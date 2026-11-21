@@ -322,3 +322,14 @@ lower 0) and Miaphysite (clergy +5) are generated from vanilla `christian.txt` a
 else. RSF's `TRY_REPLACE` of those religions wins over that, so for RSF players the regen script also writes a
 separate mod **`mod/Literacy overhaul - RSF compatibility`**: a same-path override of RSF's `RSF_christian.txt` with
 the same literacy lines. Load it after RSF and LO. It is skipped if RSF is not installed.
+
+### Mesoamerica and Hellenism (v0.22, 2026-11-21)
+| What | Before | Now |
+|---|---|---|
+| Religion `mayan` | — | clergy +10, nobles +5 (glyphic writing: ah k'in priests, ah tz'ib scribes, codices) |
+| Religion `nahuatl` | — | clergy +5 (temple tlacuilo scribes, tlamatinime) |
+| Religion `mesoamerican` (Mixtec / Zapotec) | — | clergy +5, nobles +5 (genealogical codices) |
+| `calmecac` (Nahua capital) | nobles +20 local / +10 country | + clergy +10 local / +5 country (it trained the priests too) |
+| `epic_poetry_advance` (Hellenism) | all 5 | upper 5 / lower 2 |
+
+Kept at 0: Inti (khipu accounting, no writing), Chichimec. telpochcalli (commoners' military school) gives no literacy.

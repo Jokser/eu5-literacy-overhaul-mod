@@ -157,6 +157,55 @@ REPLACE_OR_CREATE:confucian_school = {
 	}
 }
 
+# --- from base building_types\unique_buildings.txt ---
+REPLACE_OR_CREATE:calmecac = {
+	audio_tier = 3
+	is_special = yes
+	is_foreign = no
+	pop_type = clergy
+	max_levels = 1
+	
+	category = government_category
+	
+	employment_size = large_religious_building_employment
+	
+	rural_settlement = yes
+	town = yes
+	city = yes
+	megalopolis = yes
+	
+	build_time = government_build_time
+
+	country_potential = {
+		culture = { has_culture_group = culture_group:nahua_group }
+	}
+
+	location_potential = {
+		counts_as_capital = yes
+	}
+
+	allow = {
+		is_capital = yes
+		country_has_no_other_copy_of_building = { type = calmecac }
+	}
+	
+	modifier = {
+		local_nobles_max_literacy = 20
+		local_clergy_max_literacy = 10	# LO: calmecac also trained the priests
+		local_pop_promotion_speed_modifier = 0.5
+	}
+	capital_country_modifier = {
+		country_cabinet_efficiency = 0.05
+		global_nobles_max_literacy = 10
+		global_clergy_max_literacy = 5	# LO: calmecac also trained the priests
+	}
+	
+	possible_production_methods = {
+		nahuatl_warrior_building_maintenance
+	}
+	construction_demand = nahuatl_warrior_building_construction
+}
+
 # --- from base building_types\religion_buildings.txt ---
 REPLACE_OR_CREATE:fortress_church = {
 	audio_tier = 2

@@ -68,6 +68,15 @@ $targets = @(
              "${T2}# LO: all 5 -> nobles 3 / clergy 3 / burghers 2, monthly 0.1 -> 0.03 (Flavorium)`n${T2}local_nobles_max_literacy = 3`n${T2}local_clergy_max_literacy = 3`n${T2}local_burghers_max_literacy = 2`n${T2}local_monthly_literacy = 0.03") ) },
   @{ f='building_types\culture_buildings.txt'; k='confucian_school'; out='building_types'
      e=@( ,@('(?m)^\t\tlocal_max_literacy = 5[ \t]*\r?$', ("${T2}# LO: 5 -> upper 5 / lower 2 (Flavorium)`n" + (Strat $T2 'local' 5 2))) ) },
+  # ---------- Mesoamerica / Hellenism (ours, 2026-11-21) ----------
+  # calmecac: priests taught noble youths AND future priests (the building is clergy-staffed) -> + clergy
+  @{ f='building_types\unique_buildings.txt'; k='calmecac'; out='building_types'
+     e=@(
+       @('(?m)^(\t\tlocal_nobles_max_literacy = 20[ \t]*)(\r?\n)', "`${1}`${2}${T2}local_clergy_max_literacy = 10`t# LO: calmecac also trained the priests`${2}"),
+       @('(?m)^(\t\tglobal_nobles_max_literacy = 10[ \t]*)(\r?\n)', "`${1}`${2}${T2}global_clergy_max_literacy = 5`t# LO: calmecac also trained the priests`${2}")
+     ) },
+  @{ f='advances\religion_hellenism.txt'; k='epic_poetry_advance'; out='advances'
+     e=@( ,@('(?m)^\tglobal_max_literacy = 5[ \t]*\r?$', ("${T1}# LO: all 5 -> upper 5 / lower 2 (epic learning of the educated)`n" + (Strat $T1 'global' 5 2))) ) },
   # ---------- research balance (ours, 2026-11-21) ----------
   # average_control_50 = research 0.5 x (average control - 50%): a one-location state (Hamburg) always has 100% control
   # -> a flat +25%. Our Learned Elite bonus now rewards an educated elite instead, so the control term is halved
@@ -333,7 +342,11 @@ $defAdds = @(
   @('zoroastrian.txt','zoroastrian', @{clergy=10}),   # mobeds, keepers of the Pahlavi texts
   @('druze.txt','druzism',           @{clergy=10}),   # uqqal - the initiated who read the Epistles of Wisdom
   @('mandean.txt','mandeaism',       @{clergy=10}),   # tarmide priests copying Mandaic texts
-  @('christian.txt','bosnian_church',@{clergy=5})     # krstjani communities, Bosancica books
+  @('christian.txt','bosnian_church',@{clergy=5}),    # krstjani communities, Bosancica books
+  # Mesoamerica (2026-11-21, user OK): the only true writing system of the Americas + pictographic codices
+  @('tonal.txt','mayan',        @{clergy=10; nobles=5}),   # ah k'in priests, ah tz'ib scribes, glyphic codices; nobles read glyphs
+  @('tonal.txt','nahuatl',      @{clergy=5}),              # temple tlacuilo scribes, tlamatinime (nobles: via calmecac)
+  @('tonal.txt','mesoamerican', @{clergy=5; nobles=5})     # Mixtec / Zapotec genealogical codices kept for the nobility
 )
 # Miaphysites (2026-11-21, user OK): clergy +5 - in the orthodox/miaphysite targets above (+ RSF compat patch)
 # regnal_chronicles (all of Africa): court chronicles were kept by a few court clerics -> clergy 10 -> 5
