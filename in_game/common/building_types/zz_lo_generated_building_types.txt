@@ -206,6 +206,735 @@ REPLACE_OR_CREATE:calmecac = {
 	construction_demand = nahuatl_warrior_building_construction
 }
 
+# --- from base building_types\event_only_buildings.txt ---
+REPLACE_OR_CREATE:bavarian_academy_of_sciences = {
+	audio_tier = 4
+	is_special = yes
+	is_foreign = no
+	pop_type = nobles
+	max_levels = 1
+	
+	employment_size = normal_noble_employment
+
+	category = cultural_category
+	
+	town = yes
+	city = yes
+	megalopolis = yes
+
+	country_potential = {
+		custom_tooltip = {
+			text = bavarian_academy_of_sciences_why
+			has_or_had_tag = BAV
+		}
+	}
+
+	allow = {
+		always = no
+	}
+
+	can_destroy = {
+		always = yes
+	}
+
+	
+
+	build_time = cultural_building_time
+
+	possible_production_methods = {
+		library_maintenance
+	}
+
+	construction_demand = school_construction
+
+	location_potential = {
+		counts_as_capital = yes
+	}
+
+	modifier = {
+		# LO v0.39: all 20 -> upper 20 (academy of sciences)
+		local_nobles_max_literacy = 20
+		local_clergy_max_literacy = 20
+		local_burghers_max_literacy = 20
+	}
+
+	capital_country_modifier = {
+		research_speed_modifier = 0.05
+		monthly_towards_individualism = 0.05
+	}
+
+}
+
+# --- from base building_types\event_only_buildings.txt ---
+REPLACE_OR_CREATE:munich_residenz_baroque_expansion = {
+	audio_tier = 5
+	is_special = yes
+    is_foreign = no
+    pop_type = nobles
+    max_levels = 1
+
+    category = cultural_category
+    employment_size = noble_cultural_employment
+
+    rural_settlement = no
+    town = yes
+    city = yes
+    megalopolis = yes
+
+    expensive = yes
+    build_time = large_capital_build_time
+
+    country_potential = {
+        custom_tooltip = {
+            text = munich_residenz_baroque_expansion_potential
+			OR = {
+            	has_or_had_tag = BAV
+            	has_or_had_tag = LBV
+            	has_or_had_tag = UBV
+			}
+        }
+    }
+
+	allow = {
+		always = no
+	}
+
+	can_destroy = {
+		always = yes
+	}
+
+    location_potential = {
+        this = location:munich
+        has_building = building_type:munich_residenz_renaissance_expansion
+    }
+
+    modifier = {
+        # LO v0.39: all 20 -> nobles 20 / burghers 10 (court culture)
+        local_nobles_max_literacy = 20
+        local_burghers_max_literacy = 10
+        local_cultural_tradition = 0.3
+    }
+
+    capital_country_modifier = {
+        research_speed_modifier = 0.05
+    }
+
+    possible_production_methods = {
+        capital_building_maintenance
+    }
+
+    construction_demand = capital_building_construction
+}
+
+# --- from base building_types\event_only_buildings.txt ---
+REPLACE_OR_CREATE:munich_residenz_renaissance_expansion = {
+	audio_tier = 4
+	is_special = yes
+    is_foreign = no
+    pop_type = nobles
+    max_levels = 1
+
+    category = cultural_category
+    employment_size = noble_cultural_employment
+
+    rural_settlement = no
+    town = yes
+    city = yes
+    megalopolis = yes
+
+    build_time = large_capital_build_time
+
+    country_potential = {
+        custom_tooltip = {
+            text = munich_residenz_renaissance_expansion_potential
+			OR = {
+            	has_or_had_tag = BAV
+            	has_or_had_tag = LBV
+            	has_or_had_tag = UBV
+			}
+        }
+    }
+
+	allow = {
+		always = no
+	}
+
+	can_destroy = {
+		always = yes
+	}
+
+    location_potential = {
+        this = location:munich
+        has_building = building_type:munich_residenz_founding
+    }
+
+    modifier = {
+        # LO v0.39: all 10 -> nobles 10 / burghers 5 (court culture)
+        local_nobles_max_literacy = 10
+        local_burghers_max_literacy = 5
+        local_cultural_tradition = 0.2
+    }
+
+    possible_production_methods = {
+        early_capital_building_maintenance
+		early_capital_building_silver_maintenance
+    }
+
+    construction_demand = early_capital_building_construction
+}
+
+# --- from base building_types\event_only_buildings.txt ---
+REPLACE_OR_CREATE:herrenchiemsee_abbey = {
+	audio_tier = 3
+	is_special = yes
+    is_foreign = no
+    pop_type = clergy
+    max_levels = 1
+
+    category = cultural_category
+    employment_size = large_religious_building_employment
+	graphical_tags = { medium_religious }
+
+    rural_settlement = no
+    town = yes
+    city = yes
+    megalopolis = yes
+
+    build_time = large_capital_build_time
+
+    country_potential = {
+        custom_tooltip = {
+            text = herrenchiemsee_abbey_potential
+			OR = {
+            	has_or_had_tag = BAV
+            	has_or_had_tag = LBV
+            	has_or_had_tag = UBV
+			}
+        }
+    }
+
+	allow = {
+		always = no
+	}
+
+	can_destroy = {
+		always = yes
+	}
+
+    location_potential = {
+        this = location:munich
+    }
+
+    modifier = {
+        # LO v0.39: all 15 -> clergy 15 / nobles 5 (Benedictine abbey)
+        local_clergy_max_literacy = 15
+        local_nobles_max_literacy = 5
+        local_cultural_tradition = 0.1
+    }
+
+    capital_country_modifier = {
+        research_speed_modifier = 0.05
+        tolerance_own = 1
+    }
+	
+	unique_production_methods = {
+		herrenchiemsee_abbey_maintenance = {
+			icon_type = building_type
+			icon = herrenchiemsee_abbey
+			glass = 0.4
+			paper = 0.4
+			cloth = 0.4
+			beer = 0.4
+			beeswax = 0.2
+			
+			category = building_maintenance
+		}
+	}
+
+
+    construction_demand = herrenchiemsee_abbey_construction
+}
+
+# --- from base building_types\event_only_buildings.txt ---
+REPLACE_OR_CREATE:usa_academy_of_arts_and_sciences = {
+	audio_tier = 4
+	is_special = yes
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 1
+	
+	category = cultural_category
+	
+	employment_size = cultural_employment
+	
+	rural_settlement = no
+	town = yes
+	city = yes
+	megalopolis = yes
+
+	country_potential = {
+		always = no
+	}
+	
+	allow = {
+		custom_tooltip = {
+			text = usa_academy_of_arts_and_sciences_why
+			always = no
+		}
+	}
+
+	expensive = yes
+
+	build_time = cultural_building_time
+	
+	modifier = {
+		local_cultural_tradition = 1.0
+		# LO v0.39: all 10 -> upper 10 (academy)
+		local_nobles_max_literacy = 10
+		local_clergy_max_literacy = 10
+		local_burghers_max_literacy = 10
+	}
+
+	capital_country_modifier = {
+		monthly_towards_humanist = societal_value_monthly_move
+	}
+	
+	unique_production_methods = {
+		usa_academy_of_arts_and_sciences_maintenance = {
+			icon_type = building_type
+			icon = usa_academy_of_arts_and_sciences
+			paper = 1
+			books = 0.25
+			glass = 0.25
+			beeswax = 0.05
+			category = building_maintenance
+		}
+	}
+	construction_demand = university_construction
+}
+
+# --- from base building_types\event_only_buildings.txt ---
+REPLACE_OR_CREATE:adm_vatican_library = {
+	audio_tier = 4
+	is_special = yes
+	is_foreign = no
+	pop_type = clergy
+	max_levels = 1
+	category = cultural_category
+	employment_size = huge_religious_building_employment
+	town = yes
+	city = yes
+	megalopolis = yes
+	graphical_tags = { medium_religious }
+	
+	build_time = large_cultural_building_time
+	country_potential = { always = no }
+	modifier = {
+		# LO v0.39: all 5 -> clergy 10 / nobles 5 (Vatican Library)
+		local_clergy_max_literacy = 10
+		local_nobles_max_literacy = 5
+		local_monthly_literacy = 0.1
+		local_pop_promotion_speed = 0.001
+	}
+	capital_country_modifier = {
+		global_estate_target_satisfaction = small_permanent_target_satisfaction
+		research_speed_modifier = 0.05
+	}
+	possible_production_methods = {
+		library_maintenance
+	}
+	construction_demand = library_construction
+}
+
+# --- from base building_types\event_only_buildings.txt ---
+REPLACE_OR_CREATE:dip_vatican_library = {
+	audio_tier = 4
+	is_special = yes
+	is_foreign = no
+	pop_type = clergy
+	max_levels = 1
+	category = cultural_category
+	employment_size = huge_religious_building_employment
+	town = yes
+	city = yes
+	megalopolis = yes
+	graphical_tags = { medium_religious }
+	
+	build_time = large_cultural_building_time
+	country_potential = { always = no }
+	modifier = {
+		# LO v0.39: all 5 -> clergy 10 / nobles 5 (Vatican Library)
+		local_clergy_max_literacy = 10
+		local_nobles_max_literacy = 5
+		local_monthly_literacy = 0.1
+		local_pop_promotion_speed = 0.001
+	}
+	capital_country_modifier = {
+		diplomatic_reputation = diplomatic_reputation_weak_bonus
+		research_speed_modifier = 0.05
+	}
+	possible_production_methods = {
+		library_maintenance
+	}
+	construction_demand = library_construction
+}
+
+# --- from base building_types\event_only_buildings.txt ---
+REPLACE_OR_CREATE:mil_vatican_library = {
+	audio_tier = 4
+	is_special = yes
+	is_foreign = no
+	pop_type = clergy
+	max_levels = 1
+	category = cultural_category
+	employment_size = huge_religious_building_employment
+	town = yes
+	city = yes
+	megalopolis = yes
+	graphical_tags = { medium_religious }
+	
+	build_time = large_cultural_building_time
+	country_potential = { always = no }
+	modifier = {
+		# LO v0.39: all 5 -> clergy 10 / nobles 5 (Vatican Library)
+		local_clergy_max_literacy = 10
+		local_nobles_max_literacy = 5
+		local_monthly_literacy = 0.1
+		local_pop_promotion_speed = 0.001
+	}
+	capital_country_modifier = {
+		army_tradition_from_battle = 0.5
+		research_speed_modifier = 0.05
+	}
+	possible_production_methods = {
+		library_maintenance
+	}
+	construction_demand = library_construction
+}
+
+# --- from base building_types\event_only_buildings.txt ---
+REPLACE_OR_CREATE:bibliotheca_corviniana = {
+	audio_tier = 4
+	is_special = yes
+	is_foreign = no
+	pop_type = clergy
+	max_levels = 1
+	category = cultural_category
+	employment_size = huge_religious_building_employment
+	town = yes
+	city = yes
+	megalopolis = yes
+	expensive = yes
+	build_time = cultural_building_time
+	country_potential = {
+		custom_tooltip = {
+			text = unlocked_bibliotheca_corviniana_tt
+			has_variable = unlocked_bibliotheca_corviniana
+		}
+	}
+	allow = { always = no }
+	modifier = {
+		# LO v0.39: all 5 -> upper 5 (court library)
+		local_nobles_max_literacy = 5
+		local_clergy_max_literacy = 5
+		local_burghers_max_literacy = 5
+		local_monthly_literacy = 0.25
+	}
+	capital_country_modifier = {
+		research_speed_modifier = 0.1
+	}
+	
+	unique_production_methods = {
+		bibliotheca_corviniana_maintenance = {
+			icon_type = building_type
+			icon = bibliotheca_corviniana
+			paper = 0.2
+			books = 1.0
+			furniture = 0.1
+			category = building_maintenance
+		}
+	}
+	construction_demand = library_construction
+}
+
+# --- from base building_types\event_only_buildings.txt ---
+REPLACE_OR_CREATE:library_of_vijayanagar = {
+	audio_tier = 4
+	is_special = yes
+	is_foreign = no
+	pop_type = clergy
+	max_levels = 1
+	category = cultural_category
+	employment_size = huge_religious_building_employment
+	city = yes
+	megalopolis = yes
+	expensive = yes
+	build_time = large_cultural_building_time
+	country_potential = { always = no }
+	allow = { always = no }
+	modifier = {
+		# LO v0.39: all 5 -> upper 5 (court library)
+		local_nobles_max_literacy = 5
+		local_clergy_max_literacy = 5
+		local_burghers_max_literacy = 5
+		local_monthly_literacy = 0.1
+		local_pop_promotion_speed = 0.001
+	}
+	capital_country_modifier = {
+		monthly_towards_humanist = societal_value_monthly_move
+		research_speed_modifier = 0.05
+	}
+	possible_production_methods = {
+		library_maintenance
+	}
+	construction_demand = library_construction
+}
+
+# --- from base building_types\event_only_buildings.txt ---
+REPLACE_OR_CREATE:usa_philosophical_society = {
+	audio_tier = 4
+	is_special = yes
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 1
+	
+	category = cultural_category
+	
+	employment_size = cultural_employment
+	
+	rural_settlement = no
+	town = yes
+	city = yes
+	megalopolis = yes
+
+	country_potential = {
+		always = no
+	}
+	
+	allow = {
+		custom_tooltip = {
+			text = usa_philosophical_society_why
+			always = no
+		}
+	}
+
+	expensive = yes
+
+	build_time = cultural_building_time
+	
+	modifier = {
+		local_cultural_tradition = 0.5
+		local_cultural_influence = 0.5
+		# LO v0.39: all 5 -> upper 5 (learned society)
+		local_nobles_max_literacy = 5
+		local_clergy_max_literacy = 5
+		local_burghers_max_literacy = 5
+	}
+
+	capital_country_modifier = {
+		monthly_towards_humanist = societal_value_monthly_move
+		skill_of_new_artists = 0.1
+	}
+	
+	unique_production_methods = {
+		usa_philosophical_society_maintenance = {
+			icon_type = building_type
+			icon = usa_philosophical_society
+			paper = 1.5
+			books = 0.5
+			glass = 0.5
+			beeswax = 0.1
+			category = building_maintenance
+		}
+	}
+	construction_demand = university_construction
+}
+
+# --- from base building_types\event_only_buildings.txt ---
+REPLACE_OR_CREATE:royal_audience_and_chancery = {
+	audio_tier = 4
+	is_special = yes
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 1
+	employment_size = guild_employment
+	category = cultural_category
+	town = yes
+	city = yes
+	megalopolis = yes
+	expensive = yes
+	build_time = large_cultural_building_time
+
+	country_potential = {
+		always = no
+	}
+	allow = {
+		always = no
+	}
+
+	modifier = {
+		local_institution_growth_modifier = 0.10
+		# LO v0.39: all 5 -> nobles / burghers 5 (judges, notaries, scribes)
+		local_nobles_max_literacy = 5
+		local_burghers_max_literacy = 5
+		local_unrest = -0.10
+	}
+
+	possible_production_methods = {
+		library_maintenance
+	}
+	construction_demand = town_building_construction
+}
+
+# --- from base building_types\event_only_buildings.txt ---
+REPLACE_OR_CREATE:city_of_victory = {
+	audio_tier = 5
+	is_special = yes
+	is_foreign = no
+	pop_type = clergy
+	max_levels = 1
+	category = cultural_category
+	employment_size = huge_religious_building_employment
+	city = yes
+	megalopolis = yes
+	expensive = yes
+	build_time = religious_building_time
+	country_potential = { always = no }
+	allow = { always = no }
+	modifier = {
+		# LO v0.39: all 5 -> upper 5 (imperial capital)
+		local_nobles_max_literacy = 5
+		local_clergy_max_literacy = 5
+		local_burghers_max_literacy = 5
+		local_monthly_literacy = 0.1
+		local_migration_attraction = 0.1
+		local_pop_promotion_speed = 0.002
+		local_cultural_influence = 0.5
+	}
+	possible_production_methods = {
+		capital_building_maintenance
+	}
+	construction_demand = prestige_building_construction
+}
+
+# --- from base building_types\event_only_buildings.txt ---
+REPLACE_OR_CREATE:adu_jewish_community = {
+	audio_tier = 3
+	is_special = yes
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 1
+	employment_size = large_capital_employment
+	category = cultural_category
+	town = yes
+	city = yes
+	megalopolis = yes
+	expensive = yes
+	build_time = large_cultural_building_time
+
+	country_potential = {
+		has_unlocked_building_trigger = {
+			type = adu_jewish_community
+		}
+	}
+	allow = {
+		"religion_percentage(religion:judaism)" > 0
+	}
+
+	remove_if = {
+		location = { "religion_percentage(religion:judaism)" = 0 }
+	}
+
+	modifier = {
+		# LO v0.39: all 5 -> burghers / clergy 5, lower 2 (Jewish community: merchants, rabbis, lay reading)
+		local_burghers_max_literacy = 5
+		local_clergy_max_literacy = 5
+		local_laborers_max_literacy = 2
+		local_soldiers_max_literacy = 2
+		local_peasants_max_literacy = 2
+		local_monthly_literacy = 0.05
+		local_pop_conversion_speed_modifier = -0.25
+	}
+
+	unique_production_methods = {
+		adu_jewish_community_maintenance = {
+			icon_type = building_type
+			icon = adu_jewish_community
+			masonry = 0.5
+			tools = 0.1
+			glass = 0.2
+			furniture = 0.1
+			lumber = 0.25
+			category = building_maintenance
+		}
+	}
+	construction_demand = town_building_construction
+}
+
+# --- from base building_types\unique_buildings.txt ---
+REPLACE_OR_CREATE:academy_of_sciences = {
+	audio_tier = 5
+	is_special = yes
+	is_foreign = no
+	pop_type = nobles
+	max_levels = 1
+	
+	employment_size = normal_noble_employment
+
+	category = cultural_category
+	
+	town = yes
+	city = yes
+	megalopolis = yes
+
+	country_potential = {
+		custom_tooltip = {
+			text = academy_of_sciences_why
+			OR = {
+				tag = MOS
+				tag = RUS
+			}
+			has_variable = academy_of_sciences
+		}
+	}
+
+	allow = {
+		always = no
+	}
+
+	can_destroy = {
+		always = yes
+	}
+
+	
+
+	build_time = cultural_building_time
+
+	possible_production_methods = {
+		estate_building_input
+	}
+
+	construction_demand = school_construction
+
+	location_potential = {
+		this = location:neva
+	}
+
+	modifier = {
+		# LO v0.39: all 1 -> upper 1 (academy)
+		local_nobles_max_literacy = 1
+		local_clergy_max_literacy = 1
+		local_burghers_max_literacy = 1
+		local_migration_attraction = 0.5
+	}
+
+	capital_country_modifier = {
+		research_speed_modifier = 0.05
+		monthly_towards_individualism = societal_value_minor_monthly_move
+	}
+
+}
+
 # --- from base building_types\unique_buildings.txt ---
 REPLACE_OR_CREATE:monument_qarawiyyin = {
 	audio_tier = 5

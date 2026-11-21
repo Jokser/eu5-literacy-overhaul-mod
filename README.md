@@ -523,3 +523,33 @@ always got the penalty. Threshold 30 -> **13** in both (vanilla/LO average ~x2.3
 No trigger in the game reads MAX literacy; the other current-literacy uses (Chinese examinations, succession-crisis
 chronicle, a mission research bonus, town-rights event penalty x literacy, "most literate" orderings) are small or
 relative and left as is.
+
+### Audit of every remaining "all classes" source (v0.39, 2026-11-21)
+`tools/audit_literacy.sh` builds the EFFECTIVE set (vanilla shadowed by same-path files of RSF / Legacy of Timur / Urban
+limit / Latin East fixes, every key LO redefines replaced by LO's version) and lists (A) all-class max literacy still in
+effect and (B) anything >= 20. Fixed now:
+| What | Before | Now |
+|---|---|---|
+| `bavarian_academy_of_sciences` (event building) | local all 20 | upper 20 |
+| `munich_residenz_baroque_expansion` / `_renaissance_expansion` | local all 20 / 10 | nobles 20 + burghers 10 / nobles 10 + burghers 5 |
+| `herrenchiemsee_abbey` | local all 15 | clergy 15, nobles 5 |
+| `usa_academy_of_arts_and_sciences` | local all 10 | upper 10 |
+| `adm/dip/mil_vatican_library` | local all 5 | clergy 10, nobles 5 |
+| `bibliotheca_corviniana`, `library_of_vijayanagar`, `usa_philosophical_society`, `city_of_victory` | local all 5 | upper 5 |
+| `royal_audience_and_chancery` | local all 5 | nobles 5, burghers 5 |
+| `adu_jewish_community` | local all 5 | burghers 5, clergy 5, lower 2 |
+| `academy_of_sciences` | local all 1 | upper 1 |
+| static `scientific_revolution_birth` / `printing_press_birth` | local all 10 / 5 | upper 10 / upper 5, lower 2 |
+| static `greek_administrative_center_modifier` | local all 5 | nobles 5, burghers 5 |
+| static `MLO_library_research`, `lettered_cloister_modifier`, `por_estudo_geral`, `magnet_for_scholars` | local all 5 / 5 / 1 / 0.1 | upper 5 / clergy 5 / upper 1 / upper 0.1 |
+| law `keju_examination` (`new_keju_formats_policy`) | all 5 / 3 | nobles + burghers 5 / 3 |
+| law `sect_school_law` (`kadam_policy`) | all 5 | upper 5, lower 2 |
+| religious order `scholars_calling` | local clergy 5 + all 5 | local clergy 10, burghers 2.5 |
+| aspect `worship_odin_god` | all 5 | upper 5, lower 2 |
+| advance `quipu` (Inca) | clergy 20 | clergy 5, nobles 5 (khipu = knot records, not writing) |
+
+Deliberately kept for all classes: mass-schooling advances (terakoya, hangeul, gurmukhi, Albanian alphabet, Komisja
+Edukacji Narodowej, Dutch / Scottish / Slovak education, colonial free thinkers), `secular_education`,
+`written_alphabet`, Judaism, `sola_scriptura`, Sikh `young_humility`, `rama_avatar` (2), `dev_educated_women` (2).
+>= 20 left: `feudalism_advance` nobles 20, Catholic clergy 25, Anglican 25 / Lutheran / Calvinist clergy 20, `calmecac`
+nobles 20 (local), and the new upper-class values above.

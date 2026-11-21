@@ -11,6 +11,91 @@ REPLACE_OR_CREATE:average_control_50 = {
 	crown_power_from_population = 0.5
 }
 
+# --- from base static_modifiers\institutions.txt ---
+REPLACE_OR_CREATE:scientific_revolution_birth = {
+	game_data = {
+		category = location
+	}
+	# LO v0.39: all 10 -> upper 10
+	local_nobles_max_literacy = 10
+	local_clergy_max_literacy = 10
+	local_burghers_max_literacy = 10
+}
+
+# --- from base static_modifiers\institutions.txt ---
+REPLACE_OR_CREATE:printing_press_birth = {
+	game_data = {
+		category = location
+	}
+	# LO v0.39: all 5 -> upper 5 / lower 2
+	local_nobles_max_literacy = 5
+	local_clergy_max_literacy = 5
+	local_burghers_max_literacy = 5
+	local_laborers_max_literacy = 2
+	local_soldiers_max_literacy = 2
+	local_peasants_max_literacy = 2
+}
+
+# --- from base static_modifiers\D008_fate_of_the_phoenix_modifiers.txt ---
+REPLACE_OR_CREATE:greek_administrative_center_modifier = {
+	game_data = {
+		category = location
+		decaying = yes
+	}
+
+	local_max_control = 0.1
+	# LO v0.39: all 5 -> nobles / burghers 5 (administrators)
+	local_nobles_max_literacy = 5
+	local_burghers_max_literacy = 5
+}
+
+# --- from base static_modifiers\location.txt ---
+REPLACE_OR_CREATE:MLO_library_research = {
+	game_data = {
+		category = location
+	}
+	local_institution_growth_modifier = 0.10
+	# LO v0.39: all 5 -> upper 5 (library)
+	local_nobles_max_literacy = 5
+	local_clergy_max_literacy = 5
+	local_burghers_max_literacy = 5
+}
+
+# --- from base static_modifiers\location.txt ---
+REPLACE_OR_CREATE:lettered_cloister_modifier = {
+	game_data = {
+		category = location
+	}
+	local_monthly_literacy = 0.15
+	local_clergy_max_literacy = 5	# LO v0.39: all 5 -> clergy 5 (cloister)
+}
+
+# --- from base static_modifiers\location.txt ---
+REPLACE_OR_CREATE:por_estudo_geral = {
+	game_data = {
+		category = location
+	}
+	
+	# LO v0.39: all 1 -> upper 1 (university)
+	local_nobles_max_literacy = 1
+	local_clergy_max_literacy = 1
+	local_burghers_max_literacy = 1
+	local_monthly_development_modifier = 0.1
+}
+
+# --- from base static_modifiers\location.txt ---
+REPLACE_OR_CREATE:magnet_for_scholars = {
+	game_data = {
+		category = location
+	}
+	local_migration_attraction = 0.1
+	# LO v0.39: all 0.1 -> upper 0.1
+	local_nobles_max_literacy = 0.1
+	local_clergy_max_literacy = 0.1
+	local_burghers_max_literacy = 0.1
+	local_monthly_prosperity = 0.05
+}
+
 # --- from base static_modifiers\country.txt ---
 REPLACE_OR_CREATE:num_embraced_institutions = {
 	game_data = {

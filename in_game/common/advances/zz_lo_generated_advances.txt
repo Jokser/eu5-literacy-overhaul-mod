@@ -204,6 +204,21 @@ REPLACE_OR_CREATE:epic_poetry_advance = {
 	requires = organized_religion
 }
 
+# --- from base advances\country_inc.txt ---
+REPLACE_OR_CREATE:quipu = {
+	age = age_2_renaissance
+	icon = quipu
+	potential = {
+		OR = {
+			has_or_had_tag = INC
+			has_or_had_tag = CSU
+		}
+	}
+	# LO v0.39: clergy 20 -> clergy 5 / nobles 5 (khipu = knot records of officials, not writing)
+	global_clergy_max_literacy = 5
+	global_nobles_max_literacy = 5
+}
+
 # --- from base advances\0_age_of_absolutism.txt ---
 REPLACE_OR_CREATE:scientific_revolution_advance = {
 	age = age_5_absolutism

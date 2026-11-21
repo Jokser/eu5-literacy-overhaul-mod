@@ -103,6 +103,68 @@ $targets = @(
   # Catholic scholars' zeal from a literate realm: average / 12 -> / 5
   @{ f='religious_order_zeal_modifiers\00_catholic.txt'; k='zeal_literate_realm'; out='religious_order_zeal_modifiers'
      e=@( ,@('(?m)^\t\tdivide = 12[ \t]*\r?$', "${T2}divide = 5`t# LO v0.37: 12 -> 5 (stratified literacy)") ) },
+  # ---------- v0.39: audit of every remaining "all classes" literacy source (effective vanilla + RSF/LoT/UL/LE) ----------
+  # libraries / academies / courts educate the elite, not the peasants of the location
+  @{ f='building_types\event_only_buildings.txt'; k='bavarian_academy_of_sciences'; out='building_types'
+     e=@( ,@('(?m)^\t\tlocal_max_literacy = 20[ \t]*\r?$', ("${T2}# LO v0.39: all 20 -> upper 20 (academy of sciences)`n" + (Strat $T2 'local' 20 $null))) ) },
+  @{ f='building_types\event_only_buildings.txt'; k='munich_residenz_baroque_expansion'; out='building_types'
+     e=@( ,@('(?m)^([ \t]+)local_max_literacy = 20[ \t]*\r?$', ('${1}# LO v0.39: all 20 -> nobles 20 / burghers 10 (court culture)' + "`n" + '${1}local_nobles_max_literacy = 20' + "`n" + '${1}local_burghers_max_literacy = 10')) ) },
+  @{ f='building_types\event_only_buildings.txt'; k='munich_residenz_renaissance_expansion'; out='building_types'
+     e=@( ,@('(?m)^([ \t]+)local_max_literacy = 10[ \t]*\r?$', ('${1}# LO v0.39: all 10 -> nobles 10 / burghers 5 (court culture)' + "`n" + '${1}local_nobles_max_literacy = 10' + "`n" + '${1}local_burghers_max_literacy = 5')) ) },
+  @{ f='building_types\event_only_buildings.txt'; k='herrenchiemsee_abbey'; out='building_types'
+     e=@( ,@('(?m)^([ \t]+)local_max_literacy = 15[ \t]*\r?$', ('${1}# LO v0.39: all 15 -> clergy 15 / nobles 5 (Benedictine abbey)' + "`n" + '${1}local_clergy_max_literacy = 15' + "`n" + '${1}local_nobles_max_literacy = 5')) ) },
+  @{ f='building_types\event_only_buildings.txt'; k='usa_academy_of_arts_and_sciences'; out='building_types'
+     e=@( ,@('(?m)^\t\tlocal_max_literacy = 10[ \t]*\r?$', ("${T2}# LO v0.39: all 10 -> upper 10 (academy)`n" + (Strat $T2 'local' 10 $null))) ) },
+  @{ f='building_types\event_only_buildings.txt'; k='adm_vatican_library'; out='building_types'
+     e=@( ,@('(?m)^\t\tlocal_max_literacy = 5[ \t]*\r?$', "${T2}# LO v0.39: all 5 -> clergy 10 / nobles 5 (Vatican Library)`n${T2}local_clergy_max_literacy = 10`n${T2}local_nobles_max_literacy = 5") ) },
+  @{ f='building_types\event_only_buildings.txt'; k='dip_vatican_library'; out='building_types'
+     e=@( ,@('(?m)^\t\tlocal_max_literacy = 5[ \t]*\r?$', "${T2}# LO v0.39: all 5 -> clergy 10 / nobles 5 (Vatican Library)`n${T2}local_clergy_max_literacy = 10`n${T2}local_nobles_max_literacy = 5") ) },
+  @{ f='building_types\event_only_buildings.txt'; k='mil_vatican_library'; out='building_types'
+     e=@( ,@('(?m)^\t\tlocal_max_literacy = 5[ \t]*\r?$', "${T2}# LO v0.39: all 5 -> clergy 10 / nobles 5 (Vatican Library)`n${T2}local_clergy_max_literacy = 10`n${T2}local_nobles_max_literacy = 5") ) },
+  @{ f='building_types\event_only_buildings.txt'; k='bibliotheca_corviniana'; out='building_types'
+     e=@( ,@('(?m)^\t\tlocal_max_literacy = 5[ \t]*\r?$', ("${T2}# LO v0.39: all 5 -> upper 5 (court library)`n" + (Strat $T2 'local' 5 $null))) ) },
+  @{ f='building_types\event_only_buildings.txt'; k='library_of_vijayanagar'; out='building_types'
+     e=@( ,@('(?m)^\t\tlocal_max_literacy = 5[ \t]*\r?$', ("${T2}# LO v0.39: all 5 -> upper 5 (court library)`n" + (Strat $T2 'local' 5 $null))) ) },
+  @{ f='building_types\event_only_buildings.txt'; k='usa_philosophical_society'; out='building_types'
+     e=@( ,@('(?m)^\t\tlocal_max_literacy = 5[ \t]*\r?$', ("${T2}# LO v0.39: all 5 -> upper 5 (learned society)`n" + (Strat $T2 'local' 5 $null))) ) },
+  @{ f='building_types\event_only_buildings.txt'; k='royal_audience_and_chancery'; out='building_types'
+     e=@( ,@('(?m)^\t\tlocal_max_literacy = 5[ \t]*\r?$', "${T2}# LO v0.39: all 5 -> nobles / burghers 5 (judges, notaries, scribes)`n${T2}local_nobles_max_literacy = 5`n${T2}local_burghers_max_literacy = 5") ) },
+  @{ f='building_types\event_only_buildings.txt'; k='city_of_victory'; out='building_types'
+     e=@( ,@('(?m)^\t\tlocal_max_literacy = 5[ \t]*\r?$', ("${T2}# LO v0.39: all 5 -> upper 5 (imperial capital)`n" + (Strat $T2 'local' 5 $null))) ) },
+  @{ f='building_types\event_only_buildings.txt'; k='adu_jewish_community'; out='building_types'
+     e=@( ,@('(?m)^\t\tlocal_max_literacy = 5[ \t]*\r?$', "${T2}# LO v0.39: all 5 -> burghers / clergy 5, lower 2 (Jewish community: merchants, rabbis, lay reading)`n${T2}local_burghers_max_literacy = 5`n${T2}local_clergy_max_literacy = 5`n${T2}local_laborers_max_literacy = 2`n${T2}local_soldiers_max_literacy = 2`n${T2}local_peasants_max_literacy = 2") ) },
+  @{ f='building_types\unique_buildings.txt'; k='academy_of_sciences'; out='building_types'
+     e=@( ,@('(?m)^\t\tlocal_max_literacy = 1[ \t]*\r?$', ("${T2}# LO v0.39: all 1 -> upper 1 (academy)`n" + (Strat $T2 'local' 1 $null))) ) },
+  # static modifiers (main_menu)
+  @{ base='main_menu\common'; f='static_modifiers\institutions.txt'; k='scientific_revolution_birth'; out='static_modifiers'
+     e=@( ,@('(?m)^\tlocal_max_literacy = 10[ \t]*\r?$', ("${T1}# LO v0.39: all 10 -> upper 10`n" + (Strat $T1 'local' 10 $null))) ) },
+  @{ base='main_menu\common'; f='static_modifiers\institutions.txt'; k='printing_press_birth'; out='static_modifiers'
+     e=@( ,@('(?m)^\tlocal_max_literacy = 5[ \t]*\r?$', ("${T1}# LO v0.39: all 5 -> upper 5 / lower 2`n" + (Strat $T1 'local' 5 2))) ) },
+  @{ base='main_menu\common'; f='static_modifiers\D008_fate_of_the_phoenix_modifiers.txt'; k='greek_administrative_center_modifier'; out='static_modifiers'
+     e=@( ,@('(?m)^\tlocal_max_literacy = 5[ \t]*\r?$', "${T1}# LO v0.39: all 5 -> nobles / burghers 5 (administrators)`n${T1}local_nobles_max_literacy = 5`n${T1}local_burghers_max_literacy = 5") ) },
+  @{ base='main_menu\common'; f='static_modifiers\location.txt'; k='MLO_library_research'; out='static_modifiers'
+     e=@( ,@('(?m)^\tlocal_max_literacy = 5[ \t]*\r?$', ("${T1}# LO v0.39: all 5 -> upper 5 (library)`n" + (Strat $T1 'local' 5 $null))) ) },
+  @{ base='main_menu\common'; f='static_modifiers\location.txt'; k='lettered_cloister_modifier'; out='static_modifiers'
+     e=@( ,@('(?m)^\tlocal_max_literacy = 5[ \t]*\r?$', "${T1}local_clergy_max_literacy = 5`t# LO v0.39: all 5 -> clergy 5 (cloister)") ) },
+  @{ base='main_menu\common'; f='static_modifiers\location.txt'; k='por_estudo_geral'; out='static_modifiers'
+     e=@( ,@('(?m)^\tlocal_max_literacy = 1[ \t]*\r?$', ("${T1}# LO v0.39: all 1 -> upper 1 (university)`n" + (Strat $T1 'local' 1 $null))) ) },
+  @{ base='main_menu\common'; f='static_modifiers\location.txt'; k='magnet_for_scholars'; out='static_modifiers'
+     e=@( ,@('(?m)^\tlocal_max_literacy = 0\.1[ \t]*\r?$', ("${T1}# LO v0.39: all 0.1 -> upper 0.1`n" + (Strat $T1 'local' 0.1 $null))) ) },
+  # laws / religious mechanics
+  @{ f='laws\20_middle_kingdom.txt'; k='keju_examination'; out='laws'
+     e=@(
+       @('(?m)^\t\t\tglobal_max_literacy = 5[ \t]*\r?$', "${T3}# LO v0.39: all 5 -> nobles / burghers 5 (the examinations were for the gentry)`n${T3}global_nobles_max_literacy = 5`n${T3}global_burghers_max_literacy = 5"),
+       @('(?m)^\t\t\tglobal_max_literacy = 3[ \t]*\r?$', "${T3}# LO v0.39: all 3 -> nobles / burghers 3`n${T3}global_nobles_max_literacy = 3`n${T3}global_burghers_max_literacy = 3")
+     ) },
+  @{ f='laws\sects.txt'; k='sect_school_law'; out='laws'
+     e=@( ,@('(?m)^\t\t\tglobal_max_literacy = 5[ \t]*\r?$', ("${T3}# LO v0.39: kadam_policy all 5 -> upper 5 / lower 2 (monastic school, like Tibetan Buddhism)`n" + (Strat $T3 'global' 5 2))) ) },
+  @{ f='religious_order_callings\00_monastic.txt'; k='scholars_calling'; out='religious_order_callings'
+     e=@( ,@('(?m)^\t\tlocal_max_literacy = 5[ \t]*\r?$', "${T2}# LO v0.39: all 5 -> clergy +5 (on top of the clergy 5 above) / burghers 2.5`n${T2}local_clergy_max_literacy = 5`n${T2}local_burghers_max_literacy = 2.5") ) },
+  @{ f='religious_aspects\norse.txt'; k='worship_odin_god'; out='religious_aspects'
+     e=@( ,@('(?m)^\t\tglobal_max_literacy = 5[ \t]*\r?$', ("${T2}# LO v0.39: all 5 -> upper 5 / lower 2 (runic lore, like the god Odin)`n" + (Strat $T2 'global' 5 2))) ) },
+  # quipu = knot records kept by khipukamayuq officials, not writing (Inti itself has no literacy in LO)
+  @{ f='advances\country_inc.txt'; k='quipu'; out='advances'
+     e=@( ,@('(?m)^\tglobal_clergy_max_literacy = 20[ \t]*\r?$', "${T1}# LO v0.39: clergy 20 -> clergy 5 / nobles 5 (khipu = knot records of officials, not writing)`n${T1}global_clergy_max_literacy = 5`n${T1}global_nobles_max_literacy = 5") ) },
   # v0.31: research +5% per embraced institution (18 -> +90%) dwarfed literacy. 0.05 -> 0.04 together with the Learned
   # Elite k 0.4 -> 0.6 (scripted_effects/lo_research_effects.txt): simulated on the observer saves 1450-1800 the average
   # research bonus per age moves by only -7..+5 points, while literacy's share rises from ~30-36% to ~43-50%.
