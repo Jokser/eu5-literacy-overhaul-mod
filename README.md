@@ -482,3 +482,14 @@ Sweden was massively literate right after the Reformation (peasants 15.5 in 1550
 | `mahmud_gawan_madrasa` (event) | local all 5, growth 0.15 | local clergy 10, nobles 2.5, growth 0.15 |
 
 Madrasas trained the ulema and the urban elite; the village kuttab / msid taught Quran recitation, not reading.
+
+### Orthodox / Miaphysite via TRY_INJECT - RSF patch no longer needed? (v0.35 EXPERIMENT, 2026-11-21)
+RSF's `TRY_REPLACE:orthodox` beat LO's full `REPLACE_OR_CREATE`, hence the separate RSF compatibility patch. RSF only
+changes goods demand and opinions there, so LO now does not redefine these religions at all; it injects deltas in
+`in_game/common/religions/zz_lo_inject_religions.txt` (numeric modifiers add up under `TRY_INJECT`):
+- `orthodox`: `global_max_literacy = -5` (cancels the vanilla / RSF +5 for all) + clergy 10 + burghers 5;
+- `miaphysite`: + clergy 5.
+The regen script checks that vanilla (and RSF, if installed) still gives orthodox `global_max_literacy = 5`.
+The RSF compatibility patch is no longer generated (its religion file is removed, the mod is now empty).
+To verify in game (RSF + LO, patch off): Muscovy's literacy tooltips show the Orthodox clergy +10 / burghers +5 and no
+Orthodox "+5 Max Literacy"; RSF's own edits remain (Orthodox opinion of Catholics = negative). If not, revert to v0.34.
