@@ -399,3 +399,17 @@ prerequisite.
 
 Expected France 1800: nobles ~85, burghers ~60 + town buildings, lower ~21 (mass schooling stays with the age-6 laws
 and the Protestant aspects).
+
+### Protestant literacy in the religion itself (v0.29, 2026-11-21)
+The AI never picks the literacy aspects: in the 1605 / 1687 / 1800 saves no Lutheran country had `translated_bibles` or
+`pietism` (aspects are bought for 50 religious influence and chosen by `modifier_utility`, which values literacy at ~0),
+and Anglican countries had no aspects at all (the Anglican church spends its influence on church-power actions). So an
+AI Protestant only had its religion base: Britain 1800 clergy 74 vs France 91, lower classes 22 vs 19. The guaranteed
+part moves into `definition_modifier`; the aspects stay as extras.
+| Religion | Before | Now |
+|---|---|---|
+| `lutheran` | clergy 15, lower 3 | clergy 20, nobles 5, burghers 5, **lower 8** (catechism, school church orders, Swedish church law 1686) |
+| `calvinist` | clergy 15, lower 3 | clergy 20, burghers 5, lower 6 (Geneva, Scottish and Dutch parish schools) |
+| `anglican` | clergy 15, nobles + burghers 5, lower 2 | clergy 25, nobles + burghers 10, lower 5 (Oxbridge clergy, grammar schools, Prayer Book, SPCK charity schools) |
+
+Lutherans are now the strongest mass-literacy church, as Sweden and northern Germany were historically.
