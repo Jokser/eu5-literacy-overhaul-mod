@@ -374,3 +374,13 @@ which the AI values at ~0.
 | What | Before | Now |
 |---|---|---|
 | `seat_of_cardinal` (building) | local all 2.5 | local clergy 5 / burghers 2 (the cardinal's familia of clerics, secretaries and notaries, not a town school) |
+
+### Burghers and the printing press (v0.27, 2026-11-21)
+France in the observer run: nobles 44 -> 57, clergy 70 -> 84 (much of it at the 100 ceiling), burghers 34 -> 46
+(1605 -> 1740). Burghers were the lowest elite; printing was a burgher trade and a burgher market.
+| What | Before | Now |
+|---|---|---|
+| `printing_press_advance` (age 3) | nobles / clergy / burghers 5, lower 4 | nobles / clergy 5, **burghers 10**, lower 4 |
+
+Expected France burghers ~39 (1605) / ~51 (1740). Clergy is left as is: late Catholics reach the 100 ceiling, so more
+clergy bonuses do little there.

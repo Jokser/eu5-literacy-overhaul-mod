@@ -38,7 +38,7 @@ $targets = @(
   @{ f='advances\0_age_of_traditions.txt'; k='written_alphabet'; out='advances'
      e=@( ,@('(?m)^\tglobal_max_literacy = 5[ \t]*\r?$', "${T1}global_max_literacy = 2`t# LO: 5 -> 2 (Flavorium)") ) },
   @{ f='advances\0_age_of_discovery.txt'; k='printing_press_advance'; out='advances'
-     e=@( ,@('(?m)^\tglobal_max_literacy = 10[ \t]*\r?$', ("${T1}# LO: global 10 -> upper 5 / lower 4 (Flavorium upper; lower 4 since v0.24: primers and chapbooks, the main early-modern lay-literacy driver)`n" + (Strat $T1 'global' 5 4))) ) },
+     e=@( ,@('(?m)^\tglobal_max_literacy = 10[ \t]*\r?$', ("${T1}# LO: global 10 -> nobles + clergy 5 / burghers 10 / lower 4 (Flavorium upper 5; v0.24 lower 4: primers and chapbooks; v0.27 burghers 10: printing was a burgher trade and market)`n" + ((Strat $T1 'global' 5 4) -replace 'global_burghers_max_literacy = 5', 'global_burghers_max_literacy = 10'))) ) },
   @{ f='advances\4_choices_adm.txt'; k='innovativeness'; out='advances'
      e=@( ,@('(?m)^\tglobal_max_literacy = 5[ \t]*\r?$', ("${T1}# LO: global 5 -> upper classes 5 (Flavorium)`n" + (Strat $T1 'global' 5 $null))) ) },
   @{ f='advances\country_nov.txt'; k='birch_bark_manuscript'; out='advances'
