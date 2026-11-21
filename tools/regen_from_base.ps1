@@ -83,6 +83,11 @@ $targets = @(
   # (+12.5% at 100% control; a big empire at 30% control: -10% -> -5%).
   @{ base='main_menu\common'; f='static_modifiers\country.txt'; k='average_control_50'; out='static_modifiers'
      e=@( ,@('(?m)^\tresearch_speed_modifier = 0\.5[ \t]*\r?$', "${T1}research_speed_modifier = 0.25`t# LO: 0.5 -> 0.25 (city-states got a flat +25%)") ) },
+  # v0.31: research +5% per embraced institution (18 -> +90%) dwarfed literacy. 0.05 -> 0.04 together with the Learned
+  # Elite k 0.4 -> 0.6 (scripted_effects/lo_research_effects.txt): simulated on the observer saves 1450-1800 the average
+  # research bonus per age moves by only -7..+5 points, while literacy's share rises from ~30-36% to ~43-50%.
+  @{ base='main_menu\common'; f='static_modifiers\country.txt'; k='num_embraced_institutions'; out='static_modifiers'
+     e=@( ,@('(?m)^\tresearch_speed_modifier = 0\.05[ \t]*\r?$', "${T1}research_speed_modifier = 0.04`t# LO: 0.05 -> 0.04 (literacy / Learned Elite weigh more)") ) },
   # ---------- holy sites (ours, 2026-11-21) ----------
   # holy_site_types location_modifier is SCALED BY the site's importance (1-5, holy_site_types/readme.txt), so
   # clergy 10 = +50 in Constantinople / Jerusalem / Mecca / Baghdad. Base per point of importance: clergy 2
@@ -486,7 +491,9 @@ if (-not (Test-Path $rcSrc)) {
 # tools/vanilla_vs_lo_average_literacy.md), so institutions spread and got embraced 2-4x later. Compensation: right after
 # every "value = average_location_literacy" a "multiply = <F>" (per tier: _early = ages 1-2, _mid = 3-4, _late = 5-6).
 # Development-based trade spread is left as is. Start value x3 for all tiers (2026-11-21, user OK) - tune after a run.
-$INST_F = @{ early = 3; mid = 3; late = 3 }
+# v0.31: printing press (lower 4), newspapers, Protestant religions etc. raised the lower caps from age 3 on; observer
+# saves 1760-1800 vs vanilla 1707 give ~x2.3-2.5 for ages 3-6 -> mid/late 2.5 (ages 1-2 unchanged: x3).
+$INST_F = @{ early = 3; mid = 2.5; late = 2.5 }
 $isRel = 'in_game\common\script_values\institution_spread.txt'
 $isSrc = Join-Path $game $isRel; $isDst = Join-Path $mod $isRel
 $isBytes = [IO.File]::ReadAllBytes($isSrc); $isBom = ($isBytes.Length -ge 3 -and $isBytes[0] -eq 0xEF -and $isBytes[1] -eq 0xBB -and $isBytes[2] -eq 0xBF)

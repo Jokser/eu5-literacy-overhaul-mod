@@ -15,7 +15,7 @@ Vanilla research from literacy uses the [i]average[/i] literacy of all pops. Pea
 [list]
 [*]A new [b]Learned Elite[/b] modifier adds research speed based on the literacy of your [b]nobles (40%), clergy (35%) and burghers (25%)[/b]. Each estate counts by how educated it is, not by how many people it has.
 [*]Every source of elite literacy now matters for research. That includes Education of the Court, noble advances and clerical privileges.
-[*]A peasant kingdom with a learned elite keeps pace with a burgher city-state. The vanilla average-literacy bonus is kept on top, and the research bonus from average control is halved.
+[*]A peasant kingdom with a learned elite keeps pace with a burgher city-state. The vanilla average-literacy bonus is kept on top. To give education about half of the research bonus, each embraced institution gives +4% research instead of +5%, and the bonus from average control is halved.
 [*]Recalculated once a year in a single pass over the pops.
 [/list]
 

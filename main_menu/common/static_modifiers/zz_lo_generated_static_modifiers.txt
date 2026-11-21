@@ -12,6 +12,14 @@ REPLACE_OR_CREATE:average_control_50 = {
 }
 
 # --- from base static_modifiers\country.txt ---
+REPLACE_OR_CREATE:num_embraced_institutions = {
+	game_data = {
+		category = country
+	}
+	research_speed_modifier = 0.04	# LO: 0.05 -> 0.04 (literacy / Learned Elite weigh more)
+}
+
+# --- from base static_modifiers\country.txt ---
 REPLACE_OR_CREATE:plc_zaluski_library_modifier = {
 	game_data = {
 		category = country

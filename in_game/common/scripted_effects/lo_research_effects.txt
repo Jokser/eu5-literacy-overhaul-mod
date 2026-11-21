@@ -3,7 +3,7 @@
 # literacy). That average is ~95% lower classes, so with stratified caps it fell 3-4x and an estate's education
 # barely mattered. We keep the vanilla term (x1) and add the static modifier lo_learned_elite
 # (research_speed_modifier 0.01) with
-#   size = 0.4 x (0.4 x nobles + 0.35 x clergy + 0.25 x burghers literacy)
+#   size = 0.6 x (0.4 x nobles + 0.35 x clergy + 0.25 x burghers literacy)   (k 0.4 -> 0.6 in v0.31)
 # where each estate's literacy is its own pop-weighted average and the three get FIXED weights (not headcount).
 # An estate with no pops drops out and its weight is shared by the others.
 # Scope: country. Called yearly (yearly_country_pulse) and at game start (on_action/lo_on_actions.txt).
@@ -72,7 +72,7 @@ lo_update_learned_elite_effect = {
 		mode = replace
 		size = {
 			value = local_var:lo_s
-			multiply = 0.4	# k: +0.4% research per point of weighted elite literacy
+			multiply = 0.6	# k: +0.6% research per point of weighted elite literacy (v0.31: 0.4 -> 0.6, institutions 0.05 -> 0.04)
 		}
 	}
 }

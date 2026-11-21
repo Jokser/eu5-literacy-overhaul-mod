@@ -418,3 +418,18 @@ Lutherans are now the strongest mass-literacy church, as Sweden and northern Ger
 | What | Before | Now |
 |---|---|---|
 | `education_elites_law` → `education_of_the_court` | nobles 10 (vanilla 5) | nobles 15 |
+
+### Research balance and institution spread (v0.31, 2026-11-21)
+Research from 18 embraced institutions (+5% each = +90%) dwarfed literacy (France 1800: +21% average + 29% Learned Elite).
+Simulated on the observer saves 1450-1800 (11 big countries; institutions, average literacy and elite index per save):
+| Variant (per institution / elite k) | Avg research bonus 1450 → 1800 | Literacy share |
+|---|---|---|
+| 0.05 / 0.4 (before) | +43% → +132% | ~30-36% |
+| **0.04 / 0.6 (now)** | +46% → +129% | ~43-50% |
+| 0.035 / 0.7 | +47% → +127% | ~50-56% |
+
+No age gets faster or slower by more than a few points (elite literacy grows roughly like the institution count).
+- `num_embraced_institutions` (static): research 0.05 -> 0.04 per institution.
+- `lo_learned_elite` size: 0.4 -> 0.6 x the weighted elite index.
+- Institution spread compensation (`$INST_F`): ages 1-2 x3, ages 3-4 and 5-6 x3 -> x2.5 (printing press, newspapers and
+  the Protestant religions raised the lower caps; observer saves 1760-1800 vs vanilla 1707 give ~x2.3-2.5).
