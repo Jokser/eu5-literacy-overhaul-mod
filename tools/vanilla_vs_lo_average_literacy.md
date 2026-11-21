@@ -9,17 +9,22 @@ location's `average_location_literacy`; tiers: `_early` = institutions of ages 1
 Goal: one multiplier per tier = median(vanilla / LO) at matching dates.
 
 ## Vanilla
-| Country | 1416 (age 2) | 1483 (age 3) | 1527 (age 3) |
-|---|---|---|---|
-| Castile / Spain | 11.0 | 11.4 | 13.2 |
-| France | — | 16.9 | 21.8 |
-| England | 10.7 | 11.4 | 16.9 |
-| Milan | 15.6 | 23.3 | 27.3 |
-| Florence | 15.0 | 20.5 | 25.4 |
-| Bohemia | 14.3 | 18.5 | 24.0 |
-| Ottomans | 15.5 | 20.2 | 25.3 |
-| Muscovy | 10.8 | 11.0 | 12.8 |
-| Ming | 26.2 | 32.6 | 33.5 |
+| Country | 1416 (age 2) | 1483 (age 3) | 1527 (age 3) | 1584 (age 4) |
+|---|---|---|---|---|
+| Castile / Spain | 11.0 | 11.4 | 13.2 | 25.0 |
+| France | — | 16.9 | 21.8 | 33.4 |
+| England | 10.7 | 11.4 | 16.9 | 27.2 (Great Britain) |
+| Milan | 15.6 | 23.3 | 27.3 | 35.1 |
+| Florence | 15.0 | 20.5 | 25.4 | 41.4 |
+| Bohemia | 14.3 | 18.5 | 24.0 | 28.7 |
+| Ottomans | 15.5 | 20.2 | 25.3 | 34.9 |
+| Muscovy | 10.8 | 11.0 | 12.8 | (player) |
+| Ming | 26.2 | 32.6 | 33.5 | 32.1 |
+| Brandenburg | — | — | — | 20.3 |
+| Lithuania | — | — | — | 21.5 |
+| Sweden | — | — | — | 22.2 |
+| Morocco | — | — | — | 32.9 |
+| Alodia | — | — | — | 34.5 |
 
 Vanilla 1416 lower-class caps (own + global): England 10, Castile 10, Muscovy 10, Bohemia 12.6, Florence 11.2,
 Milan 11.8, Ottomans 15, Ming 30.2 -> the average ~ the lower-class cap.
