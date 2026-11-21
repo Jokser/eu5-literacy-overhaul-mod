@@ -641,8 +641,8 @@ REPLACE_OR_CREATE:hindu = {
 	}
 
 	definition_modifier = {
-		global_burghers_max_literacy = 5	# LO: Indian religions / Theravada
-		global_clergy_max_literacy = 15	# LO: Indian religions / Theravada
+		global_burghers_max_literacy = 5	# LO: religion literacy base
+		global_clergy_max_literacy = 15	# LO: religion literacy base
 		tolerance_heathen = 1
 		tolerance_own = 1
 		number_of_allowed_religious_figures = 1
@@ -692,8 +692,8 @@ REPLACE_OR_CREATE:jain = {
 	}
 
 	definition_modifier = {
-		global_burghers_max_literacy = 10	# LO: Indian religions / Theravada
-		global_clergy_max_literacy = 5	# LO: Indian religions / Theravada
+		global_burghers_max_literacy = 10	# LO: religion literacy base
+		global_clergy_max_literacy = 5	# LO: religion literacy base
 		cannot_declare_no_cb_wars = yes
 		global_monthly_literacy = 0.03
 		allow_self_control = yes
@@ -726,11 +726,11 @@ REPLACE_OR_CREATE:sikhism = {
 	}
 
 	definition_modifier = {
-		global_burghers_max_literacy = 5	# LO: Indian religions / Theravada
-		global_clergy_max_literacy = 5	# LO: Indian religions / Theravada
-		global_laborers_max_literacy = 3	# LO: Indian religions / Theravada
-		global_peasants_max_literacy = 3	# LO: Indian religions / Theravada
-		global_soldiers_max_literacy = 3	# LO: Indian religions / Theravada
+		global_burghers_max_literacy = 5	# LO: religion literacy base
+		global_clergy_max_literacy = 5	# LO: religion literacy base
+		global_laborers_max_literacy = 3	# LO: religion literacy base
+		global_peasants_max_literacy = 3	# LO: religion literacy base
+		global_soldiers_max_literacy = 3	# LO: religion literacy base
 		research_speed_modifier = 0.1
 		global_estate_target_satisfaction = small_permanent_target_satisfaction
 	}
@@ -749,9 +749,9 @@ REPLACE_OR_CREATE:theravada = {
 	max_sects = 1
 
 	definition_modifier = {
-		global_laborers_max_literacy = 3	# LO: Indian religions / Theravada
-		global_peasants_max_literacy = 3	# LO: Indian religions / Theravada
-		global_soldiers_max_literacy = 3	# LO: Indian religions / Theravada
+		global_laborers_max_literacy = 3	# LO: religion literacy base
+		global_peasants_max_literacy = 3	# LO: religion literacy base
+		global_soldiers_max_literacy = 3	# LO: religion literacy base
 		tolerance_heretic = 1
 		monthly_karma = 0.1
 		country_cabinet_efficiency = 0.05
@@ -769,9 +769,9 @@ REPLACE_OR_CREATE:sammitiya = {
 	has_karma = yes
 
 	definition_modifier = {
-		global_laborers_max_literacy = 3	# LO: Indian religions / Theravada
-		global_peasants_max_literacy = 3	# LO: Indian religions / Theravada
-		global_soldiers_max_literacy = 3	# LO: Indian religions / Theravada
+		global_laborers_max_literacy = 3	# LO: religion literacy base
+		global_peasants_max_literacy = 3	# LO: religion literacy base
+		global_soldiers_max_literacy = 3	# LO: religion literacy base
 		tolerance_heretic = 1
 		monthly_karma = 0.1
 		stability_investment = tiny_stability_investment
@@ -779,4 +779,145 @@ REPLACE_OR_CREATE:sammitiya = {
 	}
 
 	tags = { buddhist_gfx }
+}
+
+# --- from base religions\christian.txt ---
+REPLACE_OR_CREATE:nestorianism = { 
+	color = color_nestorianism
+	group = christian
+	
+	language = aramaic_language
+	
+	has_religious_influence = yes
+	has_autocephalous_patriarchates = yes
+	has_canonization = yes
+	
+	definition_modifier = {
+		global_clergy_max_literacy = 10	# LO: religion literacy base
+	
+		clergy_estate_max_tax = -0.5
+		tolerance_own = 1
+		stability_cost_efficiency = 0.2
+		
+		monthly_religious_influence = 0.1
+
+		maximum_religious_influence = 400
+		country_allow_canonization = yes
+
+	}
+	
+	opinions = {
+		miaphysite = kindred
+	}
+
+	tags = { eastern_christian_gfx christian_gfx abrahamic_gfx }
+}
+
+# --- from base religions\zoroastrian.txt ---
+REPLACE_OR_CREATE:zoroastrian = { 
+	color = religion_zoroastrian
+	group = zoroastrian_group
+	
+	language = persian_language
+	
+	
+	definition_modifier = {
+		global_clergy_max_literacy = 10	# LO: religion literacy base
+		tolerance_own = 1
+		selling_efficiency = medium_selling_efficiency_bonus
+	}
+	
+	opinions = {
+	}
+}
+
+# --- from base religions\druze.txt ---
+REPLACE_OR_CREATE:druzism = { 
+	color = religion_druzism
+	group = druze_group
+	language = levantine_dialect
+	
+	
+	definition_modifier = {
+		global_clergy_max_literacy = 10	# LO: religion literacy base
+		global_migration_speed_modifier = 0.1
+		allow_mysticism_vs_jurisprudence = yes
+		tolerance_heathen = 1
+	}
+	
+	opinions = {
+		#Christians
+		catholic = positive
+		bogomilism = positive
+		bosnian_church = positive
+		catharism = positive
+		orthodox = positive
+		miaphysite = positive
+		nestorianism = positive
+		paulicianism = positive
+		strigolniki = positive
+		waldensian = positive
+        #Israelites
+		judaism = negative
+	}
+
+	unique_names = {
+		name_muhammad
+	}	
+
+	tags = { abrahamic_gfx }
+}
+
+# --- from base religions\mandean.txt ---
+REPLACE_OR_CREATE:mandeaism = { 
+	color = religion_mandeaism
+	group = mandean_group
+	language = iraqi_dialect
+	
+	
+	definition_modifier = {
+		global_clergy_max_literacy = 10	# LO: religion literacy base
+		research_speed_modifier = 0.05
+		global_defensive = 0.1
+	}
+	
+	opinions = {
+	}
+
+	unique_names = {
+		
+	}	
+
+	tags = { abrahamic_gfx }
+}
+
+# --- from base religions\christian.txt ---
+REPLACE_OR_CREATE:bosnian_church = { 
+	color = color_bosnian_church
+	group = christian
+	
+	language = church_slavonic_language
+		
+	has_canonization = yes
+	has_religious_influence = yes
+	
+	definition_modifier = {
+		global_clergy_max_literacy = 5	# LO: religion literacy base
+		tolerance_heretic = 1.5
+		clergy_estate_target_satisfaction = medium_permanent_target_satisfaction
+		nobles_estate_target_satisfaction = medium_permanent_target_satisfaction
+		monthly_religious_influence = 0.1
+		
+		can_have_monasteries = yes
+		
+		maximum_religious_influence = 900
+		country_allow_canonization = yes
+	}
+	
+	opinions = {
+		orthodox = kindred
+		catholic = kindred
+	}
+
+	tags = { eastern_christian_gfx christian_gfx abrahamic_gfx }
 }

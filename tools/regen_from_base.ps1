@@ -202,7 +202,13 @@ $defAdds = @(
   @('dharmic.txt','jain',      @{burghers=10; clergy=5}),
   @('dharmic.txt','sikhism',   @{clergy=5; burghers=5; laborers=3; soldiers=3; peasants=3}),
   @('buddhist.txt','theravada',@{laborers=3; soldiers=3; peasants=3}),
-  @('buddhist.txt','sammitiya',@{laborers=3; soldiers=3; peasants=3})
+  @('buddhist.txt','sammitiya',@{laborers=3; soldiers=3; peasants=3}),
+  # small Near-East / Balkan churches and faiths (2026-11-21, user OK): literacy = the priestly / initiated layer
+  @('christian.txt','nestorianism',  @{clergy=10}),   # Syriac learning of the Church of the East (Nisibis legacy)
+  @('zoroastrian.txt','zoroastrian', @{clergy=10}),   # mobeds, keepers of the Pahlavi texts
+  @('druze.txt','druzism',           @{clergy=10}),   # uqqal - the initiated who read the Epistles of Wisdom
+  @('mandean.txt','mandeaism',       @{clergy=10}),   # tarmide priests copying Mandaic texts
+  @('christian.txt','bosnian_church',@{clergy=5})     # krstjani communities, Bosancica books
 )
 # Miaphysites (2026-11-21, user OK): RSF TRY_REPLACEs miaphysite (beeswax/livestock demand) -> re-emit RSF's block
 # with clergy +5 (learned celibate vardapets / monastic book culture), as for the Orthodox
@@ -212,7 +218,7 @@ $targets += @{ root=$rsf; f='religions\RSF_christian.txt'; k='TRY_REPLACE:miaphy
 $targets += @{ f='advances\region_africa.txt'; k='regnal_chronicles'; out='advances'
                e=@( ,@('(?m)^\tglobal_clergy_max_literacy = 10[ \t]*\r?$', "${T1}global_clergy_max_literacy = 5`t# LO: 10 -> 5 (court chronicles, not mass schooling)") ) }
 foreach ($da in $defAdds) {
-    $lines = ($da[2].GetEnumerator() | Sort-Object Name | ForEach-Object { "${T2}global_$($_.Name)_max_literacy = $($_.Value)`t# LO: Indian religions / Theravada" }) -join "`n"
+    $lines = ($da[2].GetEnumerator() | Sort-Object Name | ForEach-Object { "${T2}global_$($_.Name)_max_literacy = $($_.Value)`t# LO: religion literacy base" }) -join "`n"
     $targets += @{ f=('religions\' + $da[0]); k=$da[1]; out='religions'
                    e=@( ,@('(?m)^(\tdefinition_modifier = \{)[ \t]*\r?$', ("`$1`n" + $lines)) ) }
 }

@@ -194,3 +194,16 @@ country. They are left unchanged.
 `loading_screen/common/defines/zz_lo_defines.txt`: `NPop.DISCRIMINATED_CULTURE_MAX_LITERACY` −15 → **−5**. With our
 stratified caps, −15 would wipe out a discriminated culture's peasant literacy for most of the game.
 `IGNORED_CULTURE_MAX_LITERACY` (culture with no policy set) −5 → **−2**, so discriminating stays worse than ignoring.
+
+### Small Near-East and Balkan faiths (v0.11, 2026-11-21)
+Definitions get clergy literacy; in all of them the learned layer was priestly or initiated:
+
+| Religion | Added |
+|---|---|
+| Nestorianism (Church of the East) | clergy +10 |
+| Zoroastrianism (mobeds) | clergy +10 |
+| Druzism (uqqal) | clergy +10 |
+| Mandaeism (tarmide) | clergy +10 |
+| Bosnian Church | clergy +5 |
+
+Unchanged: Yazidism (oral tradition), Bogomils, Manichaeism and Samaritanism (already clergy +10).
