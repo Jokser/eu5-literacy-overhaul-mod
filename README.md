@@ -243,3 +243,13 @@ The other literacy laws and all 8 literacy privileges were reviewed and kept, se
 
 Kept: temple / cathedral / monastery / sufi lodge (clergy 10), madrasa (5), chanceries, modern council hall, and the
 one-location wonders (Vatican libraries, Corviniana, al-Azhar, Bavarian buildings, calmecac, Moscow orphanage...).
+
+### Literacy growth speed (v0.15, 2026-11-21)
+Pop literacy grows by local + global `monthly_literacy` per month up to its cap, at the same rate for every class.
+The background rate is only written_alphabet + educated_bureaucrats = 0.02/month (+10 points in ~42 years).
+
+| Source | Before | Now |
+|---|---|---|
+| `invited_foreign_cleric_modifier` (action invite_foreign_cleric, 20 religious influence, decaying, 5 years; AI re-invites as soon as it can) | 0.33 | 0.1 (was ~8x the whole background rate) |
+
+All other growth sources were reviewed and kept, pending a test run.
