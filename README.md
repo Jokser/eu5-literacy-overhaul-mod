@@ -11,7 +11,7 @@ Calculation of the resulting caps: `C:\Users\user\Documents\EU5_RSF_patches\lite
   `REPLACE_OR_CREATE:`. If a base anchor is missing, that block is skipped with a warning. **Run the script after every
   EU5 patch.** Do not edit the generated files by hand.
 - The `zz_` prefix sorts after vanilla and RSF files.
-- Static files: `lo_regional_literacy_advances.txt`, `zz_lo_orthodox_literacy.txt`, `lo_university_cost.txt`, and the
+- Static files: `lo_regional_literacy_advances.txt`, `zz_lo_orthodox_literacy_advances.txt` (zz_: its requires = national_rites must load after religion_orthodox.txt), `lo_university_cost.txt`, and the
   loc `literacy_overhaul_l_english.yml`.
 
 ## Changes (v0.1)
@@ -253,3 +253,11 @@ The background rate is only written_alphabet + educated_bureaucrats = 0.02/month
 | `invited_foreign_cleric_modifier` (action invite_foreign_cleric, 20 religious influence, decaying, 5 years; AI re-invites as soon as it can) | 0.33 | 0.1 (was ~8x the whole background rate) |
 
 All other growth sources were reviewed and kept, pending a test run.
+
+### Fix: Orthodox / Miaphysite literacy not applied (v0.16, 2026-11-21)
+In game the Orthodox still gave all classes +5: RSF's `TRY_REPLACE:orthodox` (RSF_christian.txt) beat both a TRY_INJECT
+and our `zz_` REPLACE_OR_CREATE. Now LO ships a **same-path override of RSF's `in_game/common/religions/RSF_christian.txt`**
+(LO mounts after RSF), generated from RSF's current file. Only the Orthodox (upper 5 / lower 0) and Miaphysite
+(clergy +5) literacy lines differ. RSF's Romuva opinion inject is untouched. **Re-run the regen after every RSF update.**
+The Stoglav advance file is renamed to `zz_lo_orthodox_literacy_advances.txt`: its `requires = national_rites` failed
+("Failed to read key reference"), because an advance can only reference advances from files that load earlier.
