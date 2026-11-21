@@ -31,6 +31,7 @@ Vanilla research from literacy uses the [i]average[/i] literacy of all pops. Pea
 [list]
 [*]Libraries and invited foreign clerics no longer make literacy jump. Libraries grow it slowly, and the foreign cleric's boost is cut by two thirds.
 [*]Discriminated and ignored cultures get smaller literacy penalties (-5 and -2 instead of -15 and -5), to match the lower caps.
+[*]Mechanics that read the average literacy are adjusted to the lower averages, so the economy is unchanged: demand for books and paper, the literacy bonus to peasant promotion, the Royal Society decision, the literate-public paths of the age-6 revolution disasters and the Catholic scholars' zeal.
 [/list]
 
 [h2]Compatibility[/h2]

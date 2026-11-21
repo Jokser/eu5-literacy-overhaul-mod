@@ -495,3 +495,22 @@ If RSF defines `orthodox` / `miaphysite` with `TRY_INJECT` instead of `TRY_REPLA
 locally patched RSF), LO needs no compatibility patch: LO's literacy applies and RSF's own changes (opinions, goods
 demand) survive on top of LO's redefinition. The regen script detects this and skips the patch. With the official RSF
 (`TRY_REPLACE`) the **Literacy overhaul - RSF compatibility** patch is still required.
+
+### Other mechanics that read literacy (v0.37, 2026-11-21)
+Stratification lowers the country / location average ~2-2.5x (and peasant literacy to ~40% of vanilla). Vanilla
+mechanics that read it, and what LO does:
+| Mechanic | Vanilla | LO |
+|---|---|---|
+| `paper`, `books` demand (`literacy_demand_factor`) | 1 | **2** (keeps the vanilla market size) |
+| peasants' `literacy_impact`: pop promotion speed at 100 literacy | +200% | **+400%** |
+| `eng_royal_society_decision`: capital average literacy | > 50 (London ~22 in LO: unreachable) | **> 25** |
+| `aspiration_for_liberty`: country average literacy (or great power + absolutism) | > 50 | **> 22** |
+| `revolution_disaster`: country average literacy (or great power + absolutism) | > 55 | **> 25** |
+| Catholic `zeal_literate_realm` (scholars' zeal) | average / 12 | **average / 5** |
+
+Left as is: the other pop types' `literacy_impact` (nobles: cultural tradition and control, clergy: conversion and
+assimilation, burghers: development, trades and establishment speed - all higher in LO; laborers: production
+efficiency +2.5% at 100 and RGO size +10%; soldiers: defence and manpower +10% - small); literacy raising pops' sensitivity
+to market prices (LO peasants are slightly calmer); the Reformation movements' `literacy = positive` spread weight; the
+plausible birthplaces of the scientific revolution and the Enlightenment (university + location literacy > 30: 75
+locations qualified in a 1740 LO run, Cambridge among them).

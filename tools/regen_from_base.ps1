@@ -83,6 +83,26 @@ $targets = @(
   # (+12.5% at 100% control; a big empire at 30% control: -10% -> -5%).
   @{ base='main_menu\common'; f='static_modifiers\country.txt'; k='average_control_50'; out='static_modifiers'
      e=@( ,@('(?m)^\tresearch_speed_modifier = 0\.5[ \t]*\r?$', "${T1}research_speed_modifier = 0.25`t# LO: 0.5 -> 0.25 (city-states got a flat +25%)") ) },
+  # ---------- v0.37: other vanilla mechanics that read literacy (stratification lowers the average ~2-2.5x) ----------
+  # paper / books demand scales with literacy -> x2 keeps the vanilla market size (economy untouched)
+  @{ f='goods\02_produced_goods.txt'; k='paper'; out='goods'
+     e=@( ,@('(?m)^\tliteracy_demand_factor = 1[ \t]*\r?$', "${T1}literacy_demand_factor = 2`t# LO v0.37: 1 -> 2 (stratified literacy halves the average; keep the vanilla market)") ) },
+  @{ f='goods\02_produced_goods.txt'; k='books'; out='goods'
+     e=@( ,@('(?m)^\tliteracy_demand_factor = 1[ \t]*\r?$', "${T1}literacy_demand_factor = 2`t# LO v0.37: 1 -> 2 (stratified literacy halves the average; keep the vanilla market)") ) },
+  # peasants' literacy_impact (scaled by peasant literacy): pop promotion +200% at 100 -> x2 for the lower peasant caps
+  @{ f='pop_types\00_default.txt'; k='peasants'; out='pop_types'
+     e=@( ,@('(?m)^\t\tlocal_pop_promotion_speed_modifier = 2\.0[ \t]*\r?$', "${T2}local_pop_promotion_speed_modifier = 4.0`t# LO v0.37: 2.0 -> 4.0 (peasant literacy ~40% of vanilla; keep promotion speed)") ) },
+  # Royal Society: capital average literacy > 50 is unreachable with stratified literacy (London ~22 in an LO run)
+  @{ f='decisions\flavor_decisions_eng.txt'; k='eng_royal_society_decision'; out='decisions'
+     e=@( ,@('(?m)^\t\t\taverage_location_literacy > 50[ \t]*\r?$', "${T3}average_location_literacy > 25`t# LO v0.37: 50 -> 25 (stratified literacy)") ) },
+  # literate-public paths of the age-6 disasters (the great-power path is unchanged); vanilla/LO average ~x2.3
+  @{ f='disasters\aspiration_for_liberty.txt'; k='aspiration_for_liberty'; out='disasters'
+     e=@( ,@('(?m)^\t\t\taverage_country_literacy > 50[ \t]*\r?$', "${T3}average_country_literacy > 22`t# LO v0.37: 50 -> 22 (stratified literacy)") ) },
+  @{ f='disasters\revolution_disaster.txt'; k='revolution_disaster'; out='disasters'
+     e=@( ,@('(?m)^\t\t\taverage_country_literacy > 55[ \t]*\r?$', "${T3}average_country_literacy > 25`t# LO v0.37: 55 -> 25 (stratified literacy)") ) },
+  # Catholic scholars' zeal from a literate realm: average / 12 -> / 5
+  @{ f='religious_order_zeal_modifiers\00_catholic.txt'; k='zeal_literate_realm'; out='religious_order_zeal_modifiers'
+     e=@( ,@('(?m)^\t\tdivide = 12[ \t]*\r?$', "${T2}divide = 5`t# LO v0.37: 12 -> 5 (stratified literacy)") ) },
   # v0.31: research +5% per embraced institution (18 -> +90%) dwarfed literacy. 0.05 -> 0.04 together with the Learned
   # Elite k 0.4 -> 0.6 (scripted_effects/lo_research_effects.txt): simulated on the observer saves 1450-1800 the average
   # research bonus per age moves by only -7..+5 points, while literacy's share rises from ~30-36% to ~43-50%.
