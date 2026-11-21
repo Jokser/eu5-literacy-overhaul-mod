@@ -225,6 +225,27 @@ REPLACE_OR_CREATE:enlightened_court = {
 	requires = modern_bureaucracy
 }
 
+# --- from base advances\region_africa.txt ---
+REPLACE_OR_CREATE:regnal_chronicles = {
+	icon = acceptance_of_old_testament
+	age = age_1_traditions
+
+	potential = {
+		original_capital ?= {
+			OR = {
+				sub_continent = sub_continent:west_africa
+				sub_continent = sub_continent:east_africa
+				sub_continent = sub_continent:central_africa
+				sub_continent = sub_continent:southern_africa
+			}
+		}
+	}
+
+	global_clergy_max_literacy = 5	# LO: 10 -> 5 (court chronicles, not mass schooling)
+
+	requires = wandering_scholars
+}
+
 # --- from base advances\culture_neapolitan.txt ---
 REPLACE_OR_CREATE:academia_pontaniana = {
 	content_priority = 100

@@ -1,0 +1,40 @@
+﻿# Literacy overhaul - Armenian book culture (2026-11-21).
+# Mashtots' alphabet (405), ~30,000 surviving manuscripts, the monastic "universities" of the vardapets (Gladzor
+# 1280s-c.1340, Tatev c.1340-1435), Hakob Meghapart's first Armenian printing (Venice 1512) and the trading diaspora
+# (New Julfa, Venice, Lviv, Amsterdam) whose merchants kept their own correspondence and books.
+
+lo_armenian_scriptoria = {
+	age = age_1_traditions
+	icon = monastic_communities
+
+	potential = {
+		OR = {
+			culture = culture:armenian_culture
+			culture = { merged_culture_group_contains_culture = culture:armenian_culture }
+		}
+	}
+
+	requires = written_alphabet
+
+	global_clergy_max_literacy = 5
+	global_burghers_max_literacy = 5
+}
+
+lo_armenian_printing = {
+	age = age_3_discovery
+	icon = ven_printing_industry
+
+	potential = {
+		OR = {
+			culture = culture:armenian_culture
+			culture = { merged_culture_group_contains_culture = culture:armenian_culture }
+		}
+	}
+
+	requires = printing_press_advance
+
+	global_burghers_max_literacy = 5
+	global_laborers_max_literacy = 2
+	global_soldiers_max_literacy = 2
+	global_peasants_max_literacy = 2
+}

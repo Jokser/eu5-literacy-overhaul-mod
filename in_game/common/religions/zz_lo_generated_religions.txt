@@ -577,6 +577,47 @@ REPLACE_OR_CREATE:orthodox = {
 	tags = { orthodox_gfx eastern_christian_gfx christian_gfx abrahamic_gfx }
 }
 
+# --- from RSF religions\RSF_christian.txt ---
+REPLACE_OR_CREATE:miaphysite = {
+	color = color_miaphysite
+	group = christian
+
+	has_religious_influence = yes
+	has_autocephalous_patriarchates = yes
+	has_canonization = yes
+	religious_aspects = 3
+
+	goods_demand_modifier = {
+		livestock = 0.5
+		beeswax = 2					# Added by Kotyk
+	}
+	
+	clergy_goods_demand_modifier = {
+		incense = 2
+		beeswax = 1.5				# Added by Kotyk
+	}
+
+	definition_modifier = {
+		global_clergy_max_literacy = 5	# LO: vardapets / monastic book culture
+	
+		clergy_estate_max_tax = -0.5
+		tolerance_own = 1
+		tolerance_heretic = -1
+		clergy_estate_cannot_marry = yes
+		monthly_religious_influence = 0.1
+
+		maximum_religious_influence = 400
+		country_allow_canonization = yes
+
+	}
+	
+	opinions = {
+		orthodox = kindred
+	}
+
+	tags = { eastern_christian_gfx christian_gfx abrahamic_gfx }
+}
+
 # --- from base religions\dharmic.txt ---
 REPLACE_OR_CREATE:hindu = {
 	color = color_hindu

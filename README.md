@@ -181,3 +181,11 @@ Zaidis (Yemeni manuscripts), Ibadis (halqa circles), Ash'ari (theology of the Ni
 
 Hindu and Jain religious schools are `religious_schools_for_characters_only`, so their country modifiers do not act on the
 country. They are left unchanged.
+
+### Miaphysites: Armenians and Ethiopians (v0.9, 2026-11-21)
+| Source | Before | Now |
+|---|---|---|
+| Miaphysite definition (re-emitted from RSF's `TRY_REPLACE`, Kotyk's goods demand kept) | — | clergy +5 (vardapets, monastic book culture) |
+| New `lo_armenian_scriptoria` (age 1, Armenian culture) | — | clergy +5, burghers +5 (Mashtots' script, Gladzor / Tatev, diaspora merchants) |
+| New `lo_armenian_printing` (age 3, after printing press) | — | burghers +5, lower +2 (Hakob Meghapart, Venice 1512) |
+| `regnal_chronicles` (all of Africa) | clergy 10 | clergy 5 (court chronicles, not schooling) |

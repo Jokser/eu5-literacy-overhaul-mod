@@ -204,6 +204,13 @@ $defAdds = @(
   @('buddhist.txt','theravada',@{laborers=3; soldiers=3; peasants=3}),
   @('buddhist.txt','sammitiya',@{laborers=3; soldiers=3; peasants=3})
 )
+# Miaphysites (2026-11-21, user OK): RSF TRY_REPLACEs miaphysite (beeswax/livestock demand) -> re-emit RSF's block
+# with clergy +5 (learned celibate vardapets / monastic book culture), as for the Orthodox
+$targets += @{ root=$rsf; f='religions\RSF_christian.txt'; k='TRY_REPLACE:miaphysite'; out='religions'
+               e=@( ,@('(?m)^(\tdefinition_modifier = \{)[ \t]*\r?$', "`$1`n${T2}global_clergy_max_literacy = 5`t# LO: vardapets / monastic book culture") ) }
+# regnal_chronicles (all of Africa): court chronicles were kept by a few court clerics -> clergy 10 -> 5
+$targets += @{ f='advances\region_africa.txt'; k='regnal_chronicles'; out='advances'
+               e=@( ,@('(?m)^\tglobal_clergy_max_literacy = 10[ \t]*\r?$', "${T1}global_clergy_max_literacy = 5`t# LO: 10 -> 5 (court chronicles, not mass schooling)") ) }
 foreach ($da in $defAdds) {
     $lines = ($da[2].GetEnumerator() | Sort-Object Name | ForEach-Object { "${T2}global_$($_.Name)_max_literacy = $($_.Value)`t# LO: Indian religions / Theravada" }) -join "`n"
     $targets += @{ f=('religions\' + $da[0]); k=$da[1]; out='religions'
