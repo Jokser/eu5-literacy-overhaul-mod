@@ -156,3 +156,16 @@ Before this change, Prussia's peasants were at 29 in age 4 (×3 France) and its 
 | Catharism | all 5 | upper 5 / lower 2 |
 
 Bogomils and Paulicians are unchanged.
+
+### Muslim religious schools (v0.7, 2026-11-21)
+In base, only Hanafi gives literacy (clergy +10). Every school keeps its own base flavour modifier and now also gets:
+
+| School | Added |
+|---|---|
+| Shafi'i, Maliki, Ja'fari, Imamiya, Zaidi, Ibadi | clergy +10 |
+| Hanbali, Ash'ari (keeps research +5%), Maturidi (the Ottoman start school) | clergy +5 |
+| Isma'ili, Nizari, Mustali | clergy +5, burghers +5 (Bohra / Khoja merchant communities) |
+| Mevlevi (Sufi order) | burghers +5 |
+
+History: Shafi'i (al-Azhar, Mamluk Cairo and Damascus), Maliki (Qarawiyyin, Timbuktu), Twelvers (Hilla and Najaf),
+Zaidis (Yemeni manuscripts), Ibadis (halqa circles), Ash'ari (theology of the Nizamiyya madrasas).

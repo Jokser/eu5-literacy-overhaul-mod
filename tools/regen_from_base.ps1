@@ -176,6 +176,27 @@ $targets = @(
      ) }
 )
 
+# ---------- Muslim religious schools (2026-11-21, user OK) ----------
+# Base: only hanafi gives literacy (clergy +10). Every major madhhab/school ran madrasas: Shafi'i (al-Azhar,
+# Mamluk Cairo/Damascus), Maliki (Qarawiyyin, Timbuktu), Twelver Shia (Hilla, Najaf hawzas), Zaidi (Yemeni
+# manuscript culture), Ibadi (halqa circles of Oman/Mzab) -> clergy +10. Theology schools / smaller ones: Hanbali,
+# Ash'ari (madrasa theology of the Nizamiyya; keeps its research +5%), Maturidi (Hanafi theology - the Ottomans'
+# start school) -> clergy +5. Isma'ili branches: clergy +5, burghers +5 (Bohra/Khoja merchant communities).
+# Mevlevi order: burghers +5 (urban Persian literary culture). Each school keeps its own base flavour modifier.
+$schoolEdits = @(
+  @('sunni.txt','shafii_school',  @{clergy=10}), @('sunni.txt','maliki_school', @{clergy=10}),
+  @('sunni.txt','hanbali_school', @{clergy=5}),  @('sunni.txt','ashari_school', @{clergy=5}), @('sunni.txt','maturidi_school', @{clergy=5}),
+  @('shia.txt','jafari_school',   @{clergy=10}), @('shia.txt','imamiya_school', @{clergy=10}), @('shia.txt','zaidi_school', @{clergy=10}),
+  @('shia.txt','ismaili_school',  @{clergy=5; burghers=5}), @('shia.txt','nizari_school', @{clergy=5; burghers=5}), @('shia.txt','mustali_school', @{clergy=5; burghers=5}),
+  @('ibadi.txt','ibadi_school',   @{clergy=10}),
+  @('sufi.txt','mevlevi_school',  @{burghers=5})
+)
+foreach ($se in $schoolEdits) {
+    $lines = ($se[2].GetEnumerator() | Sort-Object Name | ForEach-Object { "${T2}global_$($_.Name)_max_literacy = $($_.Value)`t# LO: Muslim school rebalance" }) -join "`n"
+    $targets += @{ f=('religious_schools\' + $se[0]); k=$se[1]; out='religious_schools'
+                   e=@( ,@('(?m)^(\tmodifier = \{)[ \t]*\r?$', ("`$1`n" + $lines)) ) }
+}
+
 # ---------- group rule: national/city ACADEMY advances (all X -> upper X / lower round(X/3)) ----------
 # An academy, university or court library educates the elite, not the countryside. Alphabet / mass-school advances
 # (terakoya, hangeul, gurmukhi, albanian alphabet, komisja edukacji, dutch/scottish/slovak education, colonial
