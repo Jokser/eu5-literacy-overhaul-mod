@@ -554,7 +554,7 @@ REPLACE_OR_CREATE:orthodox = {
 	definition_modifier = {
 		stability_cost_efficiency = 0.2
 		# LO v0.32: all 5 -> clergy 10 / burghers 5 / nobles 0 / lower 0 (monastic book culture)
-		global_clergy_max_literacy = 10
+		global_clergy_max_literacy = 5	# v0.42: 10 -> 5 (Moscow 1500: 81 + printing 5 = 86 passed the university gate in age 3)
 		global_burghers_max_literacy = 5
 		clergy_estate_cannot_marry = yes
 		maximum_religious_influence = 400

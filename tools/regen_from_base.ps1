@@ -443,7 +443,7 @@ $targets = @(
 # Orthodox: all 5 -> clergy 10 / burghers 5 / nobles 0 / lower 0 (v0.32; was upper 5). Monastic book culture
 # (Trinity-Sergius, Kirillo-Belozersky); Muscovite boyars were not more literate than Western nobles (Russians: + lo_stoglav
 # clergy 10 in age 4 = 20, still below Catholic 25). Miaphysite: + clergy 5 (vardapets / monastic book culture).
-$orthoLines = "${T2}# LO v0.32: all 5 -> clergy 10 / burghers 5 / nobles 0 / lower 0 (monastic book culture)`n${T2}global_clergy_max_literacy = 10`n${T2}global_burghers_max_literacy = 5"
+$orthoLines = "${T2}# LO v0.32: all 5 -> clergy 10 / burghers 5 / nobles 0 / lower 0 (monastic book culture)`n${T2}global_clergy_max_literacy = 5`t# v0.42: 10 -> 5 (Moscow 1500: 81 + printing 5 = 86 passed the university gate in age 3)`n${T2}global_burghers_max_literacy = 5"
 $targets += @{ f='religions\christian.txt'; k='orthodox'; out='religions'
                e=@( ,@('(?m)^\t\tglobal_max_literacy = 5[ \t]*\r?$', $orthoLines)) }
 $targets += @{ f='religions\christian.txt'; k='miaphysite'; out='religions'

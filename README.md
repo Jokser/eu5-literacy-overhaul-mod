@@ -601,3 +601,9 @@ Clergy cap without a university, temple + cathedral + library, gate > 85 (fortre
 Russian city in age 4: 37 common + Orthodox 10 + anagignoskomena 5 + local 28 = 80 (83-85 with the patriarchate tenet)
 -> no university; age 5 with Kyiv-Mohyla learning: 90. Gate clergy stays > 85: a gate of 80 tested on the saves would
 have opened 53 Chinese, 44 Sunni and 13 Theravada candidate cities by 1650.
+
+### Orthodox clergy 10 -> 5 (v0.42, 2026-11-22)
+The v0.41 estimate missed two Muscovite sources: the uneducated_masses law also gives clergy +10 (as
+basic_religious_education does), and the patriarchate tenet Allow Christological Debates +5 was already there in 1500.
+Moscow clergy cap in 1500 was 81 (screenshot), + printing 5 = 86 > 85 -> a university in age 3. Orthodox definition
+clergy 10 -> 5: Moscow 76, 81 with printing (no university), 91 in age 5 with lo_kyiv_mohyla_learning.
