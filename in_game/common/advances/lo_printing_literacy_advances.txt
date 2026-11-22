@@ -1,24 +1,19 @@
-﻿# Literacy overhaul - mass literacy from print (v0.34, 2026-11-21).
+﻿# Literacy overhaul - mass literacy from print (v0.34, 2026-11-21; reworked v0.43, 2026-11-22).
 #
 # lo_printed_primers: the lower-class part of the printing press (lower +4, growth +0.01/month) was split off
 # printing_press_advance (which keeps the elite part: nobles/clergy 5, burghers 10). Cheap primers, catechisms and
-# chapbooks reached the townsfolk and villagers. In the Muslim world printing in Arabic script was not adopted until
-# Ibrahim Muteferrika's press (Istanbul 1727; Persia c. 1817, Morocco 1860s) -> Muslims only from age 5.
-# Half the normal research cost: it is a follow-up of the printing press, not a new idea.
+# chapbooks reached the townsfolk and villagers. Half the normal research cost: a follow-up of the printing press.
 lo_printed_primers = {
 	age = age_3_discovery
 	icon = printing_press_advance
 	research_cost = 0.5
 
-	# v0.41: the Orthodox also only from age 5 - Muscovite printing (Fedorov's Apostol 1564) was liturgical; the first
-	# primers (Fedorov's Lviv bukvar 1574, Burtsov's Moscow bukvar 1634) came late and in small editions.
+	# v0.43: from age 3 only in the print cultures (Western churches, China / Japan / Korea), everyone else from age 6.
+	# Arabic-script printing: Muteferrika 1727, Persia c. 1817, Morocco 1860s; Orthodox primers came late and in small
+	# editions (Fedorov's Lviv bukvar 1574, Burtsov's Moscow bukvar 1634); Indian vernacular print is 19th-century.
 	potential = {
 		OR = {
-			AND = {
-				NOT = { religion.group = religion_group:muslim }
-				NOT = { religion = religion:orthodox }
-			}
-			current_age = age_5_absolutism
+			lo_print_culture = yes
 			current_age = age_6_revolutions
 		}
 	}
@@ -33,8 +28,35 @@ lo_printed_primers = {
 	ai_weight = { add = 50 }	# the AI values literacy at ~0
 }
 
+# lo_popular_press (v0.43): the lower-class part of newspapers_advance (cheap press, almanacs, coffee-house reading of
+# c. 1690-1750), split off it. Muslims and Orthodox only from age 6: the first Ottoman newspaper is from 1831, and the
+# Russian Vedomosti (1703) was a state gazette that did not reach the peasants.
+lo_popular_press = {
+	age = age_5_absolutism
+	icon = newspapers_advance
+	research_cost = 0.5
+
+	potential = {
+		OR = {
+			AND = {
+				NOT = { religion.group = religion_group:muslim }
+				NOT = { religion = religion:orthodox }
+			}
+			current_age = age_6_revolutions
+		}
+	}
+
+	requires = newspapers_advance
+
+	global_laborers_max_literacy = 4
+	global_soldiers_max_literacy = 4
+	global_peasants_max_literacy = 4
+
+	ai_weight = { add = 50 }
+}
+
 # lo_church_reading_examinations: second stage of Lutheran mass literacy. The religion itself gives the lower
-# classes +4 from the Reformation (catechism, school church orders); the household reading examinations of the
+# classes +5 from the Reformation (catechism, school church orders); the household reading examinations of the
 # Swedish church law of 1686 (husforhor) and the Pietist schools (Francke's Halle) came in the age of absolutism.
 lo_church_reading_examinations = {
 	age = age_5_absolutism
@@ -47,9 +69,52 @@ lo_church_reading_examinations = {
 
 	requires = sanitation_advance
 
-	global_laborers_max_literacy = 4
-	global_soldiers_max_literacy = 4
-	global_peasants_max_literacy = 4
+	global_laborers_max_literacy = 5	# v0.43: 4 -> 5 (stay ahead of the Catholic teaching orders)
+	global_soldiers_max_literacy = 5
+	global_peasants_max_literacy = 5
 
 	ai_weight = { add = 200 }	# v0.41: 50 -> 200 (in 1650 ~20 small Lutheran states had it, but not Sweden, Brunswick, Bohemia, Brandenburg)
+}
+
+# lo_teaching_orders (v0.43): Catholic popular schooling of the Counter-Reformation - Ursulines (1535) for girls, the
+# Piarists (1597, the first free schools for the poor), the Brothers of the Christian Schools of La Salle (1680s), the
+# French petites ecoles of the ordinances of 1698 and 1724. North of the Saint-Malo - Geneva line France was twice as
+# literate as Spain or Italy by the 1780s. The Catholic counterpart of the Lutheran examinations (+5 vs Lutheran 5 + 5).
+lo_teaching_orders = {
+	age = age_5_absolutism
+	icon = catholic_sunday_schools
+	research_cost = 0.5
+
+	potential = {
+		religion = religion:catholic
+	}
+
+	requires = printing_press_advance
+
+	global_laborers_max_literacy = 5
+	global_soldiers_max_literacy = 5
+	global_peasants_max_literacy = 5
+
+	ai_weight = { add = 200 }
+}
+
+# lo_enlightened_pedagogy (v0.43): the lower-class part of enlightened_court, split off it. Enlightenment school
+# reforms - the Prussian General Land School Regulation (1763), Felbiger and the Austrian Allgemeine Schulordnung
+# (1774), Pestalozzi - were a Catholic and Protestant European movement.
+lo_enlightened_pedagogy = {
+	age = age_6_revolutions
+	icon = enlightenment_advance
+	research_cost = 0.5
+
+	potential = {
+		lo_western_church = yes
+	}
+
+	requires = enlightened_court
+
+	global_laborers_max_literacy = 5
+	global_soldiers_max_literacy = 5
+	global_peasants_max_literacy = 5
+
+	ai_weight = { add = 100 }
 }

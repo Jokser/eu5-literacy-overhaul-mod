@@ -75,4 +75,21 @@ lo_update_learned_elite_effect = {
 			multiply = 0.6	# k: +0.6% research per point of weighted elite literacy (v0.31: 0.4 -> 0.6, institutions 0.05 -> 0.04)
 		}
 	}
+	# v0.43: universities are rare (max 2 per area) and give research directly: +2% each, at most 5 (+10%).
+	# Vanilla universities give the country no research at all, and buildings have no country-wide modifier field.
+	if = {
+		limit = { total_effective_building_levels:university > 0 }
+		add_country_modifier = {
+			modifier = lo_university_research
+			years = -1
+			mode = replace
+			size = {
+				value = total_effective_building_levels:university
+				max = 5
+			}
+		}
+	}
+	else = {
+		remove_country_modifier = lo_university_research
+	}
 }

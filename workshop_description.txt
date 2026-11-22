@@ -12,14 +12,15 @@ In vanilla, literacy is one number for everyone: a printing press or a new relig
 [h2]Print and mass reading[/h2]
 [list]
 [*]The [b]printing press[/b] educates the elite, especially burghers. [b]Printed Primers[/b], a cheap follow-up advance, bring reading to the common people and double literacy growth.
-[*]In the Muslim world printed primers come only in the age of absolutism (the first Ottoman press opened in 1727). [b]Madrasas[/b] educate the ulema and the urban elite, not the villages.
-[*][b]Newspapers[/b] and the [b]Enlightenment court[/b] raise literacy among nobles, burghers and the common people in the late game.
+[*]Mass print is a matter of [b]print culture[/b]: Catholic and Protestant Europe and the woodblock cultures of China, Japan and Korea get the primers early, everyone else only in the age of revolutions (the first Ottoman press opened in 1727; Indian and Orthodox popular print came late). [b]Madrasas[/b] educate the ulema and the urban elite, not the villages.
+[*][b]Newspapers[/b] educate nobles and burghers; the [b]Popular Press[/b] that follows them reaches the common people, in the Muslim and Orthodox world only in the last age.
+[*]Late schooling of the common people: Catholic [b]Teaching Orders[/b] (Ursulines, Piarists, La Salle) and [b]Enlightened Pedagogy[/b] (Prussia 1763, Austria 1774). Enlightened monarchs whose crown outweighs the clergy now introduce [b]secular education[/b].
 [/list]
 
 [h2]Religions and cultures[/h2]
 [list]
-[*][b]Catholic[/b] clergy are highly literate. [b]Orthodox[/b] clergy rely on monastic book culture; Russians catch up with the [b]Stoglav council[/b] in the age of Reformation, and the Greek aristocracy has its own [b]Byzantine paideia[/b].
-[*][b]Protestants[/b] get it in the religion itself, not in aspects the AI never picks. [b]Lutherans[/b] teach the laity from the Reformation and become the most literate church after the [b]church reading examinations[/b] of the age of absolutism. Anglicans have Oxbridge clergy and grammar schools, Calvinists parish schools.
+[*][b]Catholic[/b] clergy are highly literate. [b]Orthodox[/b] clergy rely on monastic book culture; the [b]Stoglav council[/b] opens schools for Russian townsfolk, Orthodox clergy reach Western levels with [b]Kyiv-Mohyla learning[/b] in the age of absolutism, and the Greek aristocracy has its own [b]Byzantine paideia[/b].
+[*][b]Protestants[/b] get it in the religion itself, not in aspects the AI never picks. [b]Lutherans[/b] teach the laity from the Reformation and become the most literate church after the [b]church reading examinations[/b] of the age of absolutism. Anglicans have Oxbridge clergy and grammar schools, Calvinists parish schools. Protestant clergy are as literate as Catholic ones, their merchant towns more so, and Protestant towns build [b]Latin schools[/b] (gymnasia), the counterpart of the Jesuit colleges.
 [*][b]Islam[/b] gives its ulema a literacy base; each Muslim school adds its own. Hindu Brahmins and Jain merchants, Theravada village monasteries, Armenian vardapets, Chinese scholar-gentry and the Maya scribes all have their own profiles.
 [/list]
 
@@ -35,17 +36,18 @@ Vanilla research from literacy uses the [i]average[/i] literacy of all pops, whi
 [list]
 [*][b]Institution spread[/b] depends on local literacy, so it is compensated: institutions spread at about the vanilla pace in Europe, and more slowly where literacy was historically low.
 [*]Demand for books and paper, the literacy bonus to peasant promotion, the Royal Society decision, the sola scriptura events, the revolution disasters and the Catholic scholars' zeal are adjusted to the lower averages.
-[*]The AI now picks the elite literacy advances and the new primers instead of skipping them for a century, and Muscovy leaves uneducated masses after the Stoglav council.
+[*]The AI now picks the elite literacy advances and the new primers instead of skipping them for a century, and countries leave uneducated masses once they have the printing press. Elite education policies (humanist schools, clerical colleges, education of the people) and the press laws (censorship in Catholic and Protestant Europe, a free press where the burghers are strong) are now chosen where they historically fit.
 [/list]
 
 [h2]Universities[/h2]
 [list]
-[*]A university needs a developed town (development 30+) with highly literate clergy (85+) and burghers (25+). It gives a big literacy boost to all three upper classes and costs more to build and maintain.
+[*]A university needs a developed town (development 30+) with highly literate clergy (85+) and burghers (40+), and an area can have [b]at most two[/b]. Catholic and Protestant towns no longer need a monastery once they have the printing press. Europe ends up near the historical numbers: about 20 universities in Italy and 45 in Germany by 1800.
+[*]Universities give a big literacy boost to all three upper classes, [b]+2% research each[/b] (up to five) and stronger local institution growth, and the learned institutions (Renaissance, printing press, scientific revolution, Enlightenment) are twice as likely to appear in university towns. They cost more to build and maintain.
 [*]Loopholes that built universities anywhere are closed: the cheap Orthodox event option and parliament sponsorship.
 [/list]
 
 [h2]Compatibility[/h2]
-Most changes replace single entries (REPLACE_OR_CREATE), not whole files, so mods that do not touch literacy are compatible. Mods that change the same advances, buildings, laws or religions will conflict. Five files are replaced whole, because the game cannot edit them entry by entry: [i]script_values/institution_spread.txt[/i], [i]events/religion/church_aspects.txt[/i], [i]events/religion/orthodox_flavor.txt[/i], [i]parliament_issues/01_country_specific_parliament_issues.txt[/i] and [i]parliament_issues/05_burghers_estate_parliament_issues.txt[/i]. Other mods that replace these files conflict.
+Most changes replace single entries (REPLACE_OR_CREATE), not whole files, so mods that do not touch literacy are compatible. Mods that change the same advances, buildings, laws or religions will conflict. Nine files are replaced whole, because the game cannot edit them entry by entry: [i]script_values/institution_spread.txt[/i], the four [i]institution/age_2/3/5/6_*_institutions.txt[/i] files, [i]events/religion/church_aspects.txt[/i], [i]events/religion/orthodox_flavor.txt[/i], [i]parliament_issues/01_country_specific_parliament_issues.txt[/i] and [i]parliament_issues/05_burghers_estate_parliament_issues.txt[/i]. Other mods that replace these files conflict.
 
 [b]Ruthenia and Steppe Fix (RSF):[/b] RSF redefines the Catholic, Orthodox and Miaphysite religions with TRY_REPLACE, which overrides other mods whatever the load order. To get this mod's literacy for them with RSF, also use [b]Literacy overhaul - RSF compatibility[/b] and load it after both mods. Literacy overhaul itself does not need RSF.
 

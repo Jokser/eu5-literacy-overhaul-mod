@@ -709,6 +709,15 @@ REPLACE_OR_CREATE:education_masses_law = {
 					value = 100
 				}
 			}
+			# LO v0.43: the printed catechism made parish schooling cheap (62 of 205 big countries were still on
+			# uneducated_masses in 1751; both give the elites the same, so the AI had no reason to change)
+			if = {
+				limit = { has_advance = printing_press_advance }
+				add = {
+					desc = "LO: printed catechisms and parish schools"
+					value = 100
+				}
+			}
 		}
 		years = 2
 	}
@@ -902,6 +911,18 @@ REPLACE_OR_CREATE:education_masses_law = {
 			burghers_estate
 			peasants_estate
 		}
+		ai_will_do = {
+			if = {
+				limit = {
+					has_embraced_institution = institution:enlightenment
+					"estate_power(estate_type:crown_estate)" > "estate_power(estate_type:clergy_estate)"
+				}
+				add = {
+					desc = "LO: enlightened absolutism - state schools"
+					value = 100
+				}
+			}
+		}
 		years = 2
 	}
 
@@ -960,6 +981,7 @@ REPLACE_OR_CREATE:education_elites_law = {
 
 	mixed_institutions = {
 		country_modifier = {
+			global_institution_growth_modifier = 0.10	# LO v0.43: humanist schools
 			num_possible_artists = 1
 			monthly_towards_innovative = societal_value_tiny_monthly_move
 			global_burghers_max_literacy = 5
@@ -967,6 +989,20 @@ REPLACE_OR_CREATE:education_elites_law = {
 		}
 		estate_preferences = {
 			burghers_estate
+		}
+		ai_will_do = {
+			if = {
+				limit = {
+					has_embraced_institution = institution:renaissance
+					NOT = { current_age = age_5_absolutism }
+					NOT = { current_age = age_6_revolutions }
+					"estate_power(estate_type:burghers_estate)" > "estate_power(estate_type:nobles_estate)"
+				}
+				add = {
+					desc = "LO: humanist schools"
+					value = 100
+				}
+			}
 		}
 		years = 2
 	}
@@ -980,6 +1016,30 @@ REPLACE_OR_CREATE:education_elites_law = {
 		}
 		estate_preferences = {
 			clergy_estate
+		}
+		ai_will_do = {
+			if = {
+				limit = {
+					OR = {
+						AND = {
+							religion = religion:catholic
+							OR = {
+								current_age = age_4_reformation
+								current_age = age_5_absolutism
+							}
+						}
+						AND = {
+							religion = religion:orthodox
+							has_advance = lo_kyiv_mohyla_learning
+						}
+					}
+					"estate_power(estate_type:clergy_estate)" > "estate_power(estate_type:nobles_estate)"
+				}
+				add = {
+					desc = "LO: Counter-Reformation colleges"
+					value = 100
+				}
+			}
 		}
 		years = 2
 	}
@@ -1025,6 +1085,7 @@ REPLACE_OR_CREATE:education_elites_law = {
 
 	education_of_the_people = {
 		country_modifier = {
+			global_institution_growth_modifier = 0.15	# LO v0.43: Enlightenment popular education
 			nobles_estate_target_satisfaction = medium_permanent_target_satisfaction_penalty
 			clergy_estate_target_satisfaction = medium_permanent_target_satisfaction_penalty
 			global_burghers_max_literacy = 5
@@ -1038,6 +1099,21 @@ REPLACE_OR_CREATE:education_elites_law = {
 		estate_preferences = {
 			burghers_estate
 			peasants_estate
+		}
+		ai_will_do = {
+			if = {
+				limit = {
+					has_embraced_institution = institution:enlightenment
+					OR = {
+						"estate_power(estate_type:burghers_estate)" > "estate_power(estate_type:nobles_estate)"
+						"estate_power(estate_type:peasants_estate)" > "estate_power(estate_type:nobles_estate)"
+					}
+				}
+				add = {
+					desc = "LO: Enlightenment popular education"
+					value = 100
+				}
+			}
 		}
 		years = 2
 	}
@@ -1111,6 +1187,19 @@ REPLACE_OR_CREATE:press_law = {
 		estate_preferences = {
 			nobles_estate
 		}
+		ai_will_do = {
+			if = {
+				limit = {
+					religion.group = religion_group:christian
+					NOT = { religion = religion:orthodox }
+					has_embraced_institution = institution:printing_press
+				}
+				add = {
+					desc = "LO: licensed printers and censorship"
+					value = 100
+				}
+			}
+		}
 		years = 2
 	}
 	free_press = {
@@ -1130,6 +1219,15 @@ REPLACE_OR_CREATE:press_law = {
 		}
 		estate_preferences = {
 			burghers_estate
+		}
+		ai_will_do = {
+			if = {
+				limit = { "estate_power(estate_type:burghers_estate)" > "estate_power(estate_type:crown_estate)" }
+				add = {
+					desc = "LO: a burgher press"
+					value = 150
+				}
+			}
 		}
 		years = 2
 	}

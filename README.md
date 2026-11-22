@@ -607,3 +607,31 @@ The v0.41 estimate missed two Muscovite sources: the uneducated_masses law also 
 basic_religious_education does), and the patriarchate tenet Allow Christological Debates +5 was already there in 1500.
 Moscow clergy cap in 1500 was 81 (screenshot), + printing 5 = 86 > 85 -> a university in age 3. Orthodox definition
 clergy 10 -> 5: Moscow 76, 81 with printing (no university), 91 in age 5 with lo_kyiv_mohyla_learning.
+
+### Observer run 4 (1500-1800) package (v0.43, 2026-11-22)
+Findings from run 4 (v0.42, cuts 1566-1800) and what changed:
+
+| Area | Change | Why (run 4) |
+|---|---|---|
+| `gurgaddi` (Sikh foreign building) | local clergy 10 -> burghers 5, lower 2 | spread 4 -> 384 buildings; every Hindu and half the Chinese universities sat on one |
+| `free_thinkers` (colonies) | all 5 -> nobles 5, burghers 5, lower 2 | freedom of speech = merchants, planters, pamphleteers |
+| `komisja_edukacji_narodowej` (Poland) | all 10 -> upper 10, lower 5 | 1773 commission reformed academies; parish schools barely reached serfs |
+| new building `lo_latin_school` (Lutheran / Calvinist / Anglican) | nobles 5, burghers 5, growth 0.1 (= LO Jesuit college) | Stockholm burghers 69 vs Florence 91 at the same country cap |
+| Protestant definitions | burghers Lutheran/Calvinist 5 -> 10, Anglican 10 -> 15; Lutheran lower 4 -> 5 | Northern merchant towns; Lutherans stay ahead of the Catholic teaching orders |
+| `lo_church_reading_examinations` | lower 4 -> 5 | same |
+| `lo_kyiv_mohyla_learning` | ai_weight 100 -> 200 | Russia had not taken it by 1700 |
+| `lo_printed_primers` | from age 3 only in print cultures (`lo_print_culture`: Western churches, sanjiao, mahayana, shinto), others age 6 | 1800 peasant caps of Turkey and Britain were identical (20) |
+| new `lo_popular_press` (split off `newspapers_advance`) | lower +4; Muslims and Orthodox only from age 6 | first Ottoman newspaper 1831 |
+| new `lo_enlightened_pedagogy` (split off `enlightened_court`) | lower +5, Western churches only | Prussia 1763, Austria 1774, Felbiger, Pestalozzi |
+| new `lo_teaching_orders` (Catholic, age 5) | lower +5 | Ursulines, Piarists, La Salle; France 1800 lower cap 20 -> 25 (Lutheran 30) |
+| `basic_religious_education` | ai_will_do +100 with `printing_press_advance` | 62 of 205 big countries still on uneducated masses in 1751 |
+| `secular_education` | ai_will_do +100 with Enlightenment and crown > clergy | enlightened absolutism |
+| `education_elites_law` | mixed +10% / people +15% institution growth; estate-gated ai_will_do for mixed, people, clerical | 1500-1751: mixed 0, people 0, clerical 0-1 countries |
+| `press_law` | censored +100 (Catholic/Protestant with printing institution), free +150 (burghers > crown) | 1751: state-only 531, censored 8, free 9 |
+| university | max 2 per area (`$UNI_AREA_CAP`), local institution growth 0.66 -> 1.0 | 1800: 915 universities (HRE 140, Wu 138); per-area cap sim: Italy ~21, Germany ~50, France ~18 |
+| `lo_university_research` (yearly, `lo_research_effects.txt`) | +2% research per university, max 5 | vanilla universities give no country research |
+| institution spawn (same-path overrides of 4 institution files) | renaissance, printing press, sci rev, enlightenment `promote_chance` x2 in university towns | rarer universities should matter |
+
+Estimated 1800 peasant caps after the package: Turkey / Morocco / Punjab 20 -> ~11, Russia ~15, France 25, Lutheran
+Prussia 30 (38 with secular education). Not tested in a run - check error.log after loading (new: scripted_triggers
+`lo_print_culture_triggers.txt`, building `lo_latin_school` + icon, institution overrides, law ai_will_do blocks).

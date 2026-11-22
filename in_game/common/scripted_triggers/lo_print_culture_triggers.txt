@@ -1,0 +1,29 @@
+﻿# Literacy overhaul - print culture (v0.43, 2026-11-22). Scope: country.
+# Cheap mass print (primers, catechisms, chapbooks) and Enlightenment pedagogy were a Western-Christian and East Asian
+# phenomenon in the early modern age. Arabic-script printing waited for Muteferrika (1727) and the 19th century,
+# Indian vernacular print and Orthodox popular print came late as well. In the 1800 cut of the v0.42 run the
+# Ottoman and the British peasant caps were identical (20) because every lower-class source was generic.
+
+# Catholic and Protestant (Western) churches
+lo_western_church = {
+	religion.group = religion_group:christian
+	NOR = {
+		religion = religion:orthodox
+		religion = religion:miaphysite
+		religion = religion:nestorianism
+		religion = religion:bogomilism
+		religion = religion:bosnian_church
+		religion = religion:paulicianism
+		religion = religion:strigolniki
+	}
+}
+
+# Western churches + East Asian woodblock print cultures (China, Japan, Korea)
+lo_print_culture = {
+	OR = {
+		lo_western_church = yes
+		religion = religion:sanjiao
+		religion = religion:mahayana
+		religion = religion:shinto
+	}
+}

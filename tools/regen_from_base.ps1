@@ -31,6 +31,8 @@ $T1 = "`t"; $T2 = "`t`t"; $T3 = "`t`t`t"
 # used by the university building allow (explicit lines, for a per-condition tooltip) and by the scripted
 # trigger lo_university_site (parliament issue sponsor_a_university - may only sponsor where we could build).
 $UNI_DEV = 30; $UNI_CLERGY = 85; $UNI_BURGHERS = 40	# v0.41: burghers 25 -> 40 (25 never binding after 1454)
+# v0.43: at most 2 universities per area (the building allow and lo_university_site use the same line)
+$UNI_AREA_CAP = 'area = { NOT = { any_location_in_area = { count >= 2  has_building = building_type:university } } }'
 
 # Each target: source file, key, list of (regex -> replacement). Every regex must match exactly once.
 $targets = @(
@@ -287,18 +289,31 @@ $targets = @(
        # town = yes kept (base): many historical universities sat in small towns (Oxford, Cambridge, Salamanca,
        # Coimbra, Tuebingen, Wittenberg); dev >= 30 + clergy/burgher literacy prevent spam. (town = no removed
        # 2026-11-20: it made 11 setup universities invalid.)
-       @('(?m)^(\t\tis_core_of = owner)[ \t]*\r?$', "`$1`n${T2}# LO: developed city with literate clergy (cathedral schools) and burghers (educated laity)`n${T2}development >= $UNI_DEV`n${T2}any_pop = { pop_type = pop_type:clergy   pop_literacy > $UNI_CLERGY }`n${T2}any_pop = { pop_type = pop_type:burghers pop_literacy > $UNI_BURGHERS }"),
+       @('(?m)^(\t\tis_core_of = owner)[ \t]*\r?$', "`$1`n${T2}# LO: developed city with literate clergy (cathedral schools) and burghers (educated laity)`n${T2}development >= $UNI_DEV`n${T2}any_pop = { pop_type = pop_type:clergy   pop_literacy > $UNI_CLERGY }`n${T2}any_pop = { pop_type = pop_type:burghers pop_literacy > $UNI_BURGHERS }`n${T2}# LO v0.43: at most 2 universities per area (Italy ~20, Germany ~45, France ~20 by 1800 instead of 39 / 121 / 25)`n${T2}$UNI_AREA_CAP"),
        @('(?m)^\t\tlocal_cultural_influence = 0\.5[ \t]*\r?$', "${T2}local_cultural_influence = 0.75`t# LO: 0.5 -> 0.75"),
        @('(?m)^\t\tlocal_burghers_max_literacy = 10[ \t]*\r?\n\t\tlocal_nobles_max_literacy = 10[ \t]*\r?$', "${T2}local_burghers_max_literacy = 10`t# LO: base 10 (was 15 in v0.1-0.2)`n${T2}local_nobles_max_literacy = 10`t# LO: base 10 (was 15 in v0.1-0.2)`n${T2}local_clergy_max_literacy = 10`t# LO: new"),
        # local_monthly_literacy: base 0.1 kept (0.25 = wonder tier, e.g. Bibliotheca Corviniana / Globe Theatre)
        @('(?m)^\t\tlocal_pop_promotion_speed = 0\.001[ \t]*\r?$', "${T2}local_pop_promotion_speed = 0.002`t# LO: x2"),
-       @('(?m)^\t\tlocal_institution_growth_modifier = 0\.33[ \t]*\r?$', "${T2}local_institution_growth_modifier = 0.66`t# LO: x2"),
+       @('(?m)^\t\tlocal_institution_growth_modifier = 0\.33[ \t]*\r?$', "${T2}local_institution_growth_modifier = 1.0`t# LO: x3 (v0.43: 0.66 -> 1.0, universities are rarer)"),
        @('(?m)^\t\tpaper = 0\.5[ \t]*\r?\n\t\tbooks = 0\.25[ \t]*\r?\n\t\tglass = 0\.25[ \t]*\r?\n\t\tbeeswax = 0\.05[ \t]*\r?$', "${T2}paper = 1.0`t# LO: maintenance x2`n${T2}books = 0.5`n${T2}glass = 0.5`n${T2}beeswax = 0.1"),
        @('(?m)^\tconstruction_demand = university_construction[ \t]*\r?$', "${T1}construction_demand = lo_university_construction`t# LO: ~x2 cost + glass (goods_demand/lo_university_cost.txt)"),
        # REPLACE_OR_CREATE re-registers unique production methods -> "duplicated production method name" error
        # with the base name, so our university maintenance gets its own name (loc in literacy_overhaul_l_english.yml)
        @('(?m)^(\t\t)university_maintenance = \{', "`${1}lo_university_maintenance = {`t# LO: unique name (base one is already registered)")
      ) },
+  # v0.43: gurgaddi = foreign building of the Sikh building-country, spreads into other countries' cities. Its local
+  # clergy +10 lifted the Hindu / Chinese clergy of those cities over the university gate (all 22 Hindu universities of
+  # 1651 sat on one). Sikh literacy was communal: Gurmukhi taught to the sangat, Khatri / Arora merchant scripts.
+  @{ f='building_types\unique_buildings.txt'; k='gurgaddi'; out='building_types'
+     e=@( ,@('(?m)^\t\tlocal_clergy_max_literacy = 10[ \t]*\r?$', "${T2}# LO v0.43: clergy 10 -> burghers 5 / lower 2 (Khatri and Arora merchants; Gurmukhi for the sangat)`n${T2}local_burghers_max_literacy = 5`n${T2}local_laborers_max_literacy = 2`n${T2}local_soldiers_max_literacy = 2`n${T2}local_peasants_max_literacy = 2") ) },
+  # v0.43: freedom of speech and press in the colonies = merchants, planters, lawyers, pamphleteers; New England mass
+  # reading comes from the Calvinist definition
+  @{ f='advances\colonial_nations.txt'; k='free_thinkers'; out='advances'
+     e=@( ,@('(?m)^\tglobal_max_literacy = 5[ \t]*\r?$', "${T1}# LO v0.43: all 5 -> nobles 5 / burghers 5 / lower 2 / clergy 0`n${T1}global_nobles_max_literacy = 5`n${T1}global_burghers_max_literacy = 5`n${T1}global_laborers_max_literacy = 2`n${T1}global_soldiers_max_literacy = 2`n${T1}global_peasants_max_literacy = 2") ) },
+  # v0.43: the Commission of National Education (1773) reformed the academies and secondary schools; its ~1600 parish
+  # schools barely reached the serf peasants
+  @{ f='advances\country_pol.txt'; k='komisja_edukacji_narodowej'; out='advances'
+     e=@( ,@('(?m)^\tglobal_max_literacy = 10[ \t]*\r?$', ("${T1}# LO v0.43: all 10 -> upper 10 / lower 5`n" + (Strat $T1 'global' 10 5))) ) },
   # ---------- privileges / reforms / laws ----------
   @{ f='estate_privileges\clergy_estate.txt'; k='freedom_of_interpretation'; out='estate_privileges'
      e=@( ,@('(?m)^\t\tglobal_max_literacy = 5[ \t]*\r?$', "${T2}# LO v0.34: all 5 -> clergy 10 / burghers 5 / nobles 2.5 / lower 0 (ijtihad and the Sufi orders = a learned-elite matter)`n${T2}global_clergy_max_literacy = 10`n${T2}global_burghers_max_literacy = 5`n${T2}global_nobles_max_literacy = 2.5") ) },
@@ -319,7 +334,10 @@ $targets = @(
        # never left it in a 1337-1740 run). The Stoglav council (1551) ordered schools at the churches -> after
        # lo_stoglav the AI wants basic_religious_education.
        @('(?s)(basic_religious_education = \{.*?)(\r?\n)(\t\tyears = 2)',
-         ('${1}${2}' + "${T2}ai_will_do = {`n${T3}if = {`n${T3}`tlimit = { has_advance = lo_stoglav }`n${T3}`tadd = {`n${T3}`t`tdesc = `"LO: Stoglav ordered church schools`"`n${T3}`t`tvalue = 100`n${T3}`t}`n${T3}}`n${T2}}" + '${2}${3}'))
+         ('${1}${2}' + "${T2}ai_will_do = {`n${T3}if = {`n${T3}`tlimit = { has_advance = lo_stoglav }`n${T3}`tadd = {`n${T3}`t`tdesc = `"LO: Stoglav ordered church schools`"`n${T3}`t`tvalue = 100`n${T3}`t}`n${T3}}`n${T3}# LO v0.43: the printed catechism made parish schooling cheap (62 of 205 big countries were still on`n${T3}# uneducated_masses in 1751; both give the elites the same, so the AI had no reason to change)`n${T3}if = {`n${T3}`tlimit = { has_advance = printing_press_advance }`n${T3}`tadd = {`n${T3}`t`tdesc = `"LO: printed catechisms and parish schools`"`n${T3}`t`tvalue = 100`n${T3}`t}`n${T3}}`n${T2}}" + '${2}${3}')),
+       # LO v0.43: enlightened absolutism (Prussia 1763, Austria 1774) - state schooling where the crown outweighs the clergy
+       @('(?s)(secular_education = \{.*?)(\r?\n)(\t\tyears = 2)',
+         ('${1}${2}' + "${T2}ai_will_do = {`n${T3}if = {`n${T3}`tlimit = {`n${T3}`t`thas_embraced_institution = institution:enlightenment`n${T3}`t`t`"estate_power(estate_type:crown_estate)`" > `"estate_power(estate_type:clergy_estate)`"`n${T3}`t}`n${T3}`tadd = {`n${T3}`t`tdesc = `"LO: enlightened absolutism - state schools`"`n${T3}`t`tvalue = 100`n${T3}`t}`n${T3}}`n${T2}}" + '${2}${3}'))
      ) },
   # LO (2026-11-21, research pass): with the learned-elite research bonus every elite variant is worth something;
   # education_of_the_people stops being the best ELITE-education law by teaching the peasants most.
@@ -330,7 +348,19 @@ $targets = @(
        @('(?s)(education_of_the_court = \{.*?)global_nobles_max_literacy = 5',
          '${1}global_nobles_max_literacy = 15	# LO: 5 -> 15 (v0.19: 10; v0.30: 15, the court education of a whole estate: tutors, academies, colleges)'),
        @('(?s)(confucian_academies_education = \{.*?)global_nobles_max_literacy = 5([ \t]*\r?\n)',
-         "`${1}global_nobles_max_literacy = 10`t# LO: 5 -> 10, + burghers 5 (exam candidates from merchant families)`${2}${T3}global_burghers_max_literacy = 5`${2}")
+         "`${1}global_nobles_max_literacy = 10`t# LO: 5 -> 10, + burghers 5 (exam candidates from merchant families)`${2}${T3}global_burghers_max_literacy = 5`${2}"),
+       # LO v0.43: in 1500-1751 no country ever took mixed_institutions or education_of_the_people and only one took
+       # clerical_institutions - forums_of_thought (+20% institution growth) beat them for the same estates. Institution
+       # growth for mixed (humanist schools) and people (Enlightenment), and estate-gated AI weights so that court
+       # education keeps the countries where the nobles are strongest.
+       @('(?s)(mixed_institutions = \{.*?country_modifier = \{[ \t]*\r?\n)', ('${1}' + "${T3}global_institution_growth_modifier = 0.10`t# LO v0.43: humanist schools`n")),
+       @('(?s)(mixed_institutions = \{.*?)(\r?\n)(\t\tyears = 2)',
+         ('${1}${2}' + "${T2}ai_will_do = {`n${T3}if = {`n${T3}`tlimit = {`n${T3}`t`thas_embraced_institution = institution:renaissance`n${T3}`t`tNOT = { current_age = age_5_absolutism }`n${T3}`t`tNOT = { current_age = age_6_revolutions }`n${T3}`t`t`"estate_power(estate_type:burghers_estate)`" > `"estate_power(estate_type:nobles_estate)`"`n${T3}`t}`n${T3}`tadd = {`n${T3}`t`tdesc = `"LO: humanist schools`"`n${T3}`t`tvalue = 100`n${T3}`t}`n${T3}}`n${T2}}" + '${2}${3}')),
+       @('(?s)(education_of_the_people = \{.*?country_modifier = \{[ \t]*\r?\n)', ('${1}' + "${T3}global_institution_growth_modifier = 0.15`t# LO v0.43: Enlightenment popular education`n")),
+       @('(?s)(education_of_the_people = \{.*?)(\r?\n)(\t\tyears = 2)',
+         ('${1}${2}' + "${T2}ai_will_do = {`n${T3}if = {`n${T3}`tlimit = {`n${T3}`t`thas_embraced_institution = institution:enlightenment`n${T3}`t`tOR = {`n${T3}`t`t`t`"estate_power(estate_type:burghers_estate)`" > `"estate_power(estate_type:nobles_estate)`"`n${T3}`t`t`t`"estate_power(estate_type:peasants_estate)`" > `"estate_power(estate_type:nobles_estate)`"`n${T3}`t`t}`n${T3}`t}`n${T3}`tadd = {`n${T3}`t`tdesc = `"LO: Enlightenment popular education`"`n${T3}`t`tvalue = 100`n${T3}`t}`n${T3}}`n${T2}}" + '${2}${3}')),
+       @('(?s)(clerical_institutions = \{.*?)(\r?\n)(\t\tyears = 2)',
+         ('${1}${2}' + "${T2}ai_will_do = {`n${T3}if = {`n${T3}`tlimit = {`n${T3}`t`tOR = {`n${T3}`t`t`tAND = {`n${T3}`t`t`t`treligion = religion:catholic`n${T3}`t`t`t`tOR = {`n${T3}`t`t`t`t`tcurrent_age = age_4_reformation`n${T3}`t`t`t`t`tcurrent_age = age_5_absolutism`n${T3}`t`t`t`t}`n${T3}`t`t`t}`n${T3}`t`t`tAND = {`n${T3}`t`t`t`treligion = religion:orthodox`n${T3}`t`t`t`thas_advance = lo_kyiv_mohyla_learning`n${T3}`t`t`t}`n${T3}`t`t}`n${T3}`t`t`"estate_power(estate_type:clergy_estate)`" > `"estate_power(estate_type:nobles_estate)`"`n${T3}`t}`n${T3}`tadd = {`n${T3}`t`tdesc = `"LO: Counter-Reformation colleges`"`n${T3}`t`tvalue = 100`n${T3}`t}`n${T3}}`n${T2}}" + '${2}${3}'))
      ) },
   # ---------- lower-class pass (ours, 2026-11-20): flat "all classes" bonuses that are really elite phenomena ----------
   @{ f='advances\0_age_of_absolutism.txt'; k='scientific_revolution_advance'; out='advances'
@@ -338,12 +368,12 @@ $targets = @(
   @{ f='advances\4_choices_adm.txt'; k='humanism'; out='advances'
      e=@( ,@('(?m)^\tglobal_max_literacy = 10[ \t]*\r?$', ("${T1}# LO: all 10 -> upper 10 only (humanism = culture of the educated)`n" + (Strat $T1 'global' 10 $null))) ) },
   @{ f='advances\0_age_of_revolutions.txt'; k='enlightened_court'; out='advances'
-     e=@( ,@('(?m)^\tglobal_max_literacy = 5[ \t]*\r?$', ("${T1}# LO: all 5 -> nobles + clergy 5 / burghers 10 / lower 5 (v0.24 lower 3; v0.28 burghers 10, lower 5: Enlightenment school reforms, Prussia 1763, Austria 1774)`n" + ((Strat $T1 'global' 5 5) -replace 'global_burghers_max_literacy = 5', 'global_burghers_max_literacy = 10'))) ) },
+     e=@( ,@('(?m)^\tglobal_max_literacy = 5[ \t]*\r?$', ("${T1}# LO: all 5 -> nobles + clergy 5 / burghers 10 (v0.28); v0.43: the lower +5 (school reforms, Prussia 1763, Austria 1774)`n${T1}# moved to lo_enlightened_pedagogy (Catholics and Protestants only)`n" + ((Strat $T1 'global' 5 $null) -replace 'global_burghers_max_literacy = 5', 'global_burghers_max_literacy = 10'))) ) },
   # v0.24: newspapers (age 5, after the scientific revolution) had no literacy in vanilla. The cheap press,
   # almanacs and coffee-house reading of c. 1690-1750 -> lower classes +4; v0.28: + nobles 5 / burghers 5
   # (journals, salons, coffee houses and subscriptions were above all a bourgeois and noble milieu).
   @{ f='advances\0_age_of_absolutism.txt'; k='newspapers_advance'; out='advances'
-     e=@( ,@('(?m)^(\tunlock_law = press_law[ \t]*)(\r?)$', ('$1$2' + "`n${T1}# LO v0.24: lower classes +4 (cheap press, almanacs); v0.28: nobles + burghers 5 (journals, salons)`n${T1}global_nobles_max_literacy = 5`n${T1}global_burghers_max_literacy = 5`n${T1}global_laborers_max_literacy = 4`n${T1}global_soldiers_max_literacy = 4`n${T1}global_peasants_max_literacy = 4")) ) },
+     e=@( ,@('(?m)^(\tunlock_law = press_law[ \t]*)(\r?)$', ('$1$2' + "`n${T1}# LO v0.28: nobles + burghers 5 (journals, salons); v0.43: the lower +4 (cheap press, almanacs) moved to`n${T1}# lo_popular_press (Muslims and Orthodox only from age 6)`n${T1}global_nobles_max_literacy = 5`n${T1}global_burghers_max_literacy = 5")) ) },
   # v0.28: the AI skipped this (+10 nobles) in France, Castile, Sweden and Milan by 1800 although it had the prerequisite
   @{ f='advances\0_age_of_renaissance.txt'; k='global_nobles_max_literacy_advance'; out='advances'
      e=@( ,@('(?m)^(\tglobal_nobles_max_literacy = 10[ \t]*)(\r?)$', ('$1$2' + "`n`n${T1}ai_weight = { add = 50 }`t# LO v0.28: the AI skipped it (France, Castile, Sweden, Milan in 1800)")) ) },
@@ -364,7 +394,14 @@ $targets = @(
      e=@(
        @('(?m)^\t\t\tglobal_max_literacy = 10[ \t]*\r?$', ("${T3}# LO: free_press all 10 -> upper 10 / laborers+soldiers 5 / peasants 3 (newspapers were read in towns)`n" + (Strat $T3 'global' 10 $null) + "`n${T3}global_laborers_max_literacy = 5`n${T3}global_soldiers_max_literacy = 5`n${T3}global_peasants_max_literacy = 3")),
        # censored_press all 5 -> upper 5 / lower 2 (it gave peasants MORE than free press)
-       @('(?m)^\t\t\tglobal_max_literacy = 5[ \t]*\r?$', ("${T3}# LO: censored_press all 5 -> upper 5 / lower 2`n" + (Strat $T3 'global' 5 2)))
+       @('(?m)^\t\t\tglobal_max_literacy = 5[ \t]*\r?$', ("${T3}# LO: censored_press all 5 -> upper 5 / lower 2`n" + (Strat $T3 'global' 5 2))),
+       # LO v0.43: in 1751 state_press_only 531 / censored 8 / free 9 (the AI loves crown power). Historically Catholic
+       # and Protestant Europe censored (licences, the Index), free press = England after 1695, the Dutch Republic,
+       # Sweden 1766; state-only = Ottomans, China, Russia before 1783.
+       @('(?s)(censored_press = \{.*?)(\r?\n)(\t\tyears = 2)',
+         ('${1}${2}' + "${T2}ai_will_do = {`n${T3}if = {`n${T3}`tlimit = {`n${T3}`t`treligion.group = religion_group:christian`n${T3}`t`tNOT = { religion = religion:orthodox }`n${T3}`t`thas_embraced_institution = institution:printing_press`n${T3}`t}`n${T3}`tadd = {`n${T3}`t`tdesc = `"LO: licensed printers and censorship`"`n${T3}`t`tvalue = 100`n${T3}`t}`n${T3}}`n${T2}}" + '${2}${3}')),
+       @('(?s)(free_press = \{.*?)(\r?\n)(\t\tyears = 2)',
+         ('${1}${2}' + "${T2}ai_will_do = {`n${T3}if = {`n${T3}`tlimit = { `"estate_power(estate_type:burghers_estate)`" > `"estate_power(estate_type:crown_estate)`" }`n${T3}`tadd = {`n${T3}`t`tdesc = `"LO: a burgher press`"`n${T3}`t`tvalue = 150`n${T3}`t}`n${T3}}`n${T2}}" + '${2}${3}'))
      ) },
   @{ f='laws\00_theocracies.txt'; k='divine_cause_law'; out='laws'
      e=@( ,@('(?m)^\t\t\tglobal_max_literacy = 5[ \t]*\r?$', ("${T3}# LO: pursuit_of_knowledge all 5 -> upper 5 / lower 2`n" + (Strat $T3 'global' 5 2))) ) },
@@ -413,12 +450,12 @@ $targets = @(
   # v0.29: the AI never picks translated_bibles / pietism (0 Lutheran countries in the 1605/1687/1800 saves; aspects are
   # chosen by modifier_utility, which values literacy at ~0), so the guaranteed Protestant literacy goes into the religion.
   @{ f='religions\christian.txt'; k='lutheran'; out='religions'
-     e=@( ,@('(?m)^(\tdefinition_modifier = \{)[ \t]*\r?$', "`$1`n${T2}# LO v0.29: the strongest mass-literacy church: university-trained pastors, Luther's Small Catechism (1529), church`n${T2}# orders making schools a parish duty, Swedish church law 1686 (household reading examinations)`n${T2}global_clergy_max_literacy = 30`t# v0.41: 20 -> 30 (= Catholic; no monasteries, every pastor university-trained)`n${T2}global_nobles_max_literacy = 5`n${T2}global_burghers_max_literacy = 5`n${T2}# v0.34: lower 8 -> 4 here + 4 from age 5 (lo_church_reading_examinations, Swedish church law 1686)`n${T2}global_laborers_max_literacy = 4`n${T2}global_soldiers_max_literacy = 4`n${T2}global_peasants_max_literacy = 4") ) },
+     e=@( ,@('(?m)^(\tdefinition_modifier = \{)[ \t]*\r?$', "`$1`n${T2}# LO v0.29: the strongest mass-literacy church: university-trained pastors, Luther's Small Catechism (1529), church`n${T2}# orders making schools a parish duty, Swedish church law 1686 (household reading examinations)`n${T2}global_clergy_max_literacy = 30`t# v0.41: 20 -> 30 (= Catholic; no monasteries, every pastor university-trained)`n${T2}global_nobles_max_literacy = 5`n${T2}global_burghers_max_literacy = 10`t# v0.43: 5 -> 10 (literate merchant towns of the North)`n${T2}# v0.34: lower 8 -> 4 here + from age 5 lo_church_reading_examinations; v0.43: 4 -> 5 (stay ahead of the Catholic teaching orders)`n${T2}global_laborers_max_literacy = 5`n${T2}global_soldiers_max_literacy = 5`n${T2}global_peasants_max_literacy = 5") ) },
   @{ f='religions\christian.txt'; k='calvinist'; out='religions'
-     e=@( ,@('(?m)^(\tdefinition_modifier = \{)[ \t]*\r?$', "`$1`n${T2}# LO v0.29: university-trained ministers; catechism / parish schools (Geneva, Scotland 1560 + 1696, Dutch schools)`n${T2}global_clergy_max_literacy = 30`t# v0.41: 20 -> 30 (= Catholic)`n${T2}global_burghers_max_literacy = 5`n${T2}global_laborers_max_literacy = 6`n${T2}global_soldiers_max_literacy = 6`n${T2}global_peasants_max_literacy = 6") ) },
+     e=@( ,@('(?m)^(\tdefinition_modifier = \{)[ \t]*\r?$', "`$1`n${T2}# LO v0.29: university-trained ministers; catechism / parish schools (Geneva, Scotland 1560 + 1696, Dutch schools)`n${T2}global_clergy_max_literacy = 30`t# v0.41: 20 -> 30 (= Catholic)`n${T2}global_burghers_max_literacy = 10`t# v0.43: 5 -> 10 (Dutch and Genevan merchants)`n${T2}global_laborers_max_literacy = 6`n${T2}global_soldiers_max_literacy = 6`n${T2}global_peasants_max_literacy = 6") ) },
   # other Protestant / proto-Protestant churches (2026-11-20, user OK)
   @{ f='religions\christian.txt'; k='anglican'; out='religions'
-     e=@( ,@('(?m)^\t\tglobal_max_literacy = 5[ \t]*\r?$', "${T2}# LO v0.29: all 5 -> clergy 25 (Oxford/Cambridge graduates) / nobles + burghers 10 (grammar and public schools) /`n${T2}# lower 5 (Book of Common Prayer in English, SPCK charity schools from 1699)`n${T2}global_clergy_max_literacy = 30`t# v0.41: 25 -> 30 (= Catholic)`n${T2}global_nobles_max_literacy = 10`n${T2}global_burghers_max_literacy = 10`n${T2}global_laborers_max_literacy = 5`n${T2}global_soldiers_max_literacy = 5`n${T2}global_peasants_max_literacy = 5") ) },
+     e=@( ,@('(?m)^\t\tglobal_max_literacy = 5[ \t]*\r?$', "${T2}# LO v0.29: all 5 -> clergy 25 (Oxford/Cambridge graduates) / nobles + burghers 10 (grammar and public schools) /`n${T2}# lower 5 (Book of Common Prayer in English, SPCK charity schools from 1699)`n${T2}global_clergy_max_literacy = 30`t# v0.41: 25 -> 30 (= Catholic)`n${T2}global_nobles_max_literacy = 10`n${T2}global_burghers_max_literacy = 15`t# v0.43: 10 -> 15 (London and the English towns)`n${T2}global_laborers_max_literacy = 5`n${T2}global_soldiers_max_literacy = 5`n${T2}global_peasants_max_literacy = 5") ) },
   @{ f='religions\christian.txt'; k='hussite'; out='religions'
      e=@( ,@('(?m)^(\tdefinition_modifier = \{)[ \t]*\r?$', "`$1`n${T2}# LO: Czech bible, lay reading (Aeneas Silvius 1451 on Taborite women), Unity of Brethren; Utraquist clergy trained at Prague; clergy 10 -> 15 (= Lutheran / Calvinist, 2026-11-21: no monasteries)`n${T2}global_clergy_max_literacy = 30`t# v0.41: 15 -> 30 (= Catholic; Prague university)`n${T2}global_burghers_max_literacy = 5`n${T2}global_laborers_max_literacy = 3`n${T2}global_soldiers_max_literacy = 3`n${T2}global_peasants_max_literacy = 3") ) },
   @{ f='religions\christian.txt'; k='lollardy'; out='religions'
@@ -719,6 +756,33 @@ if ($caOk) {
     Write-Host "  ok  church_aspects.12/.13 (sola scriptura) literacy 30 -> 13 -> $caRel"
 } elseif (Test-Path $caDst) { Remove-Item $caDst -Force }
 
+# ---------- v0.43: institutions are born in university towns (same-path overrides of 4 institution files) ----------
+# Universities are rarer now (max 2 per area). The spawn weight (promote_chance) of the four learned institutions is
+# doubled in a location with a university (Padua, Mainz near Heidelberg, Oxford / Cambridge, Leiden, Edinburgh).
+# Under the "plausible" game rule a university is already required for printing press, sci rev and enlightenment;
+# this makes it count under "random city" too. A missing anchor removes that override (base file used).
+$UNI_SPAWN = "`n`t`tif = {`t# LO v0.43: university towns are twice as likely`n`t`t`tlimit = { has_building_with_at_least_one_level = university }`n`t`t`tmultiply = 2`n`t`t}"
+foreach ($ip in @(@('age_2_renaissance_institutions.txt', 'renaissance'), @('age_3_discovery_institutions.txt', 'printing_press'),
+                  @('age_5_absolutism_institutions.txt', 'scientific_revolution'), @('age_6_revolutions_institutions.txt', 'enlightenment'))) {
+    $iRel = 'in_game\common\institution\' + $ip[0]
+    $iSrc = Join-Path $game $iRel; $iDst = Join-Path $mod $iRel
+    $iRaw = [IO.File]::ReadAllBytes($iSrc)
+    $iBom = $iRaw.Length -ge 3 -and $iRaw[0] -eq 0xEF -and $iRaw[1] -eq 0xBB -and $iRaw[2] -eq 0xBF
+    $it = [IO.File]::ReadAllText($iSrc).TrimStart([char]0xFEFF)
+    $blk = Get-Block $it $ip[1]
+    $rxP = [regex]'(?s)(\tpromote_chance = \{.*?)(\r?\n\t\})'
+    if ($null -ne $blk -and $rxP.Matches($blk).Count -ge 1) {
+        $new = $rxP.Replace($blk, ('${1}' + $UNI_SPAWN + '${2}'), 1)
+        $it = $it.Replace($blk, $new)
+        $d3 = Split-Path $iDst -Parent; if (-not (Test-Path $d3)) { New-Item -ItemType Directory -Path $d3 -Force | Out-Null }
+        [IO.File]::WriteAllText($iDst, ("# Literacy overhaul: same-path override GENERATED by tools\regen_from_base.ps1 from the current vanilla file.`n# Only change: $($ip[1]) promote_chance x2 in a location with a university.`n" + $it), (New-Object System.Text.UTF8Encoding($iBom)))
+        Write-Host "  ok  $($ip[1]) spawn x2 in university towns -> $iRel"
+    } else {
+        if (Test-Path $iDst) { Remove-Item $iDst -Force }
+        Write-Warning "$($ip[1]): promote_chance not found - institution override removed"; $warn++
+    }
+}
+
 # ---------- scripted trigger lo_university_site (location scope) ----------
 $stDst = Join-Path $mod 'in_game\common\scripted_triggers\lo_university_triggers.txt'
 $st = @"
@@ -734,6 +798,7 @@ lo_university_site = {
 	development >= $UNI_DEV
 	any_pop = { pop_type = pop_type:clergy   pop_literacy > $UNI_CLERGY }
 	any_pop = { pop_type = pop_type:burghers pop_literacy > $UNI_BURGHERS }
+	$UNI_AREA_CAP
 	NOT = { has_building = building_type:university }
 }
 "@

@@ -1,0 +1,68 @@
+﻿# Literacy overhaul - Latin school / gymnasium (v0.43, 2026-11-22): the Protestant counterpart of the Jesuit college.
+# Melanchthon's gymnasium in Nuremberg (1526), Sturm's school in Strasbourg (1538), the Swedish gymnasia of the school
+# ordinances of 1611 and 1649 (Vasteras, Strangnas, Linkoping): sons of burghers and pastors learned Latin, Greek and
+# rhetoric there. Modelled on the vanilla jesuit_college (same cost, size and goods) with LO's jesuit_college literacy
+# (nobles 5, burghers 5, growth 0.1). Why: in 1700 Stockholm's burghers (69) were far behind Milan (78) and Florence (91)
+# at the same country-level cap - the gap was local buildings, and the Jesuit college was Catholic-only.
+lo_latin_school = {
+	audio_tier = 2
+	is_special = yes
+	is_foreign = no
+	pop_type = clergy
+	max_levels = 1
+
+	category = cultural_category
+	employment_size = religious_building_employment
+
+	town = yes
+	city = yes
+	megalopolis = yes
+
+	expensive = yes
+
+	build_time = large_religious_building_time
+
+	country_potential = {
+		OR = {
+			religion = religion:lutheran
+			religion = religion:calvinist
+			religion = religion:anglican
+		}
+		has_advance = printing_press_advance
+	}
+
+	remove_if = {
+		NOT = {
+			owner = {
+				OR = {
+					religion = religion:lutheran
+					religion = religion:calvinist
+					religion = religion:anglican
+				}
+			}
+		}
+	}
+	graphical_tags = { medium_religious }
+
+	modifier = {
+		local_cultural_influence = 0.2
+		local_nobles_max_literacy = 5
+		local_burghers_max_literacy = 5
+		local_monthly_literacy = 0.1
+	}
+
+	unique_production_methods = {
+		lo_latin_school_maintenance = {
+			icon_type = building_type
+			icon = lo_latin_school
+			paper = 0.5
+			books = 1.0
+			fine_cloth = 0.2
+			beeswax = 0.1
+
+			category = building_maintenance
+		}
+	}
+
+	construction_demand = university_construction
+}

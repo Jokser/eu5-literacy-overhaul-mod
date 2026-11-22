@@ -6,3 +6,12 @@ lo_learned_elite = {
 	}
 	research_speed_modifier = 0.01
 }
+
+# v0.43: research from universities - applied yearly by lo_update_learned_elite_effect with size = number of
+# universities, at most 5 (+2% each, +10% max)
+lo_university_research = {
+	game_data = {
+		category = country
+	}
+	research_speed_modifier = 0.02
+}

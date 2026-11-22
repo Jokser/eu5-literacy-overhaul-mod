@@ -43,5 +43,5 @@ lo_kyiv_mohyla_learning = {
 	global_clergy_max_literacy = 10
 	global_nobles_max_literacy = 5
 
-	ai_weight = { add = 100 }	# the AI values literacy at ~0
+	ai_weight = { add = 200 }	# v0.43: 100 -> 200 (Russia had Stoglav and primers but no Mohyla learning by 1700)
 }
