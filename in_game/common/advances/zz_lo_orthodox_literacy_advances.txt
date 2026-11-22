@@ -38,7 +38,7 @@ lo_kyiv_mohyla_learning = {
 		religion = religion:orthodox
 	}
 
-	requires = national_rites
+	requires = sanitation_advance	# v0.43.1: was national_rites (age 4) - a requirement must be of the same age (error.log)
 
 	global_clergy_max_literacy = 10
 	global_nobles_max_literacy = 5

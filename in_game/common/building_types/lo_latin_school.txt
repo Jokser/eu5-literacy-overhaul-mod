@@ -31,14 +31,12 @@ lo_latin_school = {
 		has_advance = printing_press_advance
 	}
 
-	remove_if = {
-		NOT = {
-			owner = {
-				OR = {
-					religion = religion:lutheran
-					religion = religion:calvinist
-					religion = religion:anglican
-				}
+	remove_if = {	# v0.43.1: owner ?= - an unowned location has no owner (error.log: invalid 'owner' link)
+		owner ?= {
+			NOR = {
+				religion = religion:lutheran
+				religion = religion:calvinist
+				religion = religion:anglican
 			}
 		}
 	}

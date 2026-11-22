@@ -635,3 +635,14 @@ Findings from run 4 (v0.42, cuts 1566-1800) and what changed:
 Estimated 1800 peasant caps after the package: Turkey / Morocco / Punjab 20 -> ~11, Russia ~15, France 25, Lutheran
 Prussia 30 (38 with secular education). Not tested in a run - check error.log after loading (new: scripted_triggers
 `lo_print_culture_triggers.txt`, building `lo_latin_school` + icon, institution overrides, law ai_will_do blocks).
+
+### error.log fixes (v0.43.1, 2026-11-22)
+- `lo_latin_school` `remove_if`: `owner = {` -> `owner ?= {` (thousands of "Event target link 'owner' returned an invalid
+  object" for unowned locations).
+- An advance's requirement must be of the same age ("not in the same age as its requirement"): `lo_teaching_orders`
+  (age 5) required `printing_press_advance` (age 3), and `lo_kyiv_mohyla_learning` (age 5) has required `national_rites`
+  (age 4) since v0.41 - probably why Russia barely took it. Both now require `sanitation_advance` (age-5 root, like
+  `lo_church_reading_examinations`).
+- Checked clean in the same log: print-culture triggers, institution overrides, law AI blocks, the per-area university
+  cap, the new advances and localisation. (A one-off batch of "Scoped object of type 'country' is not valid" in
+  building `country_potential`s also hits vanilla buildings - an engine check on a dead country, not LO.)
