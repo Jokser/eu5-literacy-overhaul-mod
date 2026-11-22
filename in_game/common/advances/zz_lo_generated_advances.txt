@@ -219,6 +219,18 @@ REPLACE_OR_CREATE:quipu = {
 	global_nobles_max_literacy = 5
 }
 
+# --- from base advances\0_age_of_traditions.txt ---
+REPLACE_OR_CREATE:guilds = {
+	age = age_1_traditions
+	icon = guilds
+	requires = organized_religion
+
+	global_burghers_city_desired_pop = 0.1
+	global_burghers_max_literacy = 5
+
+	ai_weight = { add = 50 }	# LO v0.40: the AI skipped it (Milan, Genoa, Naples, England in 1400)
+}
+
 # --- from base advances\0_age_of_absolutism.txt ---
 REPLACE_OR_CREATE:scientific_revolution_advance = {
 	age = age_5_absolutism

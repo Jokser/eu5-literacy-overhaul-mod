@@ -219,7 +219,22 @@ $targets = @(
   # invite_foreign_cleric: 20 religious influence, AI re-invites every 5 years -> a decaying 0.33 averaged ~8x the
   # whole background growth (written_alphabet + educated_bureaucrats = 0.02) and pinned every class at its cap.
   @{ base='main_menu\common'; f='static_modifiers\country.txt'; k='invited_foreign_cleric_modifier'; out='static_modifiers'
-     e=@( ,@('(?m)^\tglobal_monthly_literacy = 0\.33[ \t]*\r?$', "${T1}global_monthly_literacy = 0.1`t# LO: 0.33 -> 0.1 (spammable, decaying 5 years)") ) },
+     e=@( ,@('(?m)^\tglobal_monthly_literacy = 0\.33[ \t]*\r?$', "${T1}global_monthly_literacy = 0.05`t# LO: 0.33 -> 0.05 (spammable, decaying 5 years; v0.40 0.1 -> 0.05)") ) },
+  # v0.40: country-wide growth outliers. Background growth is ~0.02-0.04/month (written_alphabet + 1-2 advances), one
+  # advance gives 0.01-0.02; a +0.1 brought every pop below its cap up to it decades earlier.
+  # reverend_teacher: only Muslim scholars and gurus get it, one per figure, stacking (~100 alive in 1400, up to 3 per country)
+  @{ f='traits\06_religious_figure.txt'; k='reverend_teacher'; out='traits'
+     e=@( ,@('(?m)^\t\tglobal_monthly_literacy = 0\.1[ \t]*\r?$', "${T2}global_monthly_literacy = 0.02`t# LO v0.40: 0.1 -> 0.02 (stacks per religious figure)") ) },
+  @{ base='main_menu\common'; f='static_modifiers\country.txt'; k='community_schools'; out='static_modifiers'
+     e=@( ,@('(?m)^\tglobal_monthly_literacy = 0\.1[ \t]*\r?$', "${T1}global_monthly_literacy = 0.04`t# LO v0.40: 0.1 -> 0.04 (societal values event, 10 years)") ) },
+  @{ base='main_menu\common'; f='static_modifiers\country.txt'; k='literacy_drive'; out='static_modifiers'
+     e=@( ,@('(?m)^\tglobal_monthly_literacy = 0\.1[ \t]*\r?$', "${T1}global_monthly_literacy = 0.04`t# LO v0.40: 0.1 -> 0.04 (societal values events, 5-10 years)") ) },
+  @{ base='main_menu\common'; f='static_modifiers\country.txt'; k='melantrichs_efforts'; out='static_modifiers'
+     e=@( ,@('(?m)^\tglobal_monthly_literacy = 0\.1[ \t]*\r?$', "${T1}global_monthly_literacy = 0.04`t# LO v0.40: 0.1 -> 0.04 (Bohemian event, 10 years)") ) },
+  # v0.40: guilds (age 1, burghers +5 / burgher city pop) - no vanilla ai_weight; in 1400 19 of 170 countries with
+  # >= 300k pops still lacked it with 100+ advances (Milan, Genoa, Naples, Aragon, Sicily, England, Ottomans...)
+  @{ f='advances\0_age_of_traditions.txt'; k='guilds'; out='advances'
+     e=@( ,@('(?m)^(\tglobal_burghers_max_literacy = 5[ \t]*)(\r?)$', ('$1$2' + "`n`n${T1}ai_weight = { add = 50 }`t# LO v0.40: the AI skipped it (Milan, Genoa, Naples, England in 1400)")) ) },
   # ---------- buildings review (ours, 2026-11-21) ----------
   # fortress church is built INSTEAD of a monastery (location_potential) -> same clergy value as orthodox_monastery
   @{ f='building_types\religion_buildings.txt'; k='fortress_church'; out='building_types'
@@ -256,7 +271,10 @@ $targets = @(
      e=@( ,@('(?m)^\t\tglobal_peasants_max_literacy = 10[ \t]*\r?\n\t\tglobal_soldiers_max_literacy = 10[ \t]*\r?\n\t\tglobal_laborers_max_literacy = 10[ \t]*\r?$',
              "${T2}# LO: country-wide lower classes 10 -> 2`n${T2}global_peasants_max_literacy = 2`n${T2}global_soldiers_max_literacy = 2`n${T2}global_laborers_max_literacy = 2") ) },
   @{ f='building_types\event_only_buildings.txt'; k='papal_archives'; out='building_types'
-     e=@( ,@('(?m)^\t\tglobal_max_literacy = 5[ \t]*\r?$', ("${T2}# LO: global all 5 -> upper classes 5`n" + (Strat $T2 'global' 5 $null))) ) },
+     e=@(
+       @('(?m)^\t\tglobal_max_literacy = 5[ \t]*\r?$', ("${T2}# LO: global all 5 -> upper classes 5`n" + (Strat $T2 'global' 5 $null))),
+       @('(?m)^\t\tglobal_monthly_literacy = 0\.1[ \t]*\r?$', "${T2}global_monthly_literacy = 0.03`t# LO v0.40: 0.1 -> 0.03 (permanent, country-wide)")
+     ) },
   # Slavo-Greek-Latin Academy (Moscow 1687) trained clergy and officials; base gave nobles + all lower classes
   # but nothing to clergy / burghers (looks like a vanilla slip) -> clergy / nobles / burghers 5, lower 0
   @{ f='building_types\unique_buildings.txt'; k='greek_latin_academy'; out='building_types'
@@ -734,6 +752,26 @@ if ($null -ne $blk -and $rxSite.Matches($blk).Count -eq 2) {
 } else {
     if (Test-Path $piDst) { Remove-Item $piDst -Force }
     Write-Warning "sponsor_a_university site anchors not found twice in base - override removed, base used"; $warn++
+}
+
+# ---------- v0.40: parliament issue compulsory_education_nobles (same-path override) ----------
+# While in debate it gave global_monthly_literacy 0.2 (5-10x the background growth) -> 0.05.
+$ceRel = 'in_game\common\parliament_issues\01_country_specific_parliament_issues.txt'
+$ceSrc = Join-Path $game $ceRel; $ceDst = Join-Path $mod $ceRel
+$ce = [IO.File]::ReadAllText($ceSrc)
+$blk = Get-Block $ce 'compulsory_education_nobles'
+$rxCe = [regex]'(?m)^(\t+)global_monthly_literacy = 0\.2([ \t]*)(\r?)$'
+if ($null -ne $blk -and $rxCe.Matches($blk).Count -eq 1) {
+    $new = $rxCe.Replace($blk, { param($m) $m.Groups[1].Value + "global_monthly_literacy = 0.05`t# LO v0.40: 0.2 -> 0.05" + $m.Groups[3].Value })
+    $out = $ce.Replace($blk, $new)
+    $raw = [IO.File]::ReadAllBytes($ceSrc)
+    $bom = $raw.Length -ge 3 -and $raw[0] -eq 0xEF -and $raw[1] -eq 0xBB -and $raw[2] -eq 0xBF
+    $d5 = Split-Path $ceDst -Parent; if (-not (Test-Path $d5)) { New-Item -ItemType Directory -Path $d5 -Force | Out-Null }
+    [IO.File]::WriteAllText($ceDst, $out, (New-Object System.Text.UTF8Encoding($bom)))
+    Write-Host "  ok  compulsory_education_nobles growth 0.2 -> 0.05 -> $ceRel"
+} else {
+    if (Test-Path $ceDst) { Remove-Item $ceDst -Force }
+    Write-Warning "compulsory_education_nobles anchor not found in base - override removed, base used"; $warn++
 }
 
 if ($warn) { Write-Warning "$warn block(s) skipped - check the anchors against the new base files." } else { Write-Host 'All blocks generated.' }

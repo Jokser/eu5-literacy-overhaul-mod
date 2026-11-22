@@ -45,7 +45,7 @@ Vanilla research from literacy uses the [i]average[/i] literacy of all pops, whi
 [/list]
 
 [h2]Compatibility[/h2]
-Most changes replace single entries (REPLACE_OR_CREATE), not whole files, so mods that do not touch literacy are compatible. Mods that change the same advances, buildings, laws or religions will conflict. Three files are replaced whole, because the game cannot edit them entry by entry: [i]script_values/institution_spread.txt[/i], [i]events/religion/church_aspects.txt[/i] and [i]events/religion/orthodox_flavor.txt[/i]. Other mods that replace these files conflict.
+Most changes replace single entries (REPLACE_OR_CREATE), not whole files, so mods that do not touch literacy are compatible. Mods that change the same advances, buildings, laws or religions will conflict. Five files are replaced whole, because the game cannot edit them entry by entry: [i]script_values/institution_spread.txt[/i], [i]events/religion/church_aspects.txt[/i], [i]events/religion/orthodox_flavor.txt[/i], [i]parliament_issues/01_country_specific_parliament_issues.txt[/i] and [i]parliament_issues/05_burghers_estate_parliament_issues.txt[/i]. Other mods that replace these files conflict.
 
 [b]Ruthenia and Steppe Fix (RSF):[/b] RSF redefines the Orthodox and Miaphysite religions with TRY_REPLACE, which overrides other mods whatever the load order. To get this mod's literacy for them with RSF, also use [b]Literacy overhaul - RSF compatibility[/b] and load it after both mods. Literacy overhaul itself does not need RSF.
 

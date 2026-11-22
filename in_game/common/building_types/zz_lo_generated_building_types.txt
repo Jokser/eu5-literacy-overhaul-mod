@@ -1685,7 +1685,7 @@ REPLACE_OR_CREATE:papal_archives = {
 		local_cultural_influence = 0.5
 	}
 	capital_country_modifier = {
-		global_monthly_literacy = 0.1
+		global_monthly_literacy = 0.03	# LO v0.40: 0.1 -> 0.03 (permanent, country-wide)
 		# LO: global all 5 -> upper classes 5
 		global_nobles_max_literacy = 5
 		global_clergy_max_literacy = 5

@@ -553,3 +553,22 @@ Edukacji Narodowej, Dutch / Scottish / Slovak education, colonial free thinkers)
 `written_alphabet`, Judaism, `sola_scriptura`, Sikh `young_humility`, `rama_avatar` (2), `dev_educated_women` (2).
 >= 20 left: `feudalism_advance` nobles 20, Catholic clergy 25, Anglican 25 / Lutheran / Calvinist clergy 20, `calmecac`
 nobles 20 (local), and the new upper-class values above.
+
+### Growth-speed outliers and guilds (v0.40, 2026-11-22)
+Literacy grows toward the cap by `global_monthly_literacy` + `local_monthly_literacy` per month. The background is
+~0.02-0.04 (written_alphabet + 1-2 advances), one advance gives 0.01-0.02, so a country-wide +0.1 brought every pop
+below its cap (new elite pops start at ~7-9) up to it decades earlier. Local growth (one location: wonders, orders,
+centres of learning) is kept.
+
+| What | Before | Now |
+|---|---|---|
+| trait `reverend_teacher` (Muslim scholars and gurus only; stacks per figure, ~100 alive in 1400) | 0.1 | 0.02 |
+| static `invited_foreign_cleric_modifier` (decaying, 5 years, AI re-invites) | 0.33 (LO 0.1) | 0.05 |
+| static `community_schools` / `literacy_drive` (societal values events, 5-10 years) | 0.1 | 0.04 |
+| static `melantrichs_efforts` (Bohemia, 10 years) | 0.1 | 0.04 |
+| building `papal_archives` (country-wide, permanent) | 0.1 | 0.03 |
+| parliament issue `compulsory_education_nobles` (while in debate; same-path override of `01_country_specific_parliament_issues.txt`) | 0.2 | 0.05 |
+
+Advance `guilds` (age 1, burghers +5 and burgher city pop) has no vanilla `ai_weight`; in the 1400 cut of the new run
+19 of 170 countries with >= 300k pops still lacked it with 100+ advances (Milan, Genoa, Naples, Aragon, Sicily,
+England, the Ottomans) -> `ai_weight = { add = 50 }`.

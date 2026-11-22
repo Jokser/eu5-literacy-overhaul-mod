@@ -175,5 +175,29 @@ REPLACE_OR_CREATE:invited_foreign_cleric_modifier = {
 
 	monthly_towards_spiritualist = societal_value_large_monthly_move
 	monthly_towards_innovative = societal_value_large_monthly_move
-	global_monthly_literacy = 0.1	# LO: 0.33 -> 0.1 (spammable, decaying 5 years)
+	global_monthly_literacy = 0.05	# LO: 0.33 -> 0.05 (spammable, decaying 5 years; v0.40 0.1 -> 0.05)
+}
+
+# --- from base static_modifiers\country.txt ---
+REPLACE_OR_CREATE:community_schools = {
+	game_data = {
+		category = country
+	}
+	global_monthly_literacy = 0.04	# LO v0.40: 0.1 -> 0.04 (societal values event, 10 years)
+}
+
+# --- from base static_modifiers\country.txt ---
+REPLACE_OR_CREATE:literacy_drive = {
+	game_data = {
+		category = country
+	}
+	global_monthly_literacy = 0.04	# LO v0.40: 0.1 -> 0.04 (societal values events, 5-10 years)
+}
+
+# --- from base static_modifiers\country.txt ---
+REPLACE_OR_CREATE:melantrichs_efforts = {
+	game_data = {
+		category = country
+	}
+	global_monthly_literacy = 0.04	# LO v0.40: 0.1 -> 0.04 (Bohemian event, 10 years)
 }

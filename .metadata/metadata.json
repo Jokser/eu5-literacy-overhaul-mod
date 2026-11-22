@@ -1,7 +1,7 @@
 ﻿{
 	"name":	"Literacy overhaul",
 	"id":	"literacy.overhaul",
-	"version":	"0.39",
+	"version":	"0.40",
 	"supported_game_version":	"1.4",
 	"picture":	"thumbnail.png",
 	"short_description":	"Class-stratified literacy: a learned elite and an illiterate countryside. Adds a Learned Elite research bonus from the literacy of nobles, clergy and burghers, historical religion profiles and stricter universities.",

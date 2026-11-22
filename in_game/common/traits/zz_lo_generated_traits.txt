@@ -15,3 +15,12 @@ REPLACE_OR_CREATE:stargazer = {
 		global_peasants_max_literacy = 2
 	}
 }
+
+# --- from base traits\06_religious_figure.txt ---
+REPLACE_OR_CREATE:reverend_teacher = {
+	category = religious_figure
+
+	modifier = {
+		global_monthly_literacy = 0.02	# LO v0.40: 0.1 -> 0.02 (stacks per religious figure)
+	}
+}
