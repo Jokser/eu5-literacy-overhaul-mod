@@ -9,6 +9,6 @@ lo_university_site = {
 	}
 	development >= 30
 	any_pop = { pop_type = pop_type:clergy   pop_literacy > 85 }
-	any_pop = { pop_type = pop_type:burghers pop_literacy > 25 }
+	any_pop = { pop_type = pop_type:burghers pop_literacy > 40 }
 	NOT = { has_building = building_type:university }
 }

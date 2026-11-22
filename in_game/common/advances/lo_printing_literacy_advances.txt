@@ -10,9 +10,14 @@ lo_printed_primers = {
 	icon = printing_press_advance
 	research_cost = 0.5
 
+	# v0.41: the Orthodox also only from age 5 - Muscovite printing (Fedorov's Apostol 1564) was liturgical; the first
+	# primers (Fedorov's Lviv bukvar 1574, Burtsov's Moscow bukvar 1634) came late and in small editions.
 	potential = {
 		OR = {
-			NOT = { religion.group = religion_group:muslim }
+			AND = {
+				NOT = { religion.group = religion_group:muslim }
+				NOT = { religion = religion:orthodox }
+			}
 			current_age = age_5_absolutism
 			current_age = age_6_revolutions
 		}
@@ -46,5 +51,5 @@ lo_church_reading_examinations = {
 	global_soldiers_max_literacy = 4
 	global_peasants_max_literacy = 4
 
-	ai_weight = { add = 50 }
+	ai_weight = { add = 200 }	# v0.41: 50 -> 200 (in 1650 ~20 small Lutheran states had it, but not Sweden, Brunswick, Bohemia, Brandenburg)
 }

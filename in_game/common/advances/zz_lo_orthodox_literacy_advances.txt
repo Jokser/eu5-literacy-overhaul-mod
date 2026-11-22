@@ -1,8 +1,11 @@
-﻿# Literacy overhaul - Orthodox clergy rebalance: Russian clergy schooling (2026-11-20).
+﻿# Literacy overhaul - Orthodox clergy and schools (2026-11-20, reworked v0.41 2026-11-22).
 # The Stoglav ("Hundred Chapters") council of 1551 admitted that many Russian priests could barely read and
-# ordered schools for clergy candidates in towns. Russian Orthodox clergy literacy therefore rises only in
-# age 4 (the age of Ostroh 1576 and the Kyiv-Mohyla college 1632), while the Greeks rely on their older
-# tradition (patriarchate tenet + hesychast advance).
+# ordered schools in priests' houses in Moscow and the towns, where children were taught to read and write.
+# v0.41: the Stoglav no longer raises clergy literacy (the council itself recorded that the clergy were barely
+# literate). It now gives the townsfolk schools it ordered: burghers +5, lower classes +2. Russian clergy reach
+# the university gate only in age 5, through lo_kyiv_mohyla_learning (Kyiv-Mohyla college 1632, Slavo-Greek-Latin
+# Academy in Moscow 1687) - in the 1650 cut of the v0.40 run Muscovy/Russia already had 6 universities, Russia had none
+# before 1687.
 lo_stoglav = {
 	age = age_4_reformation
 	icon = church_councils
@@ -14,9 +17,31 @@ lo_stoglav = {
 
 	requires = national_rites
 
-	global_clergy_max_literacy = 10
+	global_burghers_max_literacy = 5
+	global_laborers_max_literacy = 2
+	global_soldiers_max_literacy = 2
+	global_peasants_max_literacy = 2
 
-	# v0.25: the AI values clergy literacy at ~0 and Muscovy never took this in a 1337-1740 run.
+	# v0.25: the AI values literacy at ~0 and Muscovy never took this in a 1337-1740 run.
 	# It also gates the AI weight for basic_religious_education (laws/zz_lo_generated_laws.txt).
 	ai_weight = { add = 100 }
+}
+
+# Orthodox higher schooling on the Latin model: the Kyiv-Mohyla college (1632), the Slavo-Greek-Latin Academy in
+# Moscow (1687), the Patriarchal Academy of Constantinople reformed by Korydaleus (1620s). With it an Orthodox city
+# with temple + cathedral + library + monastery reaches the university gate (clergy > 85).
+lo_kyiv_mohyla_learning = {
+	age = age_5_absolutism
+	icon = scholasticism
+
+	potential = {
+		religion = religion:orthodox
+	}
+
+	requires = national_rites
+
+	global_clergy_max_literacy = 10
+	global_nobles_max_literacy = 5
+
+	ai_weight = { add = 100 }	# the AI values literacy at ~0
 }

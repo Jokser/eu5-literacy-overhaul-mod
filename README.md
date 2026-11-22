@@ -572,3 +572,32 @@ centres of learning) is kept.
 Advance `guilds` (age 1, burghers +5 and burgher city pop) has no vanilla `ai_weight`; in the 1400 cut of the new run
 19 of 170 countries with >= 300k pops still lacked it with 100+ advances (Milan, Genoa, Naples, Aragon, Sicily,
 England, the Ottomans) -> `ai_weight = { add = 50 }`.
+
+### Universities without monasteries; Russia's universities in age 5 (v0.41, 2026-11-22)
+Run 3 (v0.40), 1600-1650: a Lutheran city could never build a university (Lund: clergy cap 80 < gate 85), because
+Protestants have no monasteries (+10) and no cardinal seats (+5); a Catholic city without a monastery sat at exactly 85
+and passed only on the innovative societal value. Meanwhile Muscovy/Russia had 6 universities by 1650 (Moscow, Tver,
+Vladimir, Novgorod, Pskov, Smolensk; clergy 90-100: Stoglav 10 + anagignoskomena 5 + Orthodox 10 + Orthodox monastery 5).
+The Ottoman ones (Constantinople, Athens, Kaffa, Dubrovnik...) were mostly conquered, not built - left as is.
+
+Clergy cap without a university, temple + cathedral + library, gate > 85 (fortress church not counted):
+
+| Catholic (30) | without monastery | + monastery | + monastery + cardinal seat |
+|---|---|---|---|
+| age 1 | 75 | 85 | 90 |
+| age 2 | 85 | 95 | 100 |
+| age 3+ (printing) | 90 | 100 | 100 |
+
+| Change | Before | Now |
+|---|---|---|
+| Catholic definition clergy (also in the RSF compatibility patch: RSF `TRY_REPLACE:catholic`) | 25 | 30 |
+| Lutheran / Calvinist / Anglican / Hussite definition clergy | 20 / 20 / 25 / 15 | 30 |
+| `lo_stoglav` (Russians, age 4) | clergy 10 | burghers 5, lower 2 (the priest-house schools it ordered) |
+| new `lo_kyiv_mohyla_learning` (Orthodox, age 5, requires national_rites) | - | clergy 10, nobles 5 |
+| university gate: burghers | > 25 | > 40 (25 never binding after 1454) |
+| `lo_church_reading_examinations` ai_weight | 50 | 200 (Sweden, Brunswick, Bohemia, Brandenburg skipped it) |
+| `lo_printed_primers` | Muslims from age 5 | Muslims and Orthodox from age 5 |
+
+Russian city in age 4: 37 common + Orthodox 10 + anagignoskomena 5 + local 28 = 80 (83-85 with the patriarchate tenet)
+-> no university; age 5 with Kyiv-Mohyla learning: 90. Gate clergy stays > 85: a gate of 80 tested on the saves would
+have opened 53 Chinese, 44 Sunni and 13 Theravada candidate cities by 1650.

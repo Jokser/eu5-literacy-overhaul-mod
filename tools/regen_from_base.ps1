@@ -30,7 +30,7 @@ $T1 = "`t"; $T2 = "`t`t"; $T3 = "`t`t`t"
 # ---------- university site rules: ONE place for the numbers ----------
 # used by the university building allow (explicit lines, for a per-condition tooltip) and by the scripted
 # trigger lo_university_site (parliament issue sponsor_a_university - may only sponsor where we could build).
-$UNI_DEV = 30; $UNI_CLERGY = 85; $UNI_BURGHERS = 25
+$UNI_DEV = 30; $UNI_CLERGY = 85; $UNI_BURGHERS = 40	# v0.41: burghers 25 -> 40 (25 never binding after 1454)
 
 # Each target: source file, key, list of (regex -> replacement). Every regex must match exactly once.
 $targets = @(
@@ -413,14 +413,14 @@ $targets = @(
   # v0.29: the AI never picks translated_bibles / pietism (0 Lutheran countries in the 1605/1687/1800 saves; aspects are
   # chosen by modifier_utility, which values literacy at ~0), so the guaranteed Protestant literacy goes into the religion.
   @{ f='religions\christian.txt'; k='lutheran'; out='religions'
-     e=@( ,@('(?m)^(\tdefinition_modifier = \{)[ \t]*\r?$', "`$1`n${T2}# LO v0.29: the strongest mass-literacy church: university-trained pastors, Luther's Small Catechism (1529), church`n${T2}# orders making schools a parish duty, Swedish church law 1686 (household reading examinations)`n${T2}global_clergy_max_literacy = 20`n${T2}global_nobles_max_literacy = 5`n${T2}global_burghers_max_literacy = 5`n${T2}# v0.34: lower 8 -> 4 here + 4 from age 5 (lo_church_reading_examinations, Swedish church law 1686)`n${T2}global_laborers_max_literacy = 4`n${T2}global_soldiers_max_literacy = 4`n${T2}global_peasants_max_literacy = 4") ) },
+     e=@( ,@('(?m)^(\tdefinition_modifier = \{)[ \t]*\r?$', "`$1`n${T2}# LO v0.29: the strongest mass-literacy church: university-trained pastors, Luther's Small Catechism (1529), church`n${T2}# orders making schools a parish duty, Swedish church law 1686 (household reading examinations)`n${T2}global_clergy_max_literacy = 30`t# v0.41: 20 -> 30 (= Catholic; no monasteries, every pastor university-trained)`n${T2}global_nobles_max_literacy = 5`n${T2}global_burghers_max_literacy = 5`n${T2}# v0.34: lower 8 -> 4 here + 4 from age 5 (lo_church_reading_examinations, Swedish church law 1686)`n${T2}global_laborers_max_literacy = 4`n${T2}global_soldiers_max_literacy = 4`n${T2}global_peasants_max_literacy = 4") ) },
   @{ f='religions\christian.txt'; k='calvinist'; out='religions'
-     e=@( ,@('(?m)^(\tdefinition_modifier = \{)[ \t]*\r?$', "`$1`n${T2}# LO v0.29: university-trained ministers; catechism / parish schools (Geneva, Scotland 1560 + 1696, Dutch schools)`n${T2}global_clergy_max_literacy = 20`n${T2}global_burghers_max_literacy = 5`n${T2}global_laborers_max_literacy = 6`n${T2}global_soldiers_max_literacy = 6`n${T2}global_peasants_max_literacy = 6") ) },
+     e=@( ,@('(?m)^(\tdefinition_modifier = \{)[ \t]*\r?$', "`$1`n${T2}# LO v0.29: university-trained ministers; catechism / parish schools (Geneva, Scotland 1560 + 1696, Dutch schools)`n${T2}global_clergy_max_literacy = 30`t# v0.41: 20 -> 30 (= Catholic)`n${T2}global_burghers_max_literacy = 5`n${T2}global_laborers_max_literacy = 6`n${T2}global_soldiers_max_literacy = 6`n${T2}global_peasants_max_literacy = 6") ) },
   # other Protestant / proto-Protestant churches (2026-11-20, user OK)
   @{ f='religions\christian.txt'; k='anglican'; out='religions'
-     e=@( ,@('(?m)^\t\tglobal_max_literacy = 5[ \t]*\r?$', "${T2}# LO v0.29: all 5 -> clergy 25 (Oxford/Cambridge graduates) / nobles + burghers 10 (grammar and public schools) /`n${T2}# lower 5 (Book of Common Prayer in English, SPCK charity schools from 1699)`n${T2}global_clergy_max_literacy = 25`n${T2}global_nobles_max_literacy = 10`n${T2}global_burghers_max_literacy = 10`n${T2}global_laborers_max_literacy = 5`n${T2}global_soldiers_max_literacy = 5`n${T2}global_peasants_max_literacy = 5") ) },
+     e=@( ,@('(?m)^\t\tglobal_max_literacy = 5[ \t]*\r?$', "${T2}# LO v0.29: all 5 -> clergy 25 (Oxford/Cambridge graduates) / nobles + burghers 10 (grammar and public schools) /`n${T2}# lower 5 (Book of Common Prayer in English, SPCK charity schools from 1699)`n${T2}global_clergy_max_literacy = 30`t# v0.41: 25 -> 30 (= Catholic)`n${T2}global_nobles_max_literacy = 10`n${T2}global_burghers_max_literacy = 10`n${T2}global_laborers_max_literacy = 5`n${T2}global_soldiers_max_literacy = 5`n${T2}global_peasants_max_literacy = 5") ) },
   @{ f='religions\christian.txt'; k='hussite'; out='religions'
-     e=@( ,@('(?m)^(\tdefinition_modifier = \{)[ \t]*\r?$', "`$1`n${T2}# LO: Czech bible, lay reading (Aeneas Silvius 1451 on Taborite women), Unity of Brethren; Utraquist clergy trained at Prague; clergy 10 -> 15 (= Lutheran / Calvinist, 2026-11-21: no monasteries)`n${T2}global_clergy_max_literacy = 15`n${T2}global_burghers_max_literacy = 5`n${T2}global_laborers_max_literacy = 3`n${T2}global_soldiers_max_literacy = 3`n${T2}global_peasants_max_literacy = 3") ) },
+     e=@( ,@('(?m)^(\tdefinition_modifier = \{)[ \t]*\r?$', "`$1`n${T2}# LO: Czech bible, lay reading (Aeneas Silvius 1451 on Taborite women), Unity of Brethren; Utraquist clergy trained at Prague; clergy 10 -> 15 (= Lutheran / Calvinist, 2026-11-21: no monasteries)`n${T2}global_clergy_max_literacy = 30`t# v0.41: 15 -> 30 (= Catholic; Prague university)`n${T2}global_burghers_max_literacy = 5`n${T2}global_laborers_max_literacy = 3`n${T2}global_soldiers_max_literacy = 3`n${T2}global_peasants_max_literacy = 3") ) },
   @{ f='religions\christian.txt'; k='lollardy'; out='religions'
      e=@( ,@('(?m)^\t\tglobal_max_literacy = 10[ \t]*\r?$', "${T2}# LO: all 10 -> burghers 10 / nobles + clergy 5 / lower 3 (persecuted movement of literate artisans, Wycliffe bible)`n${T2}global_nobles_max_literacy = 5`n${T2}global_clergy_max_literacy = 5`n${T2}global_burghers_max_literacy = 10`n${T2}global_laborers_max_literacy = 3`n${T2}global_soldiers_max_literacy = 3`n${T2}global_peasants_max_literacy = 3") ) },
   @{ f='religions\christian.txt'; k='waldensian'; out='religions'
@@ -448,6 +448,11 @@ $targets += @{ f='religions\christian.txt'; k='orthodox'; out='religions'
                e=@( ,@('(?m)^\t\tglobal_max_literacy = 5[ \t]*\r?$', $orthoLines)) }
 $targets += @{ f='religions\christian.txt'; k='miaphysite'; out='religions'
                e=@( ,@('(?m)^(\tdefinition_modifier = \{)[ \t]*\r?$', "`$1`n${T2}global_clergy_max_literacy = 5`t# LO: vardapets / monastic book culture")) }
+# v0.41 Catholic clergy 25 -> 30: a Catholic city with temple + cathedral + library reaches the university gate (> 85) from
+# age 3 without a monastery (90); the monastery stays a bonus (needed only for the early age-2 universities).
+$cathRx = '(?m)^[ \t]+global_clergy_max_literacy = 25[ \t]*\r?$'
+$cathRep = "${T2}global_clergy_max_literacy = 30`t# LO v0.41: 25 -> 30 (monastery no longer required for a university)"
+$targets += @{ f='religions\christian.txt'; k='catholic'; out='religions'; e=@( ,@($cathRx, $cathRep)) }
 
 # ---------- RSF compatibility patch (SEPARATE mod; LO itself has NO RSF dependency) ----------
 # RSF TRY_REPLACEs orthodox/miaphysite in RSF_christian.txt, and that beat our zz_ REPLACE_OR_CREATE in game (user
@@ -458,7 +463,8 @@ $rsfRel = @(
   @{ k='TRY_REPLACE:orthodox'
      e=@( ,@('(?m)^\t\tglobal_max_literacy = 5[ \t]*\r?$', $orthoLines)) },
   @{ k='TRY_REPLACE:miaphysite'
-     e=@( ,@('(?m)^(\tdefinition_modifier = \{)[ \t]*\r?$', "`$1`n${T2}global_clergy_max_literacy = 5`t# LO: vardapets / monastic book culture")) }
+     e=@( ,@('(?m)^(\tdefinition_modifier = \{)[ \t]*\r?$', "`$1`n${T2}global_clergy_max_literacy = 5`t# LO: vardapets / monastic book culture")) },
+  @{ k='TRY_REPLACE:catholic'; e=@( ,@($cathRx, $cathRep)) }   # v0.41
 )
 
 # ---------- Muslim religious schools (2026-11-21, user OK) ----------
@@ -595,14 +601,17 @@ if (-not (Test-Path $rcSrc)) {
 } else {
     $rcDir = Split-Path $rcDst -Parent; if (-not (Test-Path $rcDir)) { New-Item -ItemType Directory -Path $rcDir -Force | Out-Null }
     $mdDir = Join-Path $compat '.metadata'; if (-not (Test-Path $mdDir)) { New-Item -ItemType Directory -Path $mdDir -Force | Out-Null }
-    $md = "{`n`t`"name`":`t`"Literacy overhaul - RSF compatibility`",`n`t`"id`":`t`"literacy.overhaul.rsf`",`n`t`"version`":`t`"1.0`",`n`t`"supported_game_version`":`t`"1.4`",`n`t`"short_description`":`t`"Compatibility patch for Literacy overhaul + Ruthenia and Steppe Fix: applies the Orthodox and Miaphysite literacy changes on top of RSF's religion edits. Load after both mods.`",`n`t`"tags`":`t[`"Gameplay`"],`n`t`"relationships`":`t[],`n`t`"game_custom_data`":`t{`n`t}`n}"
+    $md = "{`n`t`"name`":`t`"Literacy overhaul - RSF compatibility`",`n`t`"id`":`t`"literacy.overhaul.rsf`",`n`t`"version`":`t`"1.0`",`n`t`"supported_game_version`":`t`"1.4`",`n`t`"short_description`":`t`"Compatibility patch for Literacy overhaul + Ruthenia and Steppe Fix: applies the Catholic, Orthodox and Miaphysite literacy changes on top of RSF's religion edits. Load after both mods.`",`n`t`"tags`":`t[`"Gameplay`"],`n`t`"relationships`":`t[],`n`t`"game_custom_data`":`t{`n`t}`n}"
     [IO.File]::WriteAllText((Join-Path $mdDir 'metadata.json'), $md, $utf8bom)
     $rcBytes = [IO.File]::ReadAllBytes($rcSrc); $rcBom = ($rcBytes.Length -ge 3 -and $rcBytes[0] -eq 0xEF -and $rcBytes[1] -eq 0xBB -and $rcBytes[2] -eq 0xBF)
     $rc = [IO.File]::ReadAllText($rcSrc).TrimStart([char]0xFEFF); $rcOk = $true
     # If RSF already injects orthodox / miaphysite instead of TRY_REPLACE (the user's EU5_RSF_patches reapply section R,
     # or a future RSF), LO's own REPLACE_OR_CREATE is not beaten and the patch is not needed.
-    $needsPatch = $false; foreach ($r in $rsfRel) { if ($rc -match ('(?m)^' + [regex]::Escape($r.k) + ' = \{')) { $needsPatch = $true } }
-    if (-not $needsPatch) { $rsfRel = @(); $rcOk = $false; Write-Host "  RSF has no TRY_REPLACE:orthodox/miaphysite - RSF compatibility patch not needed" }
+    # v0.41: only the religions RSF still TRY_REPLACEs are patched (the user's RSF injects orthodox/miaphysite but
+    # still TRY_REPLACEs catholic); the others are left as RSF has them.
+    $rsfRel = @($rsfRel | Where-Object { $rc -match ('(?m)^' + [regex]::Escape($_.k) + ' = \{') })
+    $needsPatch = $rsfRel.Count -gt 0
+    if (-not $needsPatch) { $rcOk = $false; Write-Host "  RSF has no TRY_REPLACE:orthodox/miaphysite/catholic - RSF compatibility patch not needed" }
     foreach ($r in $rsfRel) {
         $blk = Get-Block $rc $r.k
         if ($null -eq $blk) { Write-Warning "$($r.k): not found in RSF_christian.txt"; $rcOk = $false; break }
@@ -616,9 +625,9 @@ if (-not (Test-Path $rcSrc)) {
         $rc = $rc.Replace($blk, $new)
     }
     if ($rcOk) {
-        $hdr = "# Literacy overhaul - RSF compatibility: same-path override of RSF's file, GENERATED by Literacy overhaul\tools\regen_from_base.ps1`n# from RSF's current copy. Only the Orthodox / Miaphysite literacy lines (# LO) differ from RSF. Load after RSF and Literacy overhaul.`n"
+        $hdr = "# Literacy overhaul - RSF compatibility: same-path override of RSF's file, GENERATED by Literacy overhaul\tools\regen_from_base.ps1`n# from RSF's current copy. Only the Catholic / Orthodox / Miaphysite literacy lines (# LO) differ from RSF. Load after RSF and Literacy overhaul.`n"
         [IO.File]::WriteAllText($rcDst, $hdr + $rc, (New-Object System.Text.UTF8Encoding($rcBom)))
-        Write-Host "  ok  RSF compatibility patch: RSF_christian.txt (orthodox clergy 10 / burghers 5, miaphysite clergy 5) -> $compat"
+        Write-Host "  ok  RSF compatibility patch: RSF_christian.txt ($((($rsfRel | ForEach-Object { $_.k -replace 'TRY_REPLACE:', '' }) -join ', '))) -> $compat"
     } else {
         if (Test-Path $rcDst) { Remove-Item $rcDst -Force }
         if ($needsPatch) { Write-Warning "RSF_christian.txt override NOT written (anchor missing) - RSF values used"; $warn++ }
