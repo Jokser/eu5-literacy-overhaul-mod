@@ -27,6 +27,22 @@ function Strat([string]$ind, [string]$scope, $up, $low) {
 }
 $T1 = "`t"; $T2 = "`t`t"; $T3 = "`t`t`t"
 
+# LO v0.44: AI weights of the elite-education laws. EstGt: one estate-power comparison; Strongest: estate X beats each
+# of the others; AiWill: ai_will_do +100 with base conditions AND a STICKY estate gate (the law already held OR the gate).
+function EstGt([string]$a, [string]$b) { return "`"estate_power(estate_type:${a}_estate)`" > `"estate_power(estate_type:${b}_estate)`"" }
+function Strongest([string]$x, $others) { return @($others | ForEach-Object { EstGt $x $_ }) }
+function AiWill([string]$desc, [string]$policy, $base, $estate) {
+    $i = "`t`t`t`t`t"
+    $l = @("`t`tai_will_do = {", "`t`t`tif = {", "`t`t`t`tlimit = {")
+    foreach ($b in $base) { $l += "$i$b" }
+    $l += "${i}OR = {	# sticky: a held law keeps the bonus"
+    $l += "$i`thas_policy = $policy"
+    $l += "$i`tAND = {"
+    foreach ($e in $estate) { $l += "$i`t`t$e" }
+    $l += "$i`t}", "$i}", "`t`t`t`t}", "`t`t`t`tadd = {", "`t`t`t`t`tdesc = `"$desc`"", "`t`t`t`t`tvalue = 100", "`t`t`t`t}", "`t`t`t}", "`t`t}"
+    return ($l -join "`n")
+}
+
 # ---------- university site rules: ONE place for the numbers ----------
 # used by the university building allow (explicit lines, for a per-condition tooltip) and by the scripted
 # trigger lo_university_site (parliament issue sponsor_a_university - may only sponsor where we could build).
@@ -343,8 +359,12 @@ $targets = @(
   # education_of_the_people stops being the best ELITE-education law by teaching the peasants most.
   @{ f='laws\01_common.txt'; k='education_elites_law'; out='laws'
      e=@(
-       @('(?s)(education_of_the_people = \{.*?)global_peasants_max_literacy = 5([ \t]*\r?\n[ \t]*)global_soldiers_max_literacy = 5([ \t]*\r?\n[ \t]*)global_laborers_max_literacy = 5',
-         '${1}global_peasants_max_literacy = 3${2}global_soldiers_max_literacy = 3${3}global_laborers_max_literacy = 3	# LO: lower 5 -> 3'),
+       # LO v0.44: education_of_the_people is an Enlightenment law - allow only with the embraced Enlightenment (the AI
+       # took it in 1500-1640: SPA, POR, PAP, Bavaria, Metz), and as a late law it is worth more: burghers 5 -> 10,
+       # lower classes back to the vanilla 5 (v0.19-v0.43: 3).
+       @('(?s)(education_of_the_people = \{[ \t]*\r?\n)', ('${1}' + "${T2}allow = { has_embraced_institution = institution:enlightenment }`t# LO v0.44`n")),
+       @('(?s)(education_of_the_people = \{.*?)global_burghers_max_literacy = 5',
+         '${1}global_burghers_max_literacy = 10	# LO v0.44: 5 -> 10'),
        @('(?s)(education_of_the_court = \{.*?)global_nobles_max_literacy = 5',
          '${1}global_nobles_max_literacy = 15	# LO: 5 -> 15 (v0.19: 10; v0.30: 15, the court education of a whole estate: tutors, academies, colleges)'),
        @('(?s)(confucian_academies_education = \{.*?)global_nobles_max_literacy = 5([ \t]*\r?\n)',
@@ -353,14 +373,19 @@ $targets = @(
        # clerical_institutions - forums_of_thought (+20% institution growth) beat them for the same estates. Institution
        # growth for mixed (humanist schools) and people (Enlightenment), and estate-gated AI weights so that court
        # education keeps the countries where the nobles are strongest.
+       # LO v0.44: "the strongest of nobles / clergy / burghers" picks the law (court / clerical / mixed), mutually
+       # exclusive - in the v0.43.1 run SPA and NAP left clerical for mixed when both +100 fired. Each estate gate is
+       # sticky (OR has_policy = <this law>), so a held law keeps its +100 when the estates are close. No winner -> vanilla.
        @('(?s)(mixed_institutions = \{.*?country_modifier = \{[ \t]*\r?\n)', ('${1}' + "${T3}global_institution_growth_modifier = 0.10`t# LO v0.43: humanist schools`n")),
        @('(?s)(mixed_institutions = \{.*?)(\r?\n)(\t\tyears = 2)',
-         ('${1}${2}' + "${T2}ai_will_do = {`n${T3}if = {`n${T3}`tlimit = {`n${T3}`t`thas_embraced_institution = institution:renaissance`n${T3}`t`tNOT = { current_age = age_5_absolutism }`n${T3}`t`tNOT = { current_age = age_6_revolutions }`n${T3}`t`t`"estate_power(estate_type:burghers_estate)`" > `"estate_power(estate_type:nobles_estate)`"`n${T3}`t}`n${T3}`tadd = {`n${T3}`t`tdesc = `"LO: humanist schools`"`n${T3}`t`tvalue = 100`n${T3}`t}`n${T3}}`n${T2}}" + '${2}${3}')),
+         ('${1}${2}' + (AiWill 'LO: humanist schools - burghers strongest' 'mixed_institutions' @('has_embraced_institution = institution:renaissance', 'NOT = { current_age = age_5_absolutism }', 'NOT = { current_age = age_6_revolutions }') (Strongest 'burghers' @('nobles','clergy'))) + '${2}${3}')),
        @('(?s)(education_of_the_people = \{.*?country_modifier = \{[ \t]*\r?\n)', ('${1}' + "${T3}global_institution_growth_modifier = 0.15`t# LO v0.43: Enlightenment popular education`n")),
        @('(?s)(education_of_the_people = \{.*?)(\r?\n)(\t\tyears = 2)',
-         ('${1}${2}' + "${T2}ai_will_do = {`n${T3}if = {`n${T3}`tlimit = {`n${T3}`t`thas_embraced_institution = institution:enlightenment`n${T3}`t`tOR = {`n${T3}`t`t`t`"estate_power(estate_type:burghers_estate)`" > `"estate_power(estate_type:nobles_estate)`"`n${T3}`t`t`t`"estate_power(estate_type:peasants_estate)`" > `"estate_power(estate_type:nobles_estate)`"`n${T3}`t`t}`n${T3}`t}`n${T3}`tadd = {`n${T3}`t`tdesc = `"LO: Enlightenment popular education`"`n${T3}`t`tvalue = 100`n${T3}`t}`n${T3}}`n${T2}}" + '${2}${3}')),
+         ('${1}${2}' + (AiWill 'LO: Enlightenment popular education' 'education_of_the_people' @('has_embraced_institution = institution:enlightenment') @("OR = { $(EstGt 'burghers' 'nobles')  $(EstGt 'peasants' 'nobles') }")) + '${2}${3}')),
        @('(?s)(clerical_institutions = \{.*?)(\r?\n)(\t\tyears = 2)',
-         ('${1}${2}' + "${T2}ai_will_do = {`n${T3}if = {`n${T3}`tlimit = {`n${T3}`t`tOR = {`n${T3}`t`t`tAND = {`n${T3}`t`t`t`treligion = religion:catholic`n${T3}`t`t`t`tOR = {`n${T3}`t`t`t`t`tcurrent_age = age_4_reformation`n${T3}`t`t`t`t`tcurrent_age = age_5_absolutism`n${T3}`t`t`t`t}`n${T3}`t`t`t}`n${T3}`t`t`tAND = {`n${T3}`t`t`t`treligion = religion:orthodox`n${T3}`t`t`t`thas_advance = lo_kyiv_mohyla_learning`n${T3}`t`t`t}`n${T3}`t`t}`n${T3}`t`t`"estate_power(estate_type:clergy_estate)`" > `"estate_power(estate_type:nobles_estate)`"`n${T3}`t}`n${T3}`tadd = {`n${T3}`t`tdesc = `"LO: Counter-Reformation colleges`"`n${T3}`t`tvalue = 100`n${T3}`t}`n${T3}}`n${T2}}" + '${2}${3}'))
+         ('${1}${2}' + (AiWill 'LO: Counter-Reformation colleges - clergy strongest' 'clerical_institutions' @('OR = {', "`tAND = { religion = religion:catholic  OR = { current_age = age_4_reformation  current_age = age_5_absolutism } }", "`tAND = { religion = religion:orthodox  has_advance = lo_kyiv_mohyla_learning }", '}') (Strongest 'clergy' @('nobles','burghers'))) + '${2}${3}')),
+       @('(?s)(education_of_the_court = \{.*?)(\r?\n)(\t\tyears = 2)',
+         ('${1}${2}' + (AiWill 'LO: court education - nobles strongest' 'education_of_the_court' @() (Strongest 'nobles' @('burghers','clergy'))) + '${2}${3}'))
      ) },
   # ---------- lower-class pass (ours, 2026-11-20): flat "all classes" bonuses that are really elite phenomena ----------
   @{ f='advances\0_age_of_absolutism.txt'; k='scientific_revolution_advance'; out='advances'

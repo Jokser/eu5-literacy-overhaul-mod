@@ -646,3 +646,21 @@ Prussia 30 (38 with secular education). Not tested in a run - check error.log af
 - Checked clean in the same log: print-culture triggers, institution overrides, law AI blocks, the per-area university
   cap, the new advances and localisation. (A one-off batch of "Scoped object of type 'country' is not valid" in
   building `country_potential`s also hits vanilla buildings - an engine check on a dead country, not LO.)
+
+### Elite-education laws (v0.44, 2026-11-22; observer run 5 from 1337 with v0.43.1, cuts 1500-1650)
+- `education_of_the_people` is now an Enlightenment law: `allow = { has_embraced_institution = institution:enlightenment }`
+  (the AI took it in 1500-1640 - Spain, Portugal, the Pope, Bavaria, Metz). As a late law it is worth more: burghers
+  5 -> 10, lower classes 3 -> 5 (the vanilla value again). Growth 0.15 and the nobles/clergy penalty stay.
+- AI weights: "the strongest of nobles, clergy and burghers picks the law", mutually exclusive:
+  `education_of_the_court` +100 (new) if nobles beat burghers and clergy; `clerical_institutions` +100 (Catholic age
+  4-5 / Orthodox with Kyiv-Mohyla) if clergy beat nobles and burghers; `mixed_institutions` +100 (Renaissance, before
+  age 5) if burghers beat nobles and clergy. Before, mixed and clerical only compared with the nobles, so both could
+  fire and Spain and Naples left the clerical law for mixed. With no winner the vanilla AI decides (mostly forums of
+  thought: Protestants, non-Christians, burgher states in age 5).
+- Every estate gate is sticky (`OR = { has_policy = <this law> ... }`): a held law keeps its +100 when the estates
+  are close, so the AI does not switch back and forth. (Run 5 showed the opposite problem - strong inertia: Poland
+  kept forums of thought from 1425, Great Britain from 1412.)
+- Run 5 checks without changes: 67 universities in 1500, 87 in 1550, 110 in 1600, 122 in 1650 (Italy 21, Germany 28,
+  France 17 in 1650); Lutheran burghers 68 / peasants 17 vs Catholic 56 / 11.5 in 1650. Peasants slightly above their
+  maximum (Milan 12.2 > 11.1) are the vanilla innovative societal value (lower +3 scaled by the slider) drifting back -
+  literacy above the cap does not decay.
