@@ -31,15 +31,18 @@ $T1 = "`t"; $T2 = "`t`t"; $T3 = "`t`t`t"
 # of the others; AiWill: ai_will_do +100 with base conditions AND a STICKY estate gate (the law already held OR the gate).
 function EstGt([string]$a, [string]$b) { return "`"estate_power(estate_type:${a}_estate)`" > `"estate_power(estate_type:${b}_estate)`"" }
 function Strongest([string]$x, $others) { return @($others | ForEach-Object { EstGt $x $_ }) }
-function AiWill([string]$desc, [string]$policy, $base, $estate) {
+function AiWill([string]$desc, [string]$policy, $base, $estate, [int]$val = 100) {
     $i = "`t`t`t`t`t"
     $l = @("`t`tai_will_do = {", "`t`t`tif = {", "`t`t`t`tlimit = {")
     foreach ($b in $base) { $l += "$i$b" }
-    $l += "${i}OR = {	# sticky: a held law keeps the bonus"
-    $l += "$i`thas_policy = $policy"
-    $l += "$i`tAND = {"
-    foreach ($e in $estate) { $l += "$i`t`t$e" }
-    $l += "$i`t}", "$i}", "`t`t`t`t}", "`t`t`t`tadd = {", "`t`t`t`t`tdesc = `"$desc`"", "`t`t`t`t`tvalue = 100", "`t`t`t`t}", "`t`t`t}", "`t`t}"
+    if (@($estate).Count -gt 0) {	# no estate gate -> no sticky block
+        $l += "${i}OR = {	# sticky: a held law keeps the bonus"
+        $l += "$i`thas_policy = $policy"
+        $l += "$i`tAND = {"
+        foreach ($e in $estate) { $l += "$i`t`t$e" }
+        $l += "$i`t}", "$i}"
+    }
+    $l += "`t`t`t`t}", "`t`t`t`tadd = {", "`t`t`t`t`tdesc = `"$desc`"", "`t`t`t`t`tvalue = $val", "`t`t`t`t}", "`t`t`t}", "`t`t}"
     return ($l -join "`n")
 }
 
@@ -346,6 +349,18 @@ $targets = @(
        # LO (2026-11-21, research pass): apprenticeships = the burghers' answer to religious schooling -> B15 + laborers 3
        @('(?s)(apprenticeships_education = \{.*?)global_burghers_max_literacy = 10([ \t]*\r?\n)',
          "`${1}global_burghers_max_literacy = 15`t# LO: 10 -> 15, + laborers 3 (guild apprentices)`${2}${T3}global_laborers_max_literacy = 3`${2}"),
+       # LO v0.45: mass-education ladder - AI weights basic 100 < apprenticeships 150 < personal 200 < secular 300, so a
+       # country climbs when it qualifies. Run 5 (1650): Land of Commerce held by 236 countries (VEN, POL, POR, Nuremberg,
+       # the Fuggers...) but only 19 Asian ones took apprenticeships - basic's +100 for the printing press beat it;
+       # personal_religious_education had 0 holders in every cut (worse than basic for the elites, no AI weight).
+       @('(?s)(apprenticeships_education = \{.*?)(\r?\n)(\t\tyears = 2)',
+         ('${1}${2}' + (AiWill 'LO: guild apprenticeships - burghers strongest' 'apprenticeships_education' @() (Strongest 'burghers' @('nobles','clergy')) 150) + '${2}${3}')),
+       # personal_religious_education (Protestants / printing privilege): lay Bible reading, the step after basic religious
+       # education - the elites as basic (N10 C10), burghers 10, lower classes keep the vanilla 5.
+       @('(?s)(personal_religious_education = \{.*?)global_nobles_max_literacy = 5([ \t]*\r?\n[ \t]*)global_clergy_max_literacy = 5([ \t]*\r?\n[ \t]*)global_burghers_max_literacy = 5',
+         '${1}global_nobles_max_literacy = 10${2}global_clergy_max_literacy = 10${3}global_burghers_max_literacy = 10	# LO v0.45: elites 5 -> 10 (a step above basic religious education)'),
+       @('(?s)(personal_religious_education = \{.*?)(\r?\n)(\t\tyears = 2)',
+         ('${1}${2}' + (AiWill 'LO: lay Bible reading - Protestant schooling' 'personal_religious_education' @('is_protestant = yes', 'has_advance = printing_press_advance') @() 200) + '${2}${3}')),
        # LO v0.25: AI weight. The AI keeps the default uneducated_masses while the nobles outweigh the clergy (Muscovy
        # never left it in a 1337-1740 run). The Stoglav council (1551) ordered schools at the churches -> after
        # lo_stoglav the AI wants basic_religious_education.
@@ -353,7 +368,7 @@ $targets = @(
          ('${1}${2}' + "${T2}ai_will_do = {`n${T3}if = {`n${T3}`tlimit = { has_advance = lo_stoglav }`n${T3}`tadd = {`n${T3}`t`tdesc = `"LO: Stoglav ordered church schools`"`n${T3}`t`tvalue = 100`n${T3}`t}`n${T3}}`n${T3}# LO v0.43: the printed catechism made parish schooling cheap (62 of 205 big countries were still on`n${T3}# uneducated_masses in 1751; both give the elites the same, so the AI had no reason to change)`n${T3}if = {`n${T3}`tlimit = { has_advance = printing_press_advance }`n${T3}`tadd = {`n${T3}`t`tdesc = `"LO: printed catechisms and parish schools`"`n${T3}`t`tvalue = 100`n${T3}`t}`n${T3}}`n${T2}}" + '${2}${3}')),
        # LO v0.43: enlightened absolutism (Prussia 1763, Austria 1774) - state schooling where the crown outweighs the clergy
        @('(?s)(secular_education = \{.*?)(\r?\n)(\t\tyears = 2)',
-         ('${1}${2}' + "${T2}ai_will_do = {`n${T3}if = {`n${T3}`tlimit = {`n${T3}`t`thas_embraced_institution = institution:enlightenment`n${T3}`t`t`"estate_power(estate_type:crown_estate)`" > `"estate_power(estate_type:clergy_estate)`"`n${T3}`t}`n${T3}`tadd = {`n${T3}`t`tdesc = `"LO: enlightened absolutism - state schools`"`n${T3}`t`tvalue = 100`n${T3}`t}`n${T3}}`n${T2}}" + '${2}${3}'))
+         ('${1}${2}' + "${T2}ai_will_do = {`n${T3}if = {`n${T3}`tlimit = {`n${T3}`t`thas_embraced_institution = institution:enlightenment`n${T3}`t`t`"estate_power(estate_type:crown_estate)`" > `"estate_power(estate_type:clergy_estate)`"`n${T3}`t}`n${T3}`tadd = {`n${T3}`t`tdesc = `"LO: enlightened absolutism - state schools`"`n${T3}`t`tvalue = 300`t# v0.45: 100 -> 300, top of the ladder`n${T3}`t}`n${T3}}`n${T2}}" + '${2}${3}'))
      ) },
   # LO (2026-11-21, research pass): with the learned-elite research bonus every elite variant is worth something;
   # education_of_the_people stops being the best ELITE-education law by teaching the peasants most.

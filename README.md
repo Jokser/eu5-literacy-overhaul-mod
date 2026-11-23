@@ -664,3 +664,14 @@ Prussia 30 (38 with secular education). Not tested in a run - check error.log af
   France 17 in 1650); Lutheran burghers 68 / peasants 17 vs Catholic 56 / 11.5 in 1650. Peasants slightly above their
   maximum (Milan 12.2 > 11.1) are the vanilla innovative societal value (lower +3 scaled by the slider) drifting back -
   literacy above the cap does not decay.
+
+### Mass-education ladder (v0.45, 2026-11-23)
+- AI weights now form a ladder, so a country climbs when it qualifies: `basic_religious_education` +100 (printing press /
+  Stoglav, unchanged) < `apprenticeships_education` +150 (new: burghers stronger than nobles and clergy, sticky) <
+  `personal_religious_education` +200 (new: Protestant with the printing press) < `secular_education` +300 (was +100;
+  Enlightenment and crown stronger than clergy).
+- `personal_religious_education` (vanilla: all classes 5; Protestants or the clergy's printing privilege) is now a step
+  above basic religious education: nobles / clergy / burghers 5 -> 10, lower classes keep 5 (basic: N10 C10 B5 L2).
+- Why (run 5, 1650): Land of Commerce (the burgher privilege that unlocks apprenticeships) was held by 236 countries,
+  including Venice, Poland, Portugal, Nuremberg and the Fuggers, but only 19 Asian countries took apprenticeships -
+  the +100 for the printing press on basic beat it; personal religious education had 0 holders in every cut.

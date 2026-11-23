@@ -36,7 +36,7 @@ Vanilla research from literacy uses the [i]average[/i] literacy of all pops, whi
 [list]
 [*][b]Institution spread[/b] depends on local literacy, so it is compensated: institutions spread at about the vanilla pace in Europe, and more slowly where literacy was historically low.
 [*]Demand for books and paper, the literacy bonus to peasant promotion, the Royal Society decision, the sola scriptura events, the revolution disasters and the Catholic scholars' zeal are adjusted to the lower averages.
-[*]The AI now picks the elite literacy advances and the new primers instead of skipping them for a century, and countries leave uneducated masses once they have the printing press. Elite education follows the strongest estate (court education for the nobles, clerical colleges for the clergy, humanist schools for the burghers), Education of the People is an Enlightenment law, and the press laws (censorship in Catholic and Protestant Europe, a free press where the burghers are strong) are now chosen where they historically fit.
+[*]The AI now picks the elite literacy advances and the new primers instead of skipping them for a century, and countries climb the mass-education ladder: parish schools after the printing press, guild apprenticeships in merchant states, lay Bible reading for Protestants, secular schools under enlightened monarchs. Elite education follows the strongest estate (court education for the nobles, clerical colleges for the clergy, humanist schools for the burghers), Education of the People is an Enlightenment law, and the press laws (censorship in Catholic and Protestant Europe, a free press where the burghers are strong) are now chosen where they historically fit.
 [/list]
 
 [h2]Universities[/h2]
