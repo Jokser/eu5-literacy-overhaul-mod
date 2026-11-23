@@ -66,6 +66,7 @@ REPLACE_OR_CREATE:sola_scriptura = {
 		# LO v0.47: + religious influence (= parish_registers / soli_deo_gloria / pietism). The AI picks aspects by
 		# modifier_utility and values lower-class literacy at ~0: after v0.46 the holders fell from 98 (1700) to 2 (1800).
 		monthly_religious_influence = 0.1
+		tolerance_own = 0.5	# LO v0.48: 0.1 influence alone slowed the decline only (98 holders 1700 -> 24 in 1725)
 		monthly_towards_individualism = societal_value_monthly_move
 	}
 

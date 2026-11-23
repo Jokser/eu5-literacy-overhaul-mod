@@ -36,3 +36,4 @@
  lo_latin_school_maintenance: "Latin School Maintenance"
  STATIC_MODIFIER_NAME_lo_university_research: "Universities"
  STATIC_MODIFIER_DESC_lo_university_research: "Our universities train scholars and physicians and advance our knowledge: +2% research speed for each, up to five."
+ lo_area_university_room_tt: "The area has room for another university (one per 400 [development|e] of the [area|e], at most 3)"

@@ -41,7 +41,7 @@ Vanilla research from literacy uses the [i]average[/i] literacy of all pops, whi
 
 [h2]Universities[/h2]
 [list]
-[*]A university needs a developed town (development 30+) with highly literate clergy (85+) and burghers (40+), and an area can have [b]at most two[/b] (three in the German lands, where every prince and every confession had its own). Catholic and Protestant towns no longer need a monastery once they have the printing press. Europe ends up near the historical numbers: about 20 universities in Italy and 45 in Germany by 1800.
+[*]A university needs a developed town (development 30+) with highly literate clergy (85+) and burghers (40+), and the number of universities an area can hold [b]grows with its development[/b] (one per 400, at most three). Catholic and Protestant towns no longer need a monastery once they have the printing press. Europe ends up near the historical numbers: about 20 universities in Italy and 45 in Germany by 1800.
 [*]Universities give a big literacy boost to all three upper classes, [b]+2% research each[/b] (up to five) and stronger local institution growth, and the learned institutions (Renaissance, printing press, scientific revolution, Enlightenment) are twice as likely to appear in university towns. They cost more to build and maintain.
 [*]Loopholes that built universities anywhere are closed: the cheap Orthodox event option and parliament sponsorship.
 [/list]

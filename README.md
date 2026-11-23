@@ -708,3 +708,13 @@ Prussia 30 (38 with secular education). Not tested in a run - check error.log af
 - Left as is after review: East Asian, Lithuanian and Russian universities (academies, Jesuit colleges, seminaries - by
   ages 5-6 clergy of every developed church reaches ~100, so the late limiters are development, burghers and the area
   cap); the steppe successor states lagging (expected).
+
+### University places by development; Sola Scriptura again (v0.48, 2026-11-23)
+- **University places per area = area development / 400, at least 1, at most 3** (`script_values/lo_university_values.txt`:
+  `lo_area_university_places`, `lo_area_university_count`, `lo_area_university_room`, area scope; the university allow
+  and `lo_university_site` check `area = { lo_area_university_room > 0 }` in a custom tooltip). Replaces "2 per area,
+  3 in the German lands". Run 5 places in 1500/1600/1700: Italy 19/21/23 (history ~17/20/20), Germany + Low Countries +
+  Switzerland 48/53/56, France 21/26/30, Iberia 19/24/28; Russia, Lithuania and Sweden mostly one per area. 500 and 600
+  per place were rejected: in 1500 they leave Tuscany (954), Languedoc (850) and Provence (592) one place each.
+- **Sola Scriptura** + `tolerance_own = 0.5`: with only `monthly_religious_influence = 0.1` (v0.47) the holders still
+  fell from 98 (1700) to 24 (1725), the AI preferring war sermons and adult baptism.
