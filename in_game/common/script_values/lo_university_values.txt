@@ -1,11 +1,23 @@
-﻿# Literacy overhaul - university places per area (v0.48, 2026-11-23). Scope: AREA.
-# One university place per 400 development of the whole area, at least 1, at most 3. The cap grows with the area: in
-# 1500 the run-5 Italian areas had ~650 development (1 place each, Tuscany 954 -> 2), the big German areas 1500-1800
-# (3); by 1750 Germany has room for ~55, Italy ~20, France ~30, while thinly settled Russian, Lithuanian and Swedish
-# areas (600-800) keep one place. Replaces the fixed "2 per area, 3 in the German lands" of v0.43-v0.47.
-# Used by the university allow and lo_university_site (tools/regen_from_base.ps1, $UNI_AREA_CAP).
+﻿# Literacy overhaul - university places per area (v0.48, 2026-11-23; v0.49 institution tiers). Scope: AREA.
+# v0.49: every area has 1 place; a builder whose country embraced confessionalism (age 4) may use up to 2 places, one
+# per 400 development of the whole area; with scientific_revolution (age 5) up to 3. The university allow and
+# lo_university_site pick the tier by the owner (tools/regen_from_base.ps1, $UNI_AREA_CAP).
+# Why: the v0.48 rerun of run 5 from 1500 (1 per 400, min 1, max 3 for everyone) gave the German lands 43 universities
+# by 1550 (history ~20, ~27 by 1600, ~33 by 1700). The confessional wave 1520-1620 (Marburg, Jena, Helmstedt, Giessen,
+# Leiden; Dillingen, Olomouc, Wurzburg, Graz) is what put a second university into one area.
+# Places at the run-5 development: 1400 development -> 2 / 3, Tuscany 954 -> 2, Provence 592-650 -> 1.
 
-lo_area_university_places = {
+lo_area_university_places_2 = {
+	every_location_in_area = {
+		add = development
+	}
+	divide = 400
+	floor = yes
+	min = 1
+	max = 2
+}
+
+lo_area_university_places_3 = {
 	every_location_in_area = {
 		add = development
 	}
@@ -22,8 +34,18 @@ lo_area_university_count = {
 	}
 }
 
-# > 0: the area has room for one more university
-lo_area_university_room = {
-	value = lo_area_university_places
+# > 0: the area has room for one more university for this tier of builder
+lo_area_university_room_1 = {
+	value = 1
+	subtract = lo_area_university_count
+}
+
+lo_area_university_room_2 = {
+	value = lo_area_university_places_2
+	subtract = lo_area_university_count
+}
+
+lo_area_university_room_3 = {
+	value = lo_area_university_places_3
 	subtract = lo_area_university_count
 }

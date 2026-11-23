@@ -59,7 +59,12 @@ $UNI_DEV = 30; $UNI_CLERGY = 85; $UNI_BURGHERS = 40	# v0.41: burghers 25 -> 40 (
 # in_game/common/script_values/lo_university_values.txt). Run 5: 600 / 500 per place left Tuscany (954 in 1500),
 # Languedoc (850) and Provence (592) one place each; 400 gives Italy 19/21/23 places in 1500/1600/1700 (history ~17/20/20)
 # and Germany + Low Countries + Switzerland 48/53/56 (~16/27/38), without the region rule.
-$UNI_AREA_CAP = 'custom_tooltip = { text = lo_area_university_room_tt  area = { lo_area_university_room > 0 } }'
+# v0.49: the places also depend on the BUILDER's institutions - 1 per area for everyone, up to 2 if the owner embraced
+# confessionalism (age 4: the confessional university wave 1520-1620 - Marburg, Jena, Leiden, Dillingen, Olomouc, Graz),
+# up to 3 with scientific_revolution (age 5). Rerun of run 5 from 1500 with v0.48: German lands 15 -> 43 universities
+# by 1550 (history ~20) - the gate was already passed in 1500, only the cap paced them. Small states still compete
+# for the places (an owner-size gate was rejected).
+$UNI_AREA_CAP = 'custom_tooltip = { text = lo_area_university_room_tt  OR = { area = { lo_area_university_room_1 > 0 }  AND = { owner = { has_embraced_institution = institution:confessionalism }  area = { lo_area_university_room_2 > 0 } }  AND = { owner = { has_embraced_institution = institution:scientific_revolution }  area = { lo_area_university_room_3 > 0 } } } }'
 
 # Each target: source file, key, list of (regex -> replacement). Every regex must match exactly once.
 $targets = @(
@@ -316,7 +321,7 @@ $targets = @(
        # town = yes kept (base): many historical universities sat in small towns (Oxford, Cambridge, Salamanca,
        # Coimbra, Tuebingen, Wittenberg); dev >= 30 + clergy/burgher literacy prevent spam. (town = no removed
        # 2026-11-20: it made 11 setup universities invalid.)
-       @('(?m)^(\t\tis_core_of = owner)[ \t]*\r?$', "`$1`n${T2}# LO: developed city with literate clergy (cathedral schools) and burghers (educated laity)`n${T2}development >= $UNI_DEV`n${T2}any_pop = { pop_type = pop_type:clergy   pop_literacy > $UNI_CLERGY }`n${T2}any_pop = { pop_type = pop_type:burghers pop_literacy > $UNI_BURGHERS }`n${T2}# LO v0.48: university places per area = area development / 400 (min 1, max 3)`n${T2}$UNI_AREA_CAP"),
+       @('(?m)^(\t\tis_core_of = owner)[ \t]*\r?$', "`$1`n${T2}# LO: developed city with literate clergy (cathedral schools) and burghers (educated laity)`n${T2}development >= $UNI_DEV`n${T2}any_pop = { pop_type = pop_type:clergy   pop_literacy > $UNI_CLERGY }`n${T2}any_pop = { pop_type = pop_type:burghers pop_literacy > $UNI_BURGHERS }`n${T2}# LO v0.49: university places per area - 1; with confessionalism dev / 400 up to 2; with scientific revolution up to 3`n${T2}$UNI_AREA_CAP"),
        @('(?m)^\t\tlocal_cultural_influence = 0\.5[ \t]*\r?$', "${T2}local_cultural_influence = 0.75`t# LO: 0.5 -> 0.75"),
        @('(?m)^\t\tlocal_burghers_max_literacy = 10[ \t]*\r?\n\t\tlocal_nobles_max_literacy = 10[ \t]*\r?$', "${T2}local_burghers_max_literacy = 10`t# LO: base 10 (was 15 in v0.1-0.2)`n${T2}local_nobles_max_literacy = 10`t# LO: base 10 (was 15 in v0.1-0.2)`n${T2}local_clergy_max_literacy = 10`t# LO: new"),
        # local_monthly_literacy: base 0.1 kept (0.25 = wonder tier, e.g. Bibliotheca Corviniana / Globe Theatre)

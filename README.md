@@ -709,6 +709,16 @@ Prussia 30 (38 with secular education). Not tested in a run - check error.log af
   ages 5-6 clergy of every developed church reaches ~100, so the late limiters are development, burghers and the area
   cap); the steppe successor states lagging (expected).
 
+### University places follow the confessional wave (v0.49, 2026-11-23)
+- **Every area has 1 university place; a builder whose country embraced Confessionalism (age 4) may use up to 2
+  places (one per 400 area development), with the Scientific Revolution (age 5) up to 3.** New script values
+  `lo_area_university_places_2/3`, `lo_area_university_room_1/2/3`; the university allow and `lo_university_site`
+  pick the tier by the owner's institutions. Why: the v0.48 rerun of run 5 from 1500 gave the German lands
+  43 universities by 1550 (old run 23, history ~20; ~27 by 1600, ~33 by 1700) - their towns had already passed the
+  literacy gate in 1500, so only the cap paced them. Confessionalism starts in Augsburg around 1540 and reaches about
+  three quarters of the German states by 1600, much less of Italy, France and Iberia - the confessional university
+  wave 1520-1620 (Marburg, Jena, Leiden, Dillingen, Olomouc, Graz). Small states still compete for the places.
+
 ### University places by development; Sola Scriptura again (v0.48, 2026-11-23)
 - **University places per area = area development / 400, at least 1, at most 3** (`script_values/lo_university_values.txt`:
   `lo_area_university_places`, `lo_area_university_count`, `lo_area_university_room`, area scope; the university allow
