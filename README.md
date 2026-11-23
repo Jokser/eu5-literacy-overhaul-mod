@@ -709,6 +709,26 @@ Prussia 30 (38 with secular education). Not tested in a run - check error.log af
   ages 5-6 clergy of every developed church reaches ~100, so the late limiters are development, burghers and the area
   cap); the steppe successor states lagging (expected).
 
+### University places by development; Sola Scriptura again (v0.48, 2026-11-23)
+- **University places per area = area development / 400, at least 1, at most 3** (`script_values/lo_university_values.txt`:
+  `lo_area_university_places`, `lo_area_university_count`, `lo_area_university_room`, area scope; the university allow
+  and `lo_university_site` check `area = { lo_area_university_room > 0 }` in a custom tooltip). Replaces "2 per area,
+  3 in the German lands". Run 5 places in 1500/1600/1700: Italy 19/21/23 (history ~17/20/20), Germany + Low Countries +
+  Switzerland 48/53/56, France 21/26/30, Iberia 19/24/28; Russia, Lithuania and Sweden mostly one per area. 500 and 600
+  per place were rejected: in 1500 they leave Tuscany (954), Languedoc (850) and Provence (592) one place each.
+- **Sola Scriptura** + `tolerance_own = 0.5`: with only `monthly_religious_influence = 0.1` (v0.47) the holders still
+  fell from 98 (1700) to 24 (1725), the AI preferring war sermons and adult baptism.
+
+### University places follow the confessional wave (v0.49, 2026-11-23)
+- **Every area has 1 university place; a builder whose country embraced Confessionalism (age 4) may use up to 2
+  places (one per 400 area development), with the Scientific Revolution (age 5) up to 3.** New script values
+  `lo_area_university_places_2/3`, `lo_area_university_room_1/2/3`; the university allow and `lo_university_site`
+  pick the tier by the owner's institutions. Why: the v0.48 rerun of run 5 from 1500 gave the German lands
+  43 universities by 1550 (old run 23, history ~20; ~27 by 1600, ~33 by 1700) - their towns had already passed the
+  literacy gate in 1500, so only the cap paced them. Confessionalism starts in Augsburg around 1540 and reaches about
+  three quarters of the German states by 1600, much less of Italy, France and Iberia - the confessional university
+  wave 1520-1620 (Marburg, Jena, Leiden, Dillingen, Olomouc, Graz). Small states still compete for the places.
+
 ### Two more university loopholes closed (v0.50, 2026-11-23)
 - **`church_aspects.7`** (religious aspect `usury_allowed`: Lutheran, Calvinist, Anglican, Hussite, Lollard) option a
   built a free university in any town without a university or cathedral. It now builds the university only on a
@@ -722,23 +742,3 @@ Prussia 30 (38 with secular education). Not tested in a run - check error.log af
 - Run 5 rerun with v0.49, 1608: German lands 43 universities (1550: 35; run 5 1600: 28; history ~30 incl. the Low
   Countries, Switzerland, Austria and Bohemia) - the areas are nearly full, only 8 new in 1550-1608.
   Confessionalism 375 countries (run 5, 1600: 336) - same pace.
-
-### University places follow the confessional wave (v0.49, 2026-11-23)
-- **Every area has 1 university place; a builder whose country embraced Confessionalism (age 4) may use up to 2
-  places (one per 400 area development), with the Scientific Revolution (age 5) up to 3.** New script values
-  `lo_area_university_places_2/3`, `lo_area_university_room_1/2/3`; the university allow and `lo_university_site`
-  pick the tier by the owner's institutions. Why: the v0.48 rerun of run 5 from 1500 gave the German lands
-  43 universities by 1550 (old run 23, history ~20; ~27 by 1600, ~33 by 1700) - their towns had already passed the
-  literacy gate in 1500, so only the cap paced them. Confessionalism starts in Augsburg around 1540 and reaches about
-  three quarters of the German states by 1600, much less of Italy, France and Iberia - the confessional university
-  wave 1520-1620 (Marburg, Jena, Leiden, Dillingen, Olomouc, Graz). Small states still compete for the places.
-
-### University places by development; Sola Scriptura again (v0.48, 2026-11-23)
-- **University places per area = area development / 400, at least 1, at most 3** (`script_values/lo_university_values.txt`:
-  `lo_area_university_places`, `lo_area_university_count`, `lo_area_university_room`, area scope; the university allow
-  and `lo_university_site` check `area = { lo_area_university_room > 0 }` in a custom tooltip). Replaces "2 per area,
-  3 in the German lands". Run 5 places in 1500/1600/1700: Italy 19/21/23 (history ~17/20/20), Germany + Low Countries +
-  Switzerland 48/53/56, France 21/26/30, Iberia 19/24/28; Russia, Lithuania and Sweden mostly one per area. 500 and 600
-  per place were rejected: in 1500 they leave Tuscany (954), Languedoc (850) and Provence (592) one place each.
-- **Sola Scriptura** + `tolerance_own = 0.5`: with only `monthly_religious_influence = 0.1` (v0.47) the holders still
-  fell from 98 (1700) to 24 (1725), the AI preferring war sermons and adult baptism.
