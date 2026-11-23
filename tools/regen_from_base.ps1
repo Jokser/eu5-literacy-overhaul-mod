@@ -349,6 +349,18 @@ $targets = @(
        # LO (2026-11-21, research pass): apprenticeships = the burghers' answer to religious schooling -> B15 + laborers 3
        @('(?s)(apprenticeships_education = \{.*?)global_burghers_max_literacy = 10([ \t]*\r?\n)',
          "`${1}global_burghers_max_literacy = 15`t# LO: 10 -> 15, + laborers 3 (guild apprentices)`${2}${T3}global_laborers_max_literacy = 3`${2}"),
+       # LO v0.46: guild apprenticeship does not teach monks - clergy 10 -> 0. Run 5 (1700): Indochina universities 2 -> 15
+       # in 50 years; Angkor clergy cap 87.8 = 77.8 + apprenticeships 10 (gate 85).
+       @('(?s)(apprenticeships_education = \{.*?)global_clergy_max_literacy = 10[ \t]*\r?\n[ \t]*', '${1}'),
+       # LO v0.46: epic_tradition_education(_sects) (vanilla: only artists) - the court epic and chronicle tradition of the
+       # steppe and the tribes (Shahnameh, Dede Korkut, Manas, Jangar): nobles 10, burghers 5, lower 2, no clergy; the AI
+       # weight makes literate tribes and hordes prefer it to oral_tradition (no literacy).
+       @('(?s)(epic_tradition_education_sects = \{.*?country_modifier = \{[ \t]*\r?\n)', ('${1}' + "${T3}global_nobles_max_literacy = 10`t# LO v0.46: court epic and chronicles`n${T3}global_burghers_max_literacy = 5`n${T3}global_laborers_max_literacy = 2`n${T3}global_soldiers_max_literacy = 2`n${T3}global_peasants_max_literacy = 2`n")),
+       @('(?s)(epic_tradition_education = \{.*?country_modifier = \{[ \t]*\r?\n)', ('${1}' + "${T3}global_nobles_max_literacy = 10`t# LO v0.46: court epic and chronicles`n${T3}global_burghers_max_literacy = 5`n${T3}global_laborers_max_literacy = 2`n${T3}global_soldiers_max_literacy = 2`n${T3}global_peasants_max_literacy = 2`n")),
+       @('(?s)(epic_tradition_education_sects = \{.*?)(\r?\n)(\t\tyears = 2)',
+         ('${1}${2}' + (AiWill 'LO: epic tradition of tribes and hordes' 'epic_tradition_education_sects' @('OR = { government_type = government_type:tribe  government_type = government_type:steppe_horde }') @() 100) + '${2}${3}')),
+       @('(?s)(epic_tradition_education = \{.*?)(\r?\n)(\t\tyears = 2)',
+         ('${1}${2}' + (AiWill 'LO: epic tradition of tribes and hordes' 'epic_tradition_education' @('OR = { government_type = government_type:tribe  government_type = government_type:steppe_horde }') @() 100) + '${2}${3}')),
        # LO v0.45: mass-education ladder - AI weights basic 100 < apprenticeships 150 < personal 200 < secular 300, so a
        # country climbs when it qualifies. Run 5 (1650): Land of Commerce held by 236 countries (VEN, POL, POR, Nuremberg,
        # the Fuggers...) but only 19 Asian ones took apprenticeships - basic's +100 for the printing press beat it;
@@ -356,9 +368,10 @@ $targets = @(
        @('(?s)(apprenticeships_education = \{.*?)(\r?\n)(\t\tyears = 2)',
          ('${1}${2}' + (AiWill 'LO: guild apprenticeships - burghers strongest' 'apprenticeships_education' @() (Strongest 'burghers' @('nobles','clergy')) 150) + '${2}${3}')),
        # personal_religious_education (Protestants / printing privilege): lay Bible reading, the step after basic religious
-       # education - the elites as basic (N10 C10), burghers 10, lower classes keep the vanilla 5.
-       @('(?s)(personal_religious_education = \{.*?)global_nobles_max_literacy = 5([ \t]*\r?\n[ \t]*)global_clergy_max_literacy = 5([ \t]*\r?\n[ \t]*)global_burghers_max_literacy = 5',
-         '${1}global_nobles_max_literacy = 10${2}global_clergy_max_literacy = 10${3}global_burghers_max_literacy = 10	# LO v0.45: elites 5 -> 10 (a step above basic religious education)'),
+       # education - the elites as basic (N10 C10 B5), lower classes keep the vanilla 5 (basic: 2).
+       # (v0.45 had burghers 10; v0.46: back to 5 - Lutheran burghers without a university hit 100 in 1700)
+       @('(?s)(personal_religious_education = \{.*?)global_nobles_max_literacy = 5([ \t]*\r?\n[ \t]*)global_clergy_max_literacy = 5',
+         '${1}global_nobles_max_literacy = 10${2}global_clergy_max_literacy = 10	# LO v0.45: elites 5 -> 10 (= basic religious education)'),
        @('(?s)(personal_religious_education = \{.*?)(\r?\n)(\t\tyears = 2)',
          ('${1}${2}' + (AiWill 'LO: lay Bible reading - Protestant schooling' 'personal_religious_education' @('is_protestant = yes', 'has_advance = printing_press_advance') @() 200) + '${2}${3}')),
        # LO v0.25: AI weight. The AI keeps the default uneducated_masses while the nobles outweigh the clergy (Muscovy
@@ -478,7 +491,12 @@ $targets = @(
   # ---------- Protestants (2026-11-20) ----------
   # translated_bibles (aspect of all reformed/heretic churches + miaphysites): vernacular bible = a layman's book
   @{ f='religious_aspects\common.txt'; k='translated_bibles'; out='religious_aspects'
-     e=@( ,@('(?m)^\t\tglobal_max_literacy = 10[ \t]*\r?$', ("${T2}# LO: all 10 -> upper 5 / lower 5 (vernacular scripture is read by laymen)`n" + (Strat $T2 'global' 5 5))) ) },
+     e=@( ,@('(?m)^\t\tglobal_max_literacy = 10[ \t]*\r?$', "${T2}# LO: all 10 -> lower classes 5 (vernacular scripture is read by laymen; v0.46: upper 5 -> 0, the elites`n${T2}# already have it in the Protestant religions - in run 5 the AI took the aspects and the bonuses stacked)`n${T2}global_laborers_max_literacy = 5`n${T2}global_soldiers_max_literacy = 5`n${T2}global_peasants_max_literacy = 5") ) },
+  # LO v0.46: sola_scriptura (Calvinist / Hussite / Lutheran aspect; vanilla all 5) - lay Bible reading -> lower classes only.
+  # v0.29 assumed the AI never picks aspects; in run 5 (1700) 98 countries had it, on top of the Lutheran definition
+  # (Olomouc burghers without a university at the cap 100: 103 of sources).
+  @{ f='religious_aspects\common.txt'; k='sola_scriptura'; out='religious_aspects'
+     e=@( ,@('(?m)^\t\tglobal_max_literacy = 5[ \t]*\r?$', "${T2}# LO v0.46: all 5 -> lower classes 5 (the layman reads the Bible himself)`n${T2}global_laborers_max_literacy = 5`n${T2}global_soldiers_max_literacy = 5`n${T2}global_peasants_max_literacy = 5") ) },
   # pietism (Lutheran aspect): a late-17th/18th c. movement (Spener 1675, Francke's Halle schools) that pushed reading
   # down to the village -> lower classes only, and only from age 5
   @{ f='religious_aspects\protestant.txt'; k='pietism'; out='religious_aspects'

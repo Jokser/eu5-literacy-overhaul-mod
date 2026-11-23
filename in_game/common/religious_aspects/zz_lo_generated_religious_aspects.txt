@@ -34,10 +34,8 @@ REPLACE_OR_CREATE:translated_bibles = {
 
 
 	modifier = {
-		# LO: all 10 -> upper 5 / lower 5 (vernacular scripture is read by laymen)
-		global_nobles_max_literacy = 5
-		global_clergy_max_literacy = 5
-		global_burghers_max_literacy = 5
+		# LO: all 10 -> lower classes 5 (vernacular scripture is read by laymen; v0.46: upper 5 -> 0, the elites
+		# already have it in the Protestant religions - in run 5 the AI took the aspects and the bonuses stacked)
 		global_laborers_max_literacy = 5
 		global_soldiers_max_literacy = 5
 		global_peasants_max_literacy = 5
@@ -50,6 +48,31 @@ REPLACE_OR_CREATE:translated_bibles = {
 
 		individual_creeds = 5
 		freedom_to_preach = 5
+	}
+}
+
+# --- from base religious_aspects\common.txt ---
+REPLACE_OR_CREATE:sola_scriptura = {
+	religion = calvinist
+	religion = hussite
+	religion = lutheran
+
+	modifier = {
+		
+		# LO v0.46: all 5 -> lower classes 5 (the layman reads the Bible himself)
+		global_laborers_max_literacy = 5
+		global_soldiers_max_literacy = 5
+		global_peasants_max_literacy = 5
+		monthly_towards_individualism = societal_value_monthly_move
+	}
+
+	opinions = {
+		sola_scriptura = 10
+
+		sola_fide = 5
+		soli_deo_gloria = 5
+
+		prima_scriptura = -20
 	}
 }
 

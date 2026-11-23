@@ -675,3 +675,18 @@ Prussia 30 (38 with secular education). Not tested in a run - check error.log af
 - Why (run 5, 1650): Land of Commerce (the burgher privilege that unlocks apprenticeships) was held by 236 countries,
   including Venice, Poland, Portugal, Nuremberg and the Fuggers, but only 19 Asian countries took apprenticeships -
   the +100 for the printing press on basic beat it; personal religious education had 0 holders in every cut.
+
+### Run 5, 1700 cut (v0.46, 2026-11-23)
+- **Protestant double counting.** v0.29 put the Protestant literacy into the religions because the AI never took the
+  aspects; in run 5 (1700) `sola_scriptura` was held by 98 countries (most German Lutherans, Holland, Austria, Bohemia)
+  and `translated_bibles` by 8, on top of the definitions. Olomouc Lutheran burghers without a university had 103 of
+  cap sources (Catholic town ~78). Now: `sola_scriptura` (vanilla all 5) and `translated_bibles` (LO upper 5 / lower 5)
+  give the lower classes 5 only; `personal_religious_education` burghers 10 -> 5 (nobles/clergy 10, lower 5). Lutheran
+  town ~88 (London, Anglican, no university: 89), university town ~98; Protestant peasants unchanged.
+- `apprenticeships_education` clergy 10 -> 0 (vanilla value; guild apprenticeship does not teach monks). Indochina
+  went from 2 to 15 universities in 1650-1700: Angkor clergy cap 87.8 = 77.8 + apprenticeships 10, gate 85.
+- `epic_tradition_education(_sects)` (vanilla: artists only, 1 holder) is now the literate tribes' and hordes' school:
+  nobles 10, burghers 5, lower 2 (court epic and chronicles - Shahnameh, Dede Korkut, Manas, Jangar), AI +100 for
+  tribes and steppe hordes (beats oral_tradition, which gives no literacy).
+- Kept: Learned Elite 0.6. Against vanilla saves (1502, 1527, 1707) the West researches 10-20% faster from 1500 on
+  (vanilla literacy is nearly flat worldwide: Ottomans 22 = France 19 in 1500), the rest of the world -5..+3%.
