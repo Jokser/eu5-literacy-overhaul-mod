@@ -709,6 +709,20 @@ Prussia 30 (38 with secular education). Not tested in a run - check error.log af
   ages 5-6 clergy of every developed church reaches ~100, so the late limiters are development, burghers and the area
   cap); the steppe successor states lagging (expected).
 
+### Two more university loopholes closed (v0.50, 2026-11-23)
+- **`church_aspects.7`** (religious aspect `usury_allowed`: Lutheran, Calvinist, Anglican, Hussite, Lollard) option a
+  built a free university in any town without a university or cathedral. It now builds the university only on a
+  `lo_university_site` (literacy gate + area places), otherwise the cathedral of option b
+  (`in_game/events/religion/church_aspects.txt`, already overridden for `.12/.13`).
+- **`building.1`** ("scholars set up a rival university", `country_yearly` weight 10) built a free university in any
+  core town of a province without one. Its trigger `building_1_new_university_trigger` now also needs
+  `lo_university_site` (same-path override `in_game/events/economy/building_events.txt`, generated).
+- Why: the v0.49 rerun had Provence's third university (Sisteron) built past the area cap. Historical flavour events
+  (Leiden 1575, Frankfurt an der Oder, Uppsala, Copenhagen...) still bypass the cap on purpose.
+- Run 5 rerun with v0.49, 1608: German lands 43 universities (1550: 35; run 5 1600: 28; history ~30 incl. the Low
+  Countries, Switzerland, Austria and Bohemia) - the areas are nearly full, only 8 new in 1550-1608.
+  Confessionalism 375 countries (run 5, 1600: 336) - same pace.
+
 ### University places follow the confessional wave (v0.49, 2026-11-23)
 - **Every area has 1 university place; a builder whose country embraced Confessionalism (age 4) may use up to 2
   places (one per 400 area development), with the Scientific Revolution (age 5) up to 3.** New script values

@@ -825,11 +825,43 @@ foreach ($p in @(@('church_aspects.12', '>'), @('church_aspects.13', '<'))) {
     if ($mm.Count -ne 1) { Write-Warning "$($p[0]): literacy $($p[1]) 30 not found exactly once - church_aspects override removed"; $caOk = $false; $warn++; break }
     $ca = ([regex]$rx).Replace($ca, ('${1}${2}13	# LO v0.38: 30 -> 13 (stratified literacy)${3}'), 1)
 }
+# v0.50: university loophole - church_aspects.7 (usury_allowed: Lutheran, Calvinist, Anglican, Hussite, Lollard) option a
+# built a FREE university in any town without a university or cathedral, past the literacy gate and the area cap.
+# Now it builds the university only on a valid lo_university_site, otherwise the cathedral of option b.
+if ($caOk) {
+    $rx7 = '(name = church_aspects\.7\.a[ \t]*\r?\n(?:[ \t]*\r?\n)*\t\tscope:target_location = \{[ \t]*\r?\n)\t\t\tconstruct_building = \{[ \t]*\r?\n\t\t\t\tbuilding_type = building_type:university[ \t]*\r?\n\t\t\t\tcost_multiplier = 0[ \t]*\r?\n\t\t\t\tcost_multiplier_reason = "academic_cheap_sponsorship"[ \t]*\r?\n\t\t\t\}'
+    if ([regex]::Matches($ca, $rx7).Count -ne 1) { Write-Warning "church_aspects.7.a university not found exactly once - church_aspects override removed"; $caOk = $false; $warn++ }
+    else {
+        $rep7 = "`${1}`t`t`tif = {`t# LO v0.50: only where a university could be built (literacy gate + area places)`n`t`t`t`tlimit = { lo_university_site = yes }`n`t`t`t`tconstruct_building = {`n`t`t`t`t`tbuilding_type = building_type:university`n`t`t`t`t`tcost_multiplier = 0`n`t`t`t`t`tcost_multiplier_reason = `"academic_cheap_sponsorship`"`n`t`t`t`t}`n`t`t`t}`n`t`t`telse = {`n`t`t`t`tconstruct_building = {`n`t`t`t`t`tbuilding_type = building_type:cathedral`n`t`t`t`t`tcost_multiplier = 0`n`t`t`t`t`tcost_multiplier_reason = `"academic_cheap_sponsorship`"`n`t`t`t`t}`n`t`t`t}"
+        $ca = ([regex]$rx7).Replace($ca, $rep7, 1)
+        Write-Host "  ok  church_aspects.7.a free university only on lo_university_site (else cathedral)"
+    }
+}
 if ($caOk) {
     $d2 = Split-Path $caDst -Parent; if (-not (Test-Path $d2)) { New-Item -ItemType Directory -Path $d2 -Force | Out-Null }
     [IO.File]::WriteAllText($caDst, $ca, (New-Object System.Text.UTF8Encoding($caBom)))
     Write-Host "  ok  church_aspects.12/.13 (sola scriptura) literacy 30 -> 13 -> $caRel"
 } elseif (Test-Path $caDst) { Remove-Item $caDst -Force }
+
+# ---------- v0.50: university loophole - events/economy/building_events.txt (same-path override) ----------
+# building.1 ("scholars set up a rival university", country_yearly weight 10) built a FREE university in any core
+# town of a province without one - past the literacy gate and the area cap (v0.49 rerun: Sisteron as Provence's 3rd).
+# Its scripted trigger building_1_new_university_trigger (defined in the event file) now also needs lo_university_site.
+$beRel = 'in_game\events\economy\building_events.txt'
+$beSrc = Join-Path $game $beRel; $beDst = Join-Path $mod $beRel
+$beRaw = [IO.File]::ReadAllBytes($beSrc)
+$beBom = $beRaw.Length -ge 3 -and $beRaw[0] -eq 0xEF -and $beRaw[1] -eq 0xBB -and $beRaw[2] -eq 0xBF
+$be = [IO.File]::ReadAllText($beSrc).TrimStart([char]0xFEFF)
+$rxB = '(scripted_trigger building_1_new_university_trigger = \{[ \t]*\r?\n\tis_core_of = root[ \t]*\r?\n)'
+if ([regex]::Matches($be, $rxB).Count -eq 1) {
+    $be = ([regex]$rxB).Replace($be, "`${1}`tlo_university_site = yes`t# LO v0.50: literacy gate + area places (the event bypassed the building allow)`n", 1)
+    $d2 = Split-Path $beDst -Parent; if (-not (Test-Path $d2)) { New-Item -ItemType Directory -Path $d2 -Force | Out-Null }
+    [IO.File]::WriteAllText($beDst, $be, (New-Object System.Text.UTF8Encoding($beBom)))
+    Write-Host "  ok  building.1 new university needs lo_university_site -> $beRel"
+} else {
+    if (Test-Path $beDst) { Remove-Item $beDst -Force }
+    Write-Warning "building_1_new_university_trigger not found - building_events override removed, base used"; $warn++
+}
 
 # ---------- v0.43: institutions are born in university towns (same-path overrides of 4 institution files) ----------
 # Universities are rarer now (max 2 per area). The spawn weight (promote_chance) of the four learned institutions is
