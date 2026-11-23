@@ -51,7 +51,11 @@ function AiWill([string]$desc, [string]$policy, $base, $estate, [int]$val = 100)
 # trigger lo_university_site (parliament issue sponsor_a_university - may only sponsor where we could build).
 $UNI_DEV = 30; $UNI_CLERGY = 85; $UNI_BURGHERS = 40	# v0.41: burghers 25 -> 40 (25 never binding after 1454)
 # v0.43: at most 2 universities per area (the building allow and lo_university_site use the same line)
-$UNI_AREA_CAP = 'area = { NOT = { any_location_in_area = { count >= 2  has_building = building_type:university } } }'
+# v0.47: 3 per area in the German lands (north_german_region / south_german_region: Germany, Low Countries, Switzerland,
+# Austria, Bohemia, Tyrol) - every prince and every confession had its own university (Halle vs Wittenberg, Giessen vs
+# Marburg); run 5 (1750) had ~14 in Germany vs ~35-40 historical, with the German areas full at 2. Region, not HRE
+# membership: membership varies by game (Italian states, Provence) and disappears with the Empire.
+$UNI_AREA_CAP = 'OR = { area = { NOT = { any_location_in_area = { count >= 2  has_building = building_type:university } } }  AND = { OR = { region = region:north_german_region  region = region:south_german_region }  area = { NOT = { any_location_in_area = { count >= 3  has_building = building_type:university } } } } }'
 
 # Each target: source file, key, list of (regex -> replacement). Every regex must match exactly once.
 $targets = @(
@@ -308,7 +312,7 @@ $targets = @(
        # town = yes kept (base): many historical universities sat in small towns (Oxford, Cambridge, Salamanca,
        # Coimbra, Tuebingen, Wittenberg); dev >= 30 + clergy/burgher literacy prevent spam. (town = no removed
        # 2026-11-20: it made 11 setup universities invalid.)
-       @('(?m)^(\t\tis_core_of = owner)[ \t]*\r?$', "`$1`n${T2}# LO: developed city with literate clergy (cathedral schools) and burghers (educated laity)`n${T2}development >= $UNI_DEV`n${T2}any_pop = { pop_type = pop_type:clergy   pop_literacy > $UNI_CLERGY }`n${T2}any_pop = { pop_type = pop_type:burghers pop_literacy > $UNI_BURGHERS }`n${T2}# LO v0.43: at most 2 universities per area (Italy ~20, Germany ~45, France ~20 by 1800 instead of 39 / 121 / 25)`n${T2}$UNI_AREA_CAP"),
+       @('(?m)^(\t\tis_core_of = owner)[ \t]*\r?$', "`$1`n${T2}# LO: developed city with literate clergy (cathedral schools) and burghers (educated laity)`n${T2}development >= $UNI_DEV`n${T2}any_pop = { pop_type = pop_type:clergy   pop_literacy > $UNI_CLERGY }`n${T2}any_pop = { pop_type = pop_type:burghers pop_literacy > $UNI_BURGHERS }`n${T2}# LO v0.43: at most 2 universities per area, v0.47: 3 in the German lands (Italy ~20, Germany ~45, France ~20)`n${T2}$UNI_AREA_CAP"),
        @('(?m)^\t\tlocal_cultural_influence = 0\.5[ \t]*\r?$', "${T2}local_cultural_influence = 0.75`t# LO: 0.5 -> 0.75"),
        @('(?m)^\t\tlocal_burghers_max_literacy = 10[ \t]*\r?\n\t\tlocal_nobles_max_literacy = 10[ \t]*\r?$', "${T2}local_burghers_max_literacy = 10`t# LO: base 10 (was 15 in v0.1-0.2)`n${T2}local_nobles_max_literacy = 10`t# LO: base 10 (was 15 in v0.1-0.2)`n${T2}local_clergy_max_literacy = 10`t# LO: new"),
        # local_monthly_literacy: base 0.1 kept (0.25 = wonder tier, e.g. Bibliotheca Corviniana / Globe Theatre)
@@ -496,7 +500,11 @@ $targets = @(
   # v0.29 assumed the AI never picks aspects; in run 5 (1700) 98 countries had it, on top of the Lutheran definition
   # (Olomouc burghers without a university at the cap 100: 103 of sources).
   @{ f='religious_aspects\common.txt'; k='sola_scriptura'; out='religious_aspects'
-     e=@( ,@('(?m)^\t\tglobal_max_literacy = 5[ \t]*\r?$', "${T2}# LO v0.46: all 5 -> lower classes 5 (the layman reads the Bible himself)`n${T2}global_laborers_max_literacy = 5`n${T2}global_soldiers_max_literacy = 5`n${T2}global_peasants_max_literacy = 5") ) },
+     e=@( ,@('(?m)^\t\tglobal_max_literacy = 5[ \t]*\r?$', "${T2}# LO v0.46: all 5 -> lower classes 5 (the layman reads the Bible himself)`n${T2}global_laborers_max_literacy = 5`n${T2}global_soldiers_max_literacy = 5`n${T2}global_peasants_max_literacy = 5`n${T2}# LO v0.47: + religious influence (= parish_registers / soli_deo_gloria / pietism). The AI picks aspects by`n${T2}# modifier_utility and values lower-class literacy at ~0: after v0.46 the holders fell from 98 (1700) to 2 (1800).`n${T2}monthly_religious_influence = 0.1") ) },
+  # LO v0.47: ser_the_transcribers_of_resava (SER, age 3; vanilla all 5) - the Resava copyist school (Manasija, Konstantin
+  # Kostenecki, 15th c.) was monks and scribes -> clergy 10, nobles 5, burghers 5, lower 0.
+  @{ f='advances\country_ser.txt'; k='ser_the_transcribers_of_resava'; out='advances'
+     e=@( ,@('(?m)^\tglobal_max_literacy = 5[ \t]*\r?$', "${T1}# LO v0.47: all 5 -> clergy 10 / nobles 5 / burghers 5 (monastic copyists)`n${T1}global_clergy_max_literacy = 10`n${T1}global_nobles_max_literacy = 5`n${T1}global_burghers_max_literacy = 5") ) },
   # pietism (Lutheran aspect): a late-17th/18th c. movement (Spener 1675, Francke's Halle schools) that pushed reading
   # down to the village -> lower classes only, and only from age 5
   @{ f='religious_aspects\protestant.txt'; k='pietism'; out='religious_aspects'

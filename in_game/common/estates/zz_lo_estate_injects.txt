@@ -1,0 +1,10 @@
+﻿# Literacy overhaul - clergy satisfaction research bonus halved (v0.47, 2026-11-23).
+# Vanilla estates/00_default.txt: clergy_estate satisfaction = { research_speed_modifier = 0.5 }, multiplied by
+# (satisfaction - 0.5) -> up to +25%. The AI keeps Catholic clergy content (+21% on average in run 5, 1700) and taxes the
+# other churches down to ~50% (Protestants +2%), which outweighed the whole Protestant literacy lead in research.
+# TRY_INJECT sums modifier values: 0.5 - 0.25 = 0.25 (up to +12.5%). diplomatic_reputation is untouched.
+TRY_INJECT:clergy_estate = {
+	satisfaction = {
+		research_speed_modifier = -0.25
+	}
+}

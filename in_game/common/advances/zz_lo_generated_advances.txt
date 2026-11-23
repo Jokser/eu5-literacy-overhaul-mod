@@ -377,6 +377,24 @@ REPLACE_OR_CREATE:renaissance_advance = {
 
 }
 
+# --- from base advances\country_ser.txt ---
+REPLACE_OR_CREATE:ser_the_transcribers_of_resava  = {
+	age = age_3_discovery 
+	icon = legalism_advance
+
+	potential = {
+		has_or_had_tag = SER
+	}
+	
+	cultural_influence_modifier = 0.1
+	# LO v0.47: all 5 -> clergy 10 / nobles 5 / burghers 5 (monastic copyists)
+	global_clergy_max_literacy = 10
+	global_nobles_max_literacy = 5
+	global_burghers_max_literacy = 5
+	
+	requires = print_culture
+}
+
 # --- from base advances\region_africa.txt ---
 REPLACE_OR_CREATE:regnal_chronicles = {
 	icon = acceptance_of_old_testament

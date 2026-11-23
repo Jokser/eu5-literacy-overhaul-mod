@@ -690,3 +690,21 @@ Prussia 30 (38 with secular education). Not tested in a run - check error.log af
   tribes and steppe hordes (beats oral_tradition, which gives no literacy).
 - Kept: Learned Elite 0.6. Against vanilla saves (1502, 1527, 1707) the West researches 10-20% faster from 1500 on
   (vanilla literacy is nearly flat worldwide: Ottomans 22 = France 19 in 1500), the rest of the world -5..+3%.
+
+### Run 5, 1750-1800 cuts (v0.47, 2026-11-23)
+- **Clergy satisfaction research bonus halved** (`in_game/common/estates/zz_lo_estate_injects.txt`,
+  `TRY_INJECT:clergy_estate = { satisfaction = { research_speed_modifier = -0.25 } }`, vanilla 0.5 -> 0.25, up to
+  +12.5%). The AI keeps Catholic clergy content (34 of 53 Catholic countries above 75% in 1800, +16.6% research on
+  average) and taxes the other churches to ~50% (Protestants -0.8%), which cancelled the whole Protestant literacy lead:
+  1800 research Catholic 173% vs Protestant 167% -> 165% vs 168%.
+- **University area cap 3 in the German lands** (`north_german_region`, `south_german_region`), 2 elsewhere. Germany
+  had ~14 universities in 1750 (historically ~35-40) with its areas full at 2. Region rather than HRE membership, which
+  varies by game and disappears with the Empire.
+- **Sola Scriptura** + `monthly_religious_influence = 0.1` (like parish registers, soli deo gloria, pietism): the AI
+  picks aspects by modifier utility, and after v0.46 (lower classes only) the holders fell from 98 (1700) to 2 (1800).
+- `ruthenia_commoner_education` lower classes 10 -> 5 by a TRY_INJECT delta (`advances/zz_lo_advance_injects.txt`) - RSF
+  redefines it for the UKR tag only, and a delta keeps either potential.
+- `ser_the_transcribers_of_resava` (Serbia, age 3) all 5 -> clergy 10, nobles 5, burghers 5 (monastic copyists).
+- Left as is after review: East Asian, Lithuanian and Russian universities (academies, Jesuit colleges, seminaries - by
+  ages 5-6 clergy of every developed church reaches ~100, so the late limiters are development, burghers and the area
+  cap); the steppe successor states lagging (expected).

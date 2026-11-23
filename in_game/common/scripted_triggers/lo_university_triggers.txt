@@ -10,6 +10,6 @@ lo_university_site = {
 	development >= 30
 	any_pop = { pop_type = pop_type:clergy   pop_literacy > 85 }
 	any_pop = { pop_type = pop_type:burghers pop_literacy > 40 }
-	area = { NOT = { any_location_in_area = { count >= 2  has_building = building_type:university } } }
+	OR = { area = { NOT = { any_location_in_area = { count >= 2  has_building = building_type:university } } }  AND = { OR = { region = region:north_german_region  region = region:south_german_region }  area = { NOT = { any_location_in_area = { count >= 3  has_building = building_type:university } } } } }
 	NOT = { has_building = building_type:university }
 }

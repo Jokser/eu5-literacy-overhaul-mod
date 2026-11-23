@@ -1,0 +1,12 @@
+﻿# Literacy overhaul - deltas injected into advances that other mods redefine (v0.47, 2026-11-23).
+# TRY_INJECT sums numeric modifiers and keeps the target's own potential, so it works on the vanilla definition and on
+# a mod's redefinition alike (a REPLACE_OR_CREATE generated from vanilla would bring back the vanilla potential).
+
+# ruthenia_commoner_education (vanilla advances/culture_ruthenian.txt, age 6, Ruthenian culture; RSF moves it to the UKR
+# tag in RSF_country_UKR.txt): lower classes 10 -> 5. Galician and Volhynian peasants stayed mostly illiterate until the
+# later 19th century; every other late lower-class source gives +5 (teaching orders, pedagogy, examinations).
+TRY_INJECT:ruthenia_commoner_education = {
+	global_peasants_max_literacy = -5
+	global_soldiers_max_literacy = -5
+	global_laborers_max_literacy = -5
+}
