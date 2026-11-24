@@ -204,6 +204,14 @@ $targets = @(
   # research bonus per age moves by only -7..+5 points, while literacy's share rises from ~30-36% to ~43-50%.
   @{ base='main_menu\common'; f='static_modifiers\country.txt'; k='num_embraced_institutions'; out='static_modifiers'
      e=@( ,@('(?m)^\tresearch_speed_modifier = 0\.05[ \t]*\r?$', "${T1}research_speed_modifier = 0.04`t# LO: 0.05 -> 0.04 (literacy / Learned Elite weigh more)") ) },
+  # v0.51: the liturgical language weight in research is halved (base research_speed = 1 + 0.2 x language power ->
+  # 1 + 0.1 x power). Language power (save language_manager, 1.0 = strongest) comes from court-language political power
+  # + clergy of the primary religion where it is liturgical x20; Arabic is always 1.0 (the Arab courts), so every
+  # Muslim had +20% regardless of literacy (run 5, 1750: Ottomans 445 advances = France 444 at 8-13% literacy).
+  # Model: world -3.5..-4%, Muslims -8.3%, Latin users -4..-5%, German-liturgy Protestants -2%, Orthodox ~0.
+  # The leading West stays at or above vanilla (vanilla 1707 save).
+  @{ base='main_menu\common'; f='static_modifiers\country.txt'; k='liturgical_language_power'; out='static_modifiers'
+     e=@( ,@('(?m)^\tresearch_speed = 0\.2[ \t]*\r?$', "${T1}research_speed = 0.1`t# LO v0.51: 0.2 -> 0.1 (Arabic +20% for every Muslim regardless of literacy)") ) },
   # ---------- holy sites (ours, 2026-11-21) ----------
   # holy_site_types location_modifier is SCALED BY the site's importance (1-5, holy_site_types/readme.txt), so
   # clergy 10 = +50 in Constantinople / Jerusalem / Mecca / Baghdad. Base per point of importance: clergy 2
@@ -842,6 +850,29 @@ if ($caOk) {
     [IO.File]::WriteAllText($caDst, $ca, (New-Object System.Text.UTF8Encoding($caBom)))
     Write-Host "  ok  church_aspects.12/.13 (sola scriptura) literacy 30 -> 13 -> $caRel"
 } elseif (Test-Path $caDst) { Remove-Item $caDst -Force }
+
+# ---------- v0.51: the AI always goes on the Grand Embassy (expedition_types/grand_embassy.txt, same-path) ----------
+# Observer runs 4 and 5 had 0 Grand Embassies by 1800 (Russia unlocked it via flavor_mos.90 and never left:
+# base ai_chance_to_check = default 0.05 x 0.25 x dip/25, utility 5). The embassy now leads to the LO reform
+# lo_western_modernization_reform, so the AI must take it: chance 1 per check, utility 1000 (others 3-20).
+# The global brake AI_PI_START_EXPEDITION_THRESHOLD = 99 is handled by lo_grand_embassy_pulse (political influence).
+$geRel = 'in_game\common\expedition_types\grand_embassy.txt'
+$geSrc = Join-Path $game $geRel; $geDst = Join-Path $mod $geRel
+$geRaw = [IO.File]::ReadAllBytes($geSrc)
+$geBom = $geRaw.Length -ge 3 -and $geRaw[0] -eq 0xEF -and $geRaw[1] -eq 0xBB -and $geRaw[2] -eq 0xBF
+$ge = [IO.File]::ReadAllText($geSrc).TrimStart([char]0xFEFF)
+$rxGc = '(?ms)^\tai_chance_to_check = \{.*?^\t\}'
+$rxGu = '(?ms)^\tutility = \{\s*value = 5\s*\}'
+if ([regex]::Matches($ge, $rxGc).Count -eq 1 -and [regex]::Matches($ge, $rxGu).Count -eq 1) {
+    $ge = ([regex]$rxGc).Replace($ge, "`tai_chance_to_check = {`t# LO v0.51: always (was default x0.25 x dip/25)`n`t`tvalue = 1`n`t}", 1)
+    $ge = ([regex]$rxGu).Replace($ge, "`tutility = {`t# LO v0.51: 5 -> 1000, the AI's first pick (others 3-20)`n`t`tvalue = 1000`n`t}", 1)
+    $d2 = Split-Path $geDst -Parent; if (-not (Test-Path $d2)) { New-Item -ItemType Directory -Path $d2 -Force | Out-Null }
+    [IO.File]::WriteAllText($geDst, $ge, (New-Object System.Text.UTF8Encoding($geBom)))
+    Write-Host "  ok  grand_embassy AI chance 1, utility 1000 -> $geRel"
+} else {
+    if (Test-Path $geDst) { Remove-Item $geDst -Force }
+    Write-Warning "grand_embassy ai_chance_to_check / utility anchors not found - override removed, base used"; $warn++
+}
 
 # ---------- v0.50: university loophole - events/economy/building_events.txt (same-path override) ----------
 # building.1 ("scholars set up a rival university", country_yearly weight 10) built a FREE university in any core

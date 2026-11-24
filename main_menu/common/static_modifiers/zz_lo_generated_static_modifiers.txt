@@ -105,6 +105,14 @@ REPLACE_OR_CREATE:num_embraced_institutions = {
 }
 
 # --- from base static_modifiers\country.txt ---
+REPLACE_OR_CREATE:liturgical_language_power = {
+	game_data = {
+		category = country
+	}
+	research_speed = 0.1	# LO v0.51: 0.2 -> 0.1 (Arabic +20% for every Muslim regardless of literacy)
+}
+
+# --- from base static_modifiers\country.txt ---
 REPLACE_OR_CREATE:plc_zaluski_library_modifier = {
 	game_data = {
 		category = country

@@ -2,7 +2,7 @@
 # Appends to base on_actions via an on_actions sub-block only (never a second effect/events block).
 # The computation (one pass over the pops) is in scripted_effects/lo_research_effects.txt.
 yearly_country_pulse = {
-	on_actions = { lo_yearly_learned_elite }
+	on_actions = { lo_yearly_learned_elite lo_grand_embassy_pulse }
 }
 
 on_game_start = {
@@ -19,6 +19,56 @@ lo_game_start_learned_elite = {	# no scope
 	effect = {
 		every_country = {
 			lo_update_learned_elite_effect = yes
+		}
+	}
+}
+
+# v0.51: Grand Embassy -> lo_western_modernization_reform (government_reforms/lo_reforms.txt). root = country.
+# 1) Mark that the embassy was actually undertaken: grand_embassy (set at the flavor_mos.90 unlock) is still there,
+#    but grand_embassy_setup is gone (only the expedition's on_start removes it), or the ruler is away on it.
+#    on_fail later removes grand_embassy, so this permanent flag is what the reform checks.
+# 2) Help the AI over the global AI_PI_START_EXPEDITION_THRESHOLD (99 political influence for any expedition):
+#    while the embassy is unlocked but not started, top the AI's political influence up to 100, for at most 10 years.
+lo_grand_embassy_pulse = {
+	effect = {
+		if = {
+			limit = {
+				NOT = { has_variable = lo_grand_embassy_undertaken }
+				OR = {
+					AND = {
+						has_variable = grand_embassy
+						NOT = { has_variable = grand_embassy_setup }
+					}
+					ruler ?= { has_character_modifier = on_grand_embassy }
+				}
+			}
+			set_variable = lo_grand_embassy_undertaken
+		}
+		if = {
+			limit = {
+				is_ai = yes
+				has_variable = grand_embassy_setup
+				NOT = { has_variable = lo_grand_embassy_pi_help_ended }
+			}
+			if = {
+				limit = { NOT = { has_variable = lo_grand_embassy_pi_help_started } }
+				set_variable = { name = lo_grand_embassy_pi_help years = 10 }
+				set_variable = lo_grand_embassy_pi_help_started
+			}
+			if = {
+				limit = {
+					NOT = { has_variable = lo_grand_embassy_pi_help }
+					has_variable = lo_grand_embassy_pi_help_started
+				}
+				set_variable = lo_grand_embassy_pi_help_ended
+			}
+			else_if = {
+				limit = { political_influence < 100 }
+				add_political_influence = {
+					value = 100
+					subtract = political_influence
+				}
+			}
 		}
 	}
 }

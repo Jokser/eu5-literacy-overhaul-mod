@@ -1,0 +1,26 @@
+﻿# Literacy overhaul - government reforms (v0.51, 2026-11-24).
+
+# Modernization on the Western model: the payoff of the vanilla Grand Embassy expedition (flavor_mos.90 unlock,
+# expedition_types/grand_embassy.txt). Available once the ruler has actually LEFT on the embassy, whatever the
+# outcome (lo_grand_embassy_undertaken, set by lo_grand_embassy_pulse in on_action/lo_on_actions.txt). The vanilla
+# end reward is tiny: progress of one missing institution (+5..10 of 100) and +1..2 army tradition.
+# History: Great Embassy 1697-98, Navigation School 1701, Vedomosti 1703, civil script 1708, cipher schools and the
+# 1714 decree on compulsory schooling for noble sons, Academy of Sciences 1724, Moscow University 1755; patriarchate
+# abolished in 1721 (Holy Synod) -> clergy hostility.
+# Free: it adds its own reform slot (precedent ach_heirs_of_the_latin_empire), so the AI takes it.
+# Why +15% research: Russia had 366 advances in 1750 vs the Ottomans' 445 (run 5); this narrows the gap from ~33% to ~13%.
+lo_western_modernization_reform = {
+	unique = yes
+	age = age_5_absolutism
+	potential = {
+		has_variable = lo_grand_embassy_undertaken
+	}
+	country_modifier = {
+		government_reform_slots = 1
+		research_speed_modifier = 0.15
+		global_nobles_max_literacy = 5
+		global_burghers_max_literacy = 5
+		clergy_estate_target_satisfaction = medium_permanent_target_satisfaction_penalty
+	}
+	years = 2
+}

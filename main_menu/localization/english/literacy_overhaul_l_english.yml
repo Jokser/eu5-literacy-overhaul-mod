@@ -37,3 +37,5 @@
  STATIC_MODIFIER_NAME_lo_university_research: "Universities"
  STATIC_MODIFIER_DESC_lo_university_research: "Our universities train scholars and physicians and advance our knowledge: +2% research speed for each, up to five."
  lo_area_university_room_tt: "The area has room for another university: one per area; with Confessionalism one per 400 [development|e] of the area, at most 2; with the Scientific Revolution at most 3"
+ lo_western_modernization_reform: "Modernization on the Western Model"
+ lo_western_modernization_reform_desc: "Our ruler has travelled through the courts, shipyards and academies of the West. Foreign masters are hired, navigation and cipher schools teach the sons of the nobility and the townsfolk, and an academy of sciences is founded by decree. The Church resents the new order that subordinates it to the state."

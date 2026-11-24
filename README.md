@@ -742,3 +742,34 @@ Prussia 30 (38 with secular education). Not tested in a run - check error.log af
 - Run 5 rerun with v0.49, 1608: German lands 43 universities (1550: 35; run 5 1600: 28; history ~30 incl. the Low
   Countries, Switzerland, Austria and Bohemia) - the areas are nearly full, only 8 new in 1550-1608.
   Confessionalism 375 countries (run 5, 1600: 336) - same pace.
+
+### Liturgical language halved in research; the Grand Embassy pays off (v0.51, 2026-11-24)
+- **`liturgical_language_power` research_speed 0.2 -> 0.1** (generated `REPLACE_OR_CREATE`). The base research rate is
+  `1 + k x language power`. Language power is stored in the save (`language_manager`, 1.0 = strongest) and is made of
+  the political power of the pops in countries where the language is the court language, plus the clergy of the
+  primary religion x20 where it is liturgical (verified: Church Slavonic 96.2 clergy x 20 = 1925 = 0.01824 x 105 435).
+  Arabic is always 1.0, mostly from the Arab courts (court part ~78k of 105k), so every Muslim got +20% regardless of
+  literacy: run 5, 1750, Ottomans 445 advances = France 444 at 8-13% literacy. Latin is 0.45-0.53, German ~0.21 (most
+  Protestants switched to it), Church Slavonic ~0.02. Model of the change: world -3.5..-4%, Muslims -8.3%,
+  Latin users -4..-5%, German-liturgy Protestants -2%, Orthodox ~0. Against the vanilla 1707 save, the leading West
+  stays at or above vanilla. Run 5, 1750, advances by group: Catholic 441, Protestant 423, Muslim 393, Orthodox 355;
+  size barely matters (small 423, medium 415, large 422); literacy <15 384, 15-30 427, >=30 434. City-states lead
+  (Lubeck 502, Papacy 471).
+- **Grand Embassy -> "Modernization on the Western Model"** (`government_reforms/lo_reforms.txt`,
+  `lo_western_modernization_reform`).
+  - Unique, age 5, **free**: it adds its own reform slot.
+  - Effects: research +15%, nobles and burghers literacy +5, clergy target satisfaction -5%.
+  - Available once the ruler has actually left on the vanilla Grand Embassy, whatever the outcome. The flag
+    `lo_grand_embassy_undertaken` is set by the yearly `lo_grand_embassy_pulse` (`on_action/lo_on_actions.txt`) when
+    `grand_embassy` is set but `grand_embassy_setup` (removed only by the expedition's on_start) is gone, or when the
+    ruler has `on_grand_embassy`.
+  - Why: the vanilla end reward is only +5..10 (of 100) progress of one missing institution and +1..2 army tradition.
+    Russia lags far behind (366 advances in 1750 vs the Ottomans' 445).
+  - History: Great Embassy 1697-98, Navigation School 1701, the 1714 schooling decree for noble sons, Academy of
+    Sciences 1724, patriarchate abolished 1721.
+- **The AI always goes**: generated same-path `expedition_types/grand_embassy.txt` with `ai_chance_to_check` 1 (was
+  default x0.25 x dip/25) and `utility` 1000 (was 5; other expeditions 3-20). Observer runs 4 and 5 had 0 embassies by
+  1800; in run 5 Russia unlocked it and never left. `lo_grand_embassy_pulse` also tops an AI's political influence up to
+  100 while the embassy is unlocked but not started, for at most 10 years. Reason: the global
+  `AI_PI_START_EXPEDITION_THRESHOLD = 99` blocks every AI expedition below 99 political influence.
+- Note: a new tag inherits the old tag's events, so `flavor_mos.90` (`tag = MOS`) also fires for Russia.
