@@ -722,7 +722,10 @@ if (-not (Test-Path $rcSrc)) {
     $rcDir = Split-Path $rcDst -Parent; if (-not (Test-Path $rcDir)) { New-Item -ItemType Directory -Path $rcDir -Force | Out-Null }
     $mdDir = Join-Path $compat '.metadata'; if (-not (Test-Path $mdDir)) { New-Item -ItemType Directory -Path $mdDir -Force | Out-Null }
     $md = "{`n`t`"name`":`t`"Literacy overhaul - RSF compatibility`",`n`t`"id`":`t`"literacy.overhaul.rsf`",`n`t`"version`":`t`"1.0`",`n`t`"supported_game_version`":`t`"1.4`",`n`t`"short_description`":`t`"Compatibility patch for Literacy overhaul + Ruthenia and Steppe Fix: applies the Catholic, Orthodox and Miaphysite literacy changes on top of RSF's religion edits. Load after both mods.`",`n`t`"tags`":`t[`"Gameplay`"],`n`t`"relationships`":`t[],`n`t`"game_custom_data`":`t{`n`t}`n}"
-    [IO.File]::WriteAllText((Join-Path $mdDir 'metadata.json'), $md, $utf8bom)
+    # Only create the metadata if it is missing: the game owns it once the mod exists (2026-11-24 the user re-created
+    # the patch in the launcher -> id literacy.overhaul.rsf.compat; Workshop upload data also lives there).
+    $mdFile = Join-Path $mdDir 'metadata.json'
+    if (-not (Test-Path $mdFile)) { [IO.File]::WriteAllText($mdFile, $md, $utf8bom) }
     $rcBytes = [IO.File]::ReadAllBytes($rcSrc); $rcBom = ($rcBytes.Length -ge 3 -and $rcBytes[0] -eq 0xEF -and $rcBytes[1] -eq 0xBB -and $rcBytes[2] -eq 0xBF)
     $rc = [IO.File]::ReadAllText($rcSrc).TrimStart([char]0xFEFF); $rcOk = $true
     # If RSF already injects orthodox / miaphysite instead of TRY_REPLACE (the user's EU5_RSF_patches reapply section R,
