@@ -5,69 +5,64 @@ In vanilla, literacy is one number for everyone: a printing press or a new relig
 [h2]Class-stratified literacy[/h2]
 [list]
 [*][b]Nobles, clergy and burghers[/b] can reach high literacy. [b]Peasants, laborers and soldiers[/b] stay low until mass schooling: printed primers, Protestant Bible reading, secular education.
-[*]Every advance, building, law, reform, privilege, religion, holy site and modifier that gave literacy to "everyone" has been reviewed. Bonuses now go to the classes that actually benefited from them: academies, libraries and courts educate the elite, schools and cheap books reach the common people.
-[*]Holy sites no longer give up to +50 literacy, and theatres and academies no longer teach a whole country's peasantry.
+[*]Every advance, building, law, reform, privilege, religion, holy site and modifier that gave literacy to "everyone" has been reviewed: academies, libraries and courts educate the elite, schools and cheap books reach the common people.
 [/list]
 
 [h2]Print and mass reading[/h2]
 [list]
-[*]The [b]printing press[/b] educates the elite, especially burghers. [b]Printed Primers[/b], a cheap follow-up advance, bring reading to the common people and double literacy growth.
-[*]Mass print is a matter of [b]print culture[/b]: Catholic and Protestant Europe and the woodblock cultures of China, Japan and Korea get the primers early, everyone else only in the age of revolutions (the first Ottoman press opened in 1727; Indian and Orthodox popular print came late). [b]Madrasas[/b] educate the ulema and the urban elite, not the villages.
-[*][b]Newspapers[/b] educate nobles and burghers; the [b]Popular Press[/b] that follows them reaches the common people, in the Muslim and Orthodox world only in the last age.
-[*]Late schooling of the common people: Catholic [b]Teaching Orders[/b] (Ursulines, Piarists, La Salle) and [b]Enlightened Pedagogy[/b] (Prussia 1763, Austria 1774). Enlightened monarchs whose crown outweighs the clergy now introduce [b]secular education[/b].
+[*]The [b]printing press[/b] educates the elite. [b]Printed Primers[/b], a cheap follow-up advance, bring reading to the common people.
+[*]Mass print depends on [b]print culture[/b]: Catholic and Protestant Europe and the woodblock cultures of East Asia get the primers early, everyone else only in the age of revolutions. [b]Madrasas[/b] educate the ulema, not the villages.
+[*][b]Newspapers[/b] educate the elite, the [b]Popular Press[/b] the common people. Late schooling: Catholic [b]Teaching Orders[/b], [b]Enlightened Pedagogy[/b] and [b]secular education[/b].
 [/list]
 
 [h2]Religions and cultures[/h2]
 [list]
-[*][b]Catholic[/b] clergy are highly literate. [b]Orthodox[/b] clergy rely on monastic book culture; the [b]Stoglav council[/b] opens schools for Russian townsfolk, Orthodox clergy reach Western levels with [b]Kyiv-Mohyla learning[/b] in the age of absolutism, and the Greek aristocracy has its own [b]Byzantine paideia[/b].
-[*][b]Protestants[/b] get their elite literacy in the religion itself; [b]Sola Scriptura[/b], [b]translated Bibles[/b] and [b]personal religious education[/b] bring the Bible to the common people. [b]Lutherans[/b] teach the laity from the Reformation and become the most literate church after the [b]church reading examinations[/b] of the age of absolutism. Anglicans have Oxbridge clergy and grammar schools, Calvinists parish schools. Protestant clergy are as literate as Catholic ones, their merchant towns more so, and Protestant towns build [b]Latin schools[/b] (gymnasia), the counterpart of the Jesuit colleges.
-[*][b]Islam[/b] gives its ulema a literacy base; each Muslim school adds its own. Hindu Brahmins and Jain merchants, Theravada village monasteries, Armenian vardapets, Chinese scholar-gentry and the Maya scribes all have their own profiles.
+[*][b]Catholic[/b] clergy are highly literate. [b]Orthodox[/b] clergy rely on monastic book culture until the [b]Stoglav[/b] parish schools and [b]Kyiv-Mohyla learning[/b].
+[*][b]Protestants[/b] are the most literate churches: [b]Sola Scriptura[/b], [b]translated Bibles[/b] and [b]personal religious education[/b] bring the Bible to the common people, and Protestant towns build [b]Latin schools[/b], the counterpart of the Jesuit colleges.
+[*][b]Islam[/b], Hindu, Jain, Theravada, Armenian, Chinese and Maya learning all have their own profiles.
 [/list]
 
 [h2]Learned Elite: a new research bonus[/h2]
-Vanilla research from literacy uses the [i]average[/i] literacy of all pops, which is mostly the peasants'.
 [list]
-[*]A new [b]Learned Elite[/b] modifier adds research based on the literacy of your [b]nobles (40%), clergy (35%) and burghers (25%)[/b]. Each estate counts by how educated it is, not by how many people it has, so Education of the Court, noble advances and clerical privileges all matter.
-[*]The vanilla average-literacy bonus is kept. Each embraced institution gives +4% research instead of +5% and average control counts half, so education makes up about half of the research bonus. Simulated on saves from 1450 to 1800, no age becomes noticeably faster or slower.
-[*]The [b]liturgical language[/b] counts half as much for research (up to +10% instead of +20%). Arabic is always the most powerful language, which let every Muslim country research as fast as France with a fraction of its literacy.
-[*]Recalculated once a year in a single pass over the pops.
+[*]Vanilla research uses the [i]average[/i] literacy, which is mostly the peasants'. A new [b]Learned Elite[/b] modifier adds research from the literacy of your [b]nobles (40%), clergy (35%) and burghers (25%)[/b].
+[*]Each institution gives +4% research instead of +5% and average control counts half. Simulated on saves from 1450 to 1800, no age becomes noticeably faster or slower.
+[*]The [b]liturgical language[/b] counts half as much for research (up to +10% instead of +20%): Arabic, always the most powerful language, let every Muslim country research as fast as France.
 [/list]
 
 [h2]Russia: Modernization on the Western Model[/h2]
 [list]
-[*]Undertaking the [b]Great Embassy[/b] unlocks a new Russian reform: free (it adds its own reform slot), [b]+15% research[/b] and +5 literacy for nobles and burghers, at the cost of clergy satisfaction. It is the catch-up of the Petrine era for a country that falls far behind in research.
-[*]The AI now prefers the Great Embassy over every other expedition.
+[*]The [b]Great Embassy[/b] unlocks a new Russian reform: free (it adds its own slot), [b]+15% research[/b] and +5 literacy for nobles and burghers, at the cost of clergy satisfaction. The AI now prefers the Great Embassy over other expeditions.
 [/list]
 
 [h2]Keeping the rest of the game intact[/h2]
 [list]
-[*][b]Institution spread[/b] depends on local literacy, so it is compensated: institutions spread at about the vanilla pace in Europe, and more slowly where literacy was historically low.
-[*]Demand for books and paper, the literacy bonus to peasant promotion, the Royal Society decision, the sola scriptura events, the revolution disasters and the Catholic scholars' zeal are adjusted to the lower averages.
-[*]The AI now picks the elite literacy advances and the new primers instead of skipping them for a century, and countries climb the mass-education ladder: parish schools after the printing press, guild apprenticeships in merchant states, lay Bible reading for Protestants, secular schools under enlightened monarchs. Elite education follows the strongest estate (court education for the nobles, clerical colleges for the clergy, humanist schools for the burghers), Education of the People is an Enlightenment law, and the press laws (censorship in Catholic and Protestant Europe, a free press where the burghers are strong) are now chosen where they historically fit.
+[*][b]Institution spread[/b] is compensated: about the vanilla pace in Europe, slower where literacy was historically low.
+[*]Books and paper demand, peasant promotion, the Royal Society, the revolution disasters and other literacy checks are adjusted to the lower averages.
+[*]The AI climbs the mass-education ladder (parish schools, guild apprenticeships, Protestant Bible reading, secular schools), picks elite education by the strongest estate and chooses historically fitting press laws.
 [/list]
 
 [h2]Universities[/h2]
 [list]
-[*]A university needs a developed town (development 30+) with highly literate clergy (85+) and burghers (40+). Every area has room for one university; [b]a second and third[/b] (one per 400 development) open to countries that embraced [b]Confessionalism[/b] and the [b]Scientific Revolution[/b]. Catholic and Protestant towns no longer need a monastery once they have the printing press. Europe ends up near the historical numbers: about 20 universities in Italy and 45 in Germany by 1800.
-[*]Universities give a big literacy boost to all three upper classes, [b]+2% research each[/b] (up to five) and stronger local institution growth, and the learned institutions (Renaissance, printing press, scientific revolution, Enlightenment) are twice as likely to appear in university towns. They cost more to build and maintain.
-[*]Loopholes that built universities anywhere are closed: the cheap Orthodox event option, parliament sponsorship, the Protestant "usury allowed" sponsorship event and the "rival university" event (historical flavour events still found their universities).
+[*]A university needs a developed town (30+) with highly literate clergy (85+) and burghers (40+). Every area has room for one; [b]a second and third[/b] (one per 400 development) open with [b]Confessionalism[/b] and the [b]Scientific Revolution[/b]. About 20 universities in Italy and 45 in Germany by 1800.
+[*]Universities give a big literacy boost to the upper classes, [b]+2% research each[/b] (up to five) and faster institution growth. They cost more to build and maintain.
+[*]Loopholes that built universities anywhere are closed; historical flavour events still found theirs.
 [/list]
 
 [h2]Screenshots (1650, observer run)[/h2]
 [list]
-[*]1-2. Florence: clergy at 100% (university, cathedral, monastery, cardinal's seat), laborers of the same city at 10%.
+[*]1-2. Florence: clergy at 100%, laborers of the same city at 10%.
 [*]3. France: research from the Learned Elite and universities.
 [*]4. Wittenberg: Lutheran burghers with a university and a Latin school.
-[*]5. Prague: Lutheran peasants reading the Bible themselves, twice the Catholic level.
+[*]5. Prague: Lutheran peasants reading the Bible, twice the Catholic level.
 [*]6. Paris: Catholic peasants and the Teaching Orders.
-[*]7-8. Moscow: nobles with Kyiv-Mohyla learning, commoners with only the Stoglav parish schools.
-[*]9-10. Bursa and Kütahya: learned Ottoman ulema, almost illiterate Anatolian laborers.
+[*]7-8. Moscow: nobles with Kyiv-Mohyla learning, commoners with only parish schools.
+[*]9-10. Bursa and Kütahya: learned ulema, almost illiterate laborers.
 [/list]
 
 [h2]Compatibility[/h2]
-Most changes replace single entries (REPLACE_OR_CREATE), not whole files, so mods that do not touch literacy are compatible. Mods that change the same advances, buildings, laws or religions will conflict. Eleven files are replaced whole, because the game cannot edit them entry by entry: [i]script_values/institution_spread.txt[/i], the four [i]institution/age_2/3/5/6_*_institutions.txt[/i] files, [i]events/religion/church_aspects.txt[/i], [i]events/religion/orthodox_flavor.txt[/i], [i]events/economy/building_events.txt[/i], [i]expedition_types/grand_embassy.txt[/i], [i]parliament_issues/01_country_specific_parliament_issues.txt[/i] and [i]parliament_issues/05_burghers_estate_parliament_issues.txt[/i]. Other mods that replace these files conflict.
+Most changes replace single entries (REPLACE_OR_CREATE), so mods that do not touch literacy are compatible. Eleven files are replaced whole (institution spread, the institution files, three events files, the Grand Embassy, two parliament issue files); other mods replacing them conflict.
 
-[b]Ruthenia and Steppe Fix (RSF):[/b] RSF redefines the Catholic, Orthodox and Miaphysite religions with TRY_REPLACE, which overrides other mods whatever the load order. To get this mod's literacy for them with RSF, also use [b]Literacy overhaul - RSF compatibility[/b] and load it after both mods. Literacy overhaul itself does not need RSF.
+[b]Ruthenia and Steppe Fix (RSF):[/b] use [b]Literacy overhaul - RSF compatibility[/b], loaded after both mods. Literacy overhaul itself does not need RSF.
 
 Based in part on the literacy changes of Flavorium Universalis Balance.
 
