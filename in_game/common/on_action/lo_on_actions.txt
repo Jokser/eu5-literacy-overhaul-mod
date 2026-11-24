@@ -44,6 +44,18 @@ lo_grand_embassy_pulse = {
 			}
 			set_variable = lo_grand_embassy_undertaken
 		}
+		# v0.51.2: the AI gets the reform directly. It never adopted it (run 6a819256, 1705-1750, even with ai_will_do 1000):
+		# removing a reform to free a slot costs 20 stability (prices/00_hardcoded.txt remove_government_reform) and AI Russia
+		# sat at ~14 - its reforms had not changed since 1586. add_reform needs no slot or price; the reform brings its own
+		# slot, so nothing is displaced. A player still picks it from the reform list.
+		if = {
+			limit = {
+				is_ai = yes
+				has_variable = lo_grand_embassy_undertaken
+				NOT = { has_reform = government_reform:lo_western_modernization_reform }
+			}
+			add_reform = government_reform:lo_western_modernization_reform
+		}
 		if = {
 			limit = {
 				is_ai = yes

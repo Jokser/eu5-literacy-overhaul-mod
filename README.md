@@ -789,3 +789,10 @@ Prussia 30 (38 with secular education). Not tested in a run - check error.log af
   applies `is_valid_for_exploration`, which requires `is_ruler = no`. This is an engine bug, not caused by the mods.
   The effect `start_expedition = { type = expedition_type:grand_embassy_expedition leader = <ruler> }` does start it
   (tested from the console). No workaround is shipped yet.
+
+### The AI gets the modernization reform directly (v0.51.2, 2026-11-24)
+- `lo_grand_embassy_pulse` (yearly) runs `add_reform = government_reform:lo_western_modernization_reform` for an AI that has
+  `lo_grand_embassy_undertaken` and lacks the reform. Why: even with `ai_will_do = 1000`, AI Russia had not adopted it by
+  1750 (run 6a819256). Removing a reform to free a slot costs **20 stability** (`prices/00_hardcoded.txt`,
+  `remove_government_reform`), and Russia sat at ~14; its reforms had not changed since 1586. `add_reform` needs neither a
+  slot nor a price, and the reform brings its own slot, so nothing is displaced. A player still picks it from the list.
