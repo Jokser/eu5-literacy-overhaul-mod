@@ -29,7 +29,14 @@ Vanilla research from literacy uses the [i]average[/i] literacy of all pops, whi
 [list]
 [*]A new [b]Learned Elite[/b] modifier adds research based on the literacy of your [b]nobles (40%), clergy (35%) and burghers (25%)[/b]. Each estate counts by how educated it is, not by how many people it has, so Education of the Court, noble advances and clerical privileges all matter.
 [*]The vanilla average-literacy bonus is kept. Each embraced institution gives +4% research instead of +5% and average control counts half, so education makes up about half of the research bonus. Simulated on saves from 1450 to 1800, no age becomes noticeably faster or slower.
+[*]The [b]liturgical language[/b] counts half as much for research (up to +10% instead of +20%). Arabic is always the most powerful language, which let every Muslim country research as fast as France with a fraction of its literacy.
 [*]Recalculated once a year in a single pass over the pops.
+[/list]
+
+[h2]Russia: Modernization on the Western Model[/h2]
+[list]
+[*]Undertaking the [b]Great Embassy[/b] unlocks a new Russian reform: free (it adds its own reform slot), [b]+15% research[/b] and +5 literacy for nobles and burghers, at the cost of clergy satisfaction. It is the catch-up of the Petrine era for a country that falls far behind in research.
+[*]The AI now prefers the Great Embassy over every other expedition.
 [/list]
 
 [h2]Keeping the rest of the game intact[/h2]
