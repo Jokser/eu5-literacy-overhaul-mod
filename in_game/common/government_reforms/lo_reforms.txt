@@ -14,6 +14,16 @@ lo_western_modernization_reform = {
 	age = age_5_absolutism
 	potential = {
 		has_variable = lo_grand_embassy_undertaken
+		OR = {	# v0.51.1: a national reform (like jap_rangaku), shown as Russian in the reform list
+			has_or_had_tag = RUS
+			has_or_had_tag = MOS
+		}
+	}
+	# v0.51.1: the AI never took it (run 6a819256: available from ~1705, not adopted by 1740 - the reform slot is
+	# valued at only AI_GOVERNMENT_REFORM_SLOT_UTILITY 0.1). The AI does swap reforms (every 24 months; ~49 countries
+	# swapped some in 1700-1750 in run 5), so a strong weight makes it replace one of its reforms with this one.
+	ai_will_do = {
+		value = 1000
 	}
 	country_modifier = {
 		government_reform_slots = 1

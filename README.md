@@ -773,3 +773,19 @@ Prussia 30 (38 with secular education). Not tested in a run - check error.log af
   100 while the embassy is unlocked but not started, for at most 10 years. Reason: the global
   `AI_PI_START_EXPEDITION_THRESHOLD = 99` blocks every AI expedition below 99 political influence.
 - Note: a new tag inherits the old tag's events, so `flavor_mos.90` (`tag = MOS`) also fires for Russia.
+
+### The modernization reform: Russian-only, with an AI weight (v0.51.1, 2026-11-24)
+- `lo_western_modernization_reform` potential adds `OR = { has_or_had_tag = RUS has_or_had_tag = MOS }`, so the reform
+  list shows it as a Russian national reform, like the Japanese `jap_rangaku`. Only Muscovy/Russia get the Grand Embassy
+  anyway.
+- `ai_will_do = 1000`. In the observer run (playthrough 6a819256, from 1700) Russia completed the embassy and the reform
+  was available from about 1705, yet it was not adopted by 1740: Russia's 8 reforms included `oprichnina` and
+  `cultural_recognition_act`. The AI values a free reform slot at only `AI_GOVERNMENT_REFORM_SLOT_UTILITY = 0.1`.
+  The AI does swap reforms (it reviews them every 24 months; in run 5, 49 countries replaced reforms in 1700-1750), so
+  the weight makes it replace one of its reforms with this one. The reform's own extra slot then lets it restore the
+  replaced one.
+- Found along the way: in the current game version no ruler-led expedition (Grand Embassy, Pilgrimage, Hajj) can be
+  started from the UI ("No suitable leaders available", also for Poland's Pilgrimage). The leader check apparently
+  applies `is_valid_for_exploration`, which requires `is_ruler = no`. This is an engine bug, not caused by the mods.
+  The effect `start_expedition = { type = expedition_type:grand_embassy_expedition leader = <ruler> }` does start it
+  (tested from the console). No workaround is shipped yet.
