@@ -784,11 +784,10 @@ Prussia 30 (38 with secular education). Not tested in a run - check error.log af
   The AI does swap reforms (it reviews them every 24 months; in run 5, 49 countries replaced reforms in 1700-1750), so
   the weight makes it replace one of its reforms with this one. The reform's own extra slot then lets it restore the
   replaced one.
-- Found along the way: in the current game version no ruler-led expedition (Grand Embassy, Pilgrimage, Hajj) can be
-  started from the UI ("No suitable leaders available", also for Poland's Pilgrimage). The leader check apparently
-  applies `is_valid_for_exploration`, which requires `is_ruler = no`. This is an engine bug, not caused by the mods.
-  The effect `start_expedition = { type = expedition_type:grand_embassy_expedition leader = <ruler> }` does start it
-  (tested from the console). No workaround is shipped yet.
+- Correction (2026-11-24): an earlier note here reported an engine bug ("No suitable leaders available" for every
+  ruler-led expedition). It was an artifact of observer mode: the country had been taken with the console `tag` command
+  while still observing. After leaving observer mode and playing the country properly, Pilgrimage/Grand Embassy can be
+  started normally. The AI is not affected.
 
 ### The AI gets the modernization reform directly (v0.51.2, 2026-11-24)
 - `lo_grand_embassy_pulse` (yearly) runs `add_reform = government_reform:lo_western_modernization_reform` for an AI that has
